@@ -1,0 +1,11 @@
+{
+  "xpath": "",
+  "id": "io.appium.android.apis:id/radio2",
+  "className": "android.widget.RadioButton",
+  "contentDesc": "RadioButton 2",
+  "text": "RadioButton 2",
+  "x": 0,
+  "y": 621,
+  "width": 277,
+  "height": 96
+}

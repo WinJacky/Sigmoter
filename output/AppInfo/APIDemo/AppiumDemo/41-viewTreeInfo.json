@@ -1,0 +1,11 @@
+{
+  "xpath": "",
+  "id": "android:id/text1",
+  "className": "android.widget.TextView",
+  "contentDesc": "NFC",
+  "text": "NFC",
+  "x": 0,
+  "y": 846,
+  "width": 768,
+  "height": 96
+}

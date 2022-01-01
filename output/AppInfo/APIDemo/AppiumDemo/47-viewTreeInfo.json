@@ -1,0 +1,11 @@
+{
+  "xpath": "",
+  "id": "android:id/text1",
+  "className": "android.widget.TextView",
+  "contentDesc": "Controls",
+  "text": "Controls",
+  "x": 0,
+  "y": 552,
+  "width": 768,
+  "height": 96
+}

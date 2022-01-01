@@ -1,0 +1,10 @@
+{
+  "xpath": "",
+  "id": "io.appium.android.apis:id/edit",
+  "className": "android.widget.EditText",
+  "text": "hint text",
+  "x": 0,
+  "y": 194,
+  "width": 768,
+  "height": 96
+}

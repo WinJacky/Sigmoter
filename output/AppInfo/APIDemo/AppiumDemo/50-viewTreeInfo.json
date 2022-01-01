@@ -1,0 +1,11 @@
+{
+  "xpath": "",
+  "id": "io.appium.android.apis:id/check1",
+  "className": "android.widget.CheckBox",
+  "contentDesc": "Checkbox 1",
+  "text": "Checkbox 1",
+  "x": 0,
+  "y": 290,
+  "width": 243,
+  "height": 139
+}

@@ -1,0 +1,10 @@
+{
+  "xpath": "",
+  "id": "io.appium.android.apis:id/toggle1",
+  "className": "android.widget.ToggleButton",
+  "text": "OFF",
+  "x": 0,
+  "y": 781,
+  "width": 114,
+  "height": 91
+}

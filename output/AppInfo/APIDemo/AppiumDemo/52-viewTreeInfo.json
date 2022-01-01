@@ -1,0 +1,11 @@
+{
+  "xpath": "",
+  "id": "io.appium.android.apis:id/star",
+  "className": "android.widget.CheckBox",
+  "contentDesc": "Star",
+  "text": "Star",
+  "x": 0,
+  "y": 717,
+  "width": 121,
+  "height": 64
+}

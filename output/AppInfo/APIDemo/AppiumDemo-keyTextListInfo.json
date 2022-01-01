@@ -1,0 +1,47 @@
+[
+  {
+    "lineNumber": 41,
+    "text": "NFC",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "TechFilter",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Views",
+    "type": "click"
+  },
+  {
+    "lineNumber": 47,
+    "text": "Controls",
+    "type": "click"
+  },
+  {
+    "lineNumber": 48,
+    "text": "1. Light Theme",
+    "type": "click"
+  },
+  {
+    "lineNumber": 50,
+    "text": "Checkbox 1",
+    "type": "click"
+  },
+  {
+    "lineNumber": 51,
+    "text": "RadioButton 2",
+    "type": "click"
+  },
+  {
+    "lineNumber": 52,
+    "text": "Star",
+    "type": "click"
+  },
+  {
+    "lineNumber": 53,
+    "text": "OFF",
+    "type": "click"
+  }
+]
