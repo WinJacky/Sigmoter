@@ -7,7 +7,7 @@ package main.java.config;
  */
 public enum AppEnum {
 
-    APIDemo("APIDemo", "main.resources.TestSuite.APIDemo");
+    APIDemo("APIDemo", "main.resources.APIDemo");
 
     private String appName;
 
