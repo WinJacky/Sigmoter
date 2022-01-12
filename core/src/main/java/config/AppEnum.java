@@ -7,6 +7,8 @@ package main.java.config;
  */
 public enum AppEnum {
 
+    LarkPlayer("LarkPlayer", "main.resources.LarkPlayer"),
+
     APIDemo("APIDemo", "main.resources.APIDemo");
 
     private String appName;

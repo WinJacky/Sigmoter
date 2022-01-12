@@ -25,9 +25,9 @@ public class ViewTreeInfo {
     private int width;
     private int height;
 
-    public ViewTreeInfo(JavascriptExecutor js, MobileElement me) {
+    public ViewTreeInfo(MobileElement me, String hierarchyLayoutXmlFile) {
         if (me != null) {
-            this.xpath = UtilsXpath.getElementXPath(js, me);
+            this.xpath = UtilsXpath.getElementHybridXPath(me, hierarchyLayoutXmlFile);
             this.id = me.getAttribute("resourceId");
             // 如：android.widget.TextView
             this.className = me.getAttribute("className");

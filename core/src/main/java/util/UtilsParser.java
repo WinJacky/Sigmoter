@@ -14,7 +14,7 @@ import com.google.gson.GsonBuilder;
  */
 public class UtilsParser {
 
-    static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    static Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
     public static String getTestSuiteNameFromWithinType(String withinType) {
 

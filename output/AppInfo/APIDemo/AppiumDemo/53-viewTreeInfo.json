@@ -1,5 +1,5 @@
 {
-  "xpath": "",
+  "xpath": "//android.widget.ToggleButton[@resource-id='io.appium.android.apis:id/toggle1'];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.ToggleButton[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[2]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.ToggleButton[1]",
   "id": "io.appium.android.apis:id/toggle1",
   "className": "android.widget.ToggleButton",
   "text": "OFF",

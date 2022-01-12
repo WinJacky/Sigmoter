@@ -1,5 +1,5 @@
 {
-  "xpath": "",
+  "xpath": "//android.widget.CheckBox[@content-desc='Star'];//android.widget.CheckBox[@resource-id='io.appium.android.apis:id/star'];//android.widget.CheckBox[@text='Star'];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.CheckBox[3];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[2]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.CheckBox[3]",
   "id": "io.appium.android.apis:id/star",
   "className": "android.widget.CheckBox",
   "contentDesc": "Star",

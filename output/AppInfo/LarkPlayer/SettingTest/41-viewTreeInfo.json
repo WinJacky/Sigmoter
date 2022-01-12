@@ -1,0 +1,9 @@
+{
+  "xpath": "//android.widget.TextView[@text='Me'];//android.widget.LinearLayout[@resource-id='com.dywx.larkplayer:id/wc']/android.widget.LinearLayout[4]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[4]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "text": "Me",
+  "x": 655,
+  "y": 1135,
+  "width": 34,
+  "height": 33
+}

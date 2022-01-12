@@ -26,6 +26,7 @@ public class Settings {
     public static String extractInfoPath = "AppInfo";
     public static String repairedTCPath = "RepairedTC";
 
+    public static final String XML_EXT = ".xml";
     public static final String JSON_EXT = ".json";
     public static final String JAVA_EXT = ".java";
 

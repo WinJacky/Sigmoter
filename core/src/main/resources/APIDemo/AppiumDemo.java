@@ -31,7 +31,7 @@ public class AppiumDemo {
         desiredCapabilities.setCapability("app", "E:\\学校事务\\A.毕设\\Android应用\\ApiDemos-debug.apk");
         desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
 
-        URL remoteUrl = new URL("http://localhost:4723/wd/hub");
+        URL remoteUrl = new URL("http://0.0.0.0:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
     }

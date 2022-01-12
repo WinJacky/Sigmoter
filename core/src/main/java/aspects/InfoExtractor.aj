@@ -1,10 +1,11 @@
 package main.java.aspects;
 
-import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
 import main.java.config.Settings;
 import main.java.dataType.KeyText;
 import main.java.util.UtilsAspect;
+import main.java.util.UtilsHierarchyXml;
 import main.java.util.UtilsParser;
 import org.openqa.selenium.Alert;
 import org.slf4j.Logger;
@@ -21,13 +22,16 @@ import java.util.List;
 public aspect InfoExtractor {
     private static Logger logger = LoggerFactory.getLogger("InfoExtractor.aj");
 
-    static MobileDriver driver;
+    static AndroidDriver driver;
     static String testFolder;
     static String testCaseName;
 
     // Statement Info
     static String statement;
     static int statementLine;
+
+    // Hierarchy Layout
+    static String hierarchyLayoutXmlFile;
 
     // ViewTree Info
     static String viewTreeInfoJsonFile;
@@ -63,7 +67,7 @@ public aspect InfoExtractor {
         if(Settings.aspectActive && driver == null) {
             logger.info("Execute logFindElementCalls...");
 
-            driver = (MobileDriver) thisJoinPoint.getTarget();
+            driver = (AndroidDriver) thisJoinPoint.getTarget();
             String withinType = thisJoinPoint.getSourceLocation().getWithinType().toString();
             String testSuiteName = UtilsParser.getTestSuiteNameFromWithinType(withinType);
 
@@ -75,7 +79,7 @@ public aspect InfoExtractor {
         }
     }
 
-    // Save view tree information before executing the method
+    // Save hierarchy layout and view tree information before executing the method
     before() : logMobileActionCommands() {
         if(Settings.aspectActive) {
             logger.info("Execute logMobileActionCommands...");
@@ -90,9 +94,12 @@ public aspect InfoExtractor {
             // 获取当前测试语句及其所在行号
             statement = thisJoinPoint.getStaticPart().toString();
             statementLine = thisJoinPoint.getSourceLocation().getLine();
+            // 获取当前视图层次布局信息
+            hierarchyLayoutXmlFile = testFolder + Settings.sep + statementLine + "-hierarchy" + Settings.XML_EXT;
+            UtilsHierarchyXml.takeXmlSnapshot(driver, System.getProperty("user.dir") + Settings.sep + hierarchyLayoutXmlFile);
             // 获取并保存目标元素视图树信息
             viewTreeInfoJsonFile = testFolder + Settings.sep + statementLine + "-viewTreeInfo" + Settings.JSON_EXT;
-            UtilsAspect.saveViewTreeInformation(driver, me, viewTreeInfoJsonFile);
+            UtilsAspect.saveViewTreeInformation(me, hierarchyLayoutXmlFile, viewTreeInfoJsonFile);
 
             // 获取关键词信息
             String methodName = thisJoinPoint.getSignature().getName();

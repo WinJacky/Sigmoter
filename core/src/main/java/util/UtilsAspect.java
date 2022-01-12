@@ -51,9 +51,8 @@ public class UtilsAspect {
      * @param me
      * @param viewTreeInfoJsonFile
      */
-    public static void saveViewTreeInformation(MobileDriver driver, MobileElement me, String viewTreeInfoJsonFile) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        ViewTreeInfo mobileEleWithViewTreeInfo = new ViewTreeInfo(js, me);
+    public static void saveViewTreeInformation(MobileElement me, String hierarchyLayoutXmlFile, String viewTreeInfoJsonFile) {
+        ViewTreeInfo mobileEleWithViewTreeInfo = new ViewTreeInfo(me, hierarchyLayoutXmlFile);
 
         try {
             FileUtils.writeStringToFile(new File(viewTreeInfoJsonFile), gson.toJson(mobileEleWithViewTreeInfo, ViewTreeInfo.class), Charset.defaultCharset());
