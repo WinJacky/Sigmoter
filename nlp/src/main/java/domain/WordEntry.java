@@ -5,7 +5,7 @@ package main.java.domain;
  * @version 1.0
  * @date 2021/12/29 18:00
  */
-public class WordEntry  implements Comparable<WordEntry>{
+public class WordEntry implements Comparable<WordEntry>{
     public String name;
     public float score;
 

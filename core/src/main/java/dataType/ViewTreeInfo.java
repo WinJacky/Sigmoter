@@ -2,7 +2,6 @@ package main.java.dataType;
 
 import io.appium.java_client.MobileElement;
 import main.java.util.UtilsXpath;
-import org.openqa.selenium.JavascriptExecutor;
 
 /**
  * @author feisher
@@ -12,10 +11,17 @@ import org.openqa.selenium.JavascriptExecutor;
 public class ViewTreeInfo {
 
     private String xpath = "";
-    private String id = "";
     private String className = "";
+    private String resourceId = "";
     private String contentDesc = "";
     private String text = "";
+
+    private boolean checkable;
+    private boolean clickable;
+    private boolean scrollable;
+    private boolean focusable;
+    private boolean longClickable;
+
 
     // 目标元素左上角的横纵坐标
     private int x;
@@ -28,12 +34,18 @@ public class ViewTreeInfo {
     public ViewTreeInfo(MobileElement me, String hierarchyLayoutXmlFile) {
         if (me != null) {
             this.xpath = UtilsXpath.getElementHybridXPath(me, hierarchyLayoutXmlFile);
-            this.id = me.getAttribute("resourceId");
             // 如：android.widget.TextView
             this.className = me.getAttribute("className");
+            this.resourceId = me.getAttribute("resourceId");
             // 获取content-desc属性值，该属性使用AccessibilityId定位
             this.contentDesc = me.getAttribute("contentDescription");
             this.text = me.getAttribute("text");
+
+            this.checkable = Boolean.parseBoolean(me.getAttribute("checkable"));
+            this.clickable = Boolean.parseBoolean(me.getAttribute("clickable"));
+            this.scrollable = Boolean.parseBoolean(me.getAttribute("scrollable"));
+            this.focusable = Boolean.parseBoolean(me.getAttribute("focusable"));
+            this.longClickable = Boolean.parseBoolean(me.getAttribute("longClickable"));
 
             this.x = me.getLocation().getX();
             this.y = me.getLocation().getY();
@@ -51,12 +63,12 @@ public class ViewTreeInfo {
         this.xpath = xpath;
     }
 
-    public String getId() {
-        return id;
+    public String getResourceId() {
+        return resourceId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
     }
 
     public String getClassName() {
@@ -81,6 +93,46 @@ public class ViewTreeInfo {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isCheckable() {
+        return checkable;
+    }
+
+    public void setCheckable(boolean checkable) {
+        this.checkable = checkable;
+    }
+
+    public boolean isClickable() {
+        return clickable;
+    }
+
+    public void setClickable(boolean clickable) {
+        this.clickable = clickable;
+    }
+
+    public boolean isScrollable() {
+        return scrollable;
+    }
+
+    public void setScrollable(boolean scrollable) {
+        this.scrollable = scrollable;
+    }
+
+    public boolean isFocusable() {
+        return focusable;
+    }
+
+    public void setFocusable(boolean focusable) {
+        this.focusable = focusable;
+    }
+
+    public boolean isLongClickable() {
+        return longClickable;
+    }
+
+    public void setLongClickable(boolean longClickable) {
+        this.longClickable = longClickable;
     }
 
     public int getX() {
@@ -145,7 +197,7 @@ public class ViewTreeInfo {
     @Override
     public String toString() {
         return "ViewTreeInfo [xpath: " + xpath
-                +", id: " + id
+                +", resourceId: " + resourceId
                 +", className: " + className
                 +", contentDesc: " + contentDesc
                 +", text: " + text
