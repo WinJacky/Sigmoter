@@ -87,19 +87,66 @@ public class Word2Vec {
      * 计算两个词之间的相似度
      */
     public double getSimWith2Words(String word1, String word2) {
-        if (word1.equals(word2)) {
+        if (word1.equals(word2) || isAbbreviation(word1, word2)) {
             return 1;
         }
         float[] vector1 = wordsMap.get(word1);
         float[] vector2 = wordsMap.get(word2);
         if (vector1 == null || vector2 == null) {
-            return 0.0;
+            // 退化为比较两个单词的编辑距离
+            return 1 - getLevenshteinDistance(word1, word2) * 1.0 / Math.max(word1.length(), word2.length());
         }
         double sim = 0;
         for (int i = 0; i < vector1.length; i++) {
             sim += vector1[i] * vector2[i];
         }
         return sim;
+    }
+
+    private boolean isAbbreviation(String word1, String word2) {
+        if (word1.length() > word2.length()) {
+            String temp = word1;
+            word1 = word2;
+            word2 = temp;
+        }
+
+        int index1=0, index2=0;
+        for (;index1 < word1.length();index1++) {
+            while (index2 < word2.length() && word1.charAt(index1)!=word2.charAt(index2)) {
+                index2++;
+            }
+            if (index2 >= word2.length()) break;
+        }
+
+        if (index1 == word1.length()) return true;
+        return false;
+    }
+
+    // 计算编辑距离
+    public int getLevenshteinDistance(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        int[][] memo = new int[m + 1][n + 1];
+        memo[0][0] = 0;
+        //要删除的数量
+        for (int i = 1; i <= m; i++) {
+            memo[i][0] = i;
+        }
+        //要添加的数量
+        for (int i = 1; i <= n; i++) {
+            memo[0][i] = i;
+        }
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    memo[i][j] = memo[i - 1][j - 1];
+                } else {
+                    //取替换，删除，添加中的最小值
+                    memo[i][j] = Math.min(memo[i - 1][j - 1], Math.min(memo[i - 1][j], memo[i][j - 1])) + 1;
+                }
+            }
+        }
+        return memo[m][n];
     }
 
     /**

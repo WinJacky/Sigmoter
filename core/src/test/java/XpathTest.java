@@ -15,18 +15,22 @@ import java.util.List;
 public class XpathTest {
     public static void main(String[] args) {
         UtilsXmlLoader xmlLoader = new UtilsXmlLoader();
-        xmlLoader.parseXml("D:\\DevelopmentTool\\IDEA\\MavenWorkspace\\Sigmoter\\output\\AppInfo\\APIDemo\\AppiumDemo\\41-hierarchy.xml");
+        xmlLoader.parseXml("D:\\Study\\IDEA\\IDEAWorkspace\\Sigmoter\\output\\AppInfo\\APIDemo\\AppiumDemo\\41-hierarchy.xml");
         List<XmlTreeNode> nodeList = xmlLoader.getLeafNodes();
         UiNode curNode = new UiNode();
 
         for (XmlTreeNode node : nodeList) {
-            if (((UiNode)node).getAttribute("text").equals("NFC")) {
+            if ("NFC".equals(((UiNode)node).getAttribute("text"))) {
                 curNode = (UiNode) node;
             }
         }
 
-        nodeList = xmlLoader.getAllNodes();
+        // 测试兄弟节点获取
+        List<UiNode> broNodes = curNode.getBrotherNodes();
+        System.out.println(broNodes);
 
+        // 测试 Xpath 定位
+        nodeList = xmlLoader.getAllNodes();
         String xpath1 = UtilsXpath.getIdentityXpath(nodeList, curNode);
         String xpath2 = UtilsXpath.getRelativeXpath(nodeList,curNode);
         String xpath3 = UtilsXpath.getFullXpath(curNode);

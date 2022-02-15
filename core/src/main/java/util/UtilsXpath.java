@@ -7,6 +7,7 @@ package main.java.util;
  */
 
 import io.appium.java_client.MobileElement;
+import main.java.dataType.EnhancedMobileElement;
 import org.openqa.selenium.Rectangle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,12 +87,53 @@ public class UtilsXpath {
     }
 
     /**
+     * 给定待定位元素和层次布局文件，生成其全Xpath路径定位
+     */
+    public static String getElementAbsoluteXpath(MobileElement element, String hierarchyLayoutXmlFile) {
+        UtilsXmlLoader xmlLoader = new UtilsXmlLoader();
+        xmlLoader.parseXml(hierarchyLayoutXmlFile);
+        List<XmlTreeNode> nodeList = xmlLoader.getLeafNodes();
+
+        // 在解析得到的所有叶节点中找到给定的 UI 元素
+        UiNode currentNode = getNodeByElement(element, nodeList);
+        if(currentNode == null) {
+            return "";
+        }
+
+        return getFullXpath(currentNode);
+    }
+
+    /**
      * @param element 获取给定元素的 bound 属性，通过元素位置信息唯一定位 UiNode
      * @param nodeList 解析得到的所有叶节点
      * @return 与给定 UI 元素对应的 UiNode，没找到返回 null
      */
     public static UiNode getNodeByElement(MobileElement element, List<XmlTreeNode> nodeList) {
         Rectangle rect = element.getRect();
+
+        for (XmlTreeNode node : nodeList) {
+            String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");
+            int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
+            if(bounds[0] == rect.x && bounds[1] == rect.y) {
+                int width = bounds[2] - bounds[0];
+                int height = bounds[3] - bounds[1];
+                if(rect.width == width && rect.height == height) {
+                    return (UiNode) node;
+                }
+            }
+        }
+
+        logger.info("根据给定 UI 元素未找到对应的 UiNode！");
+        return null;
+    }
+
+    /**
+     * @param statement 获取给定测试语句对应元素的 bound 属性，通过元素位置信息唯一定位 UiNode
+     * @param nodeList 解析得到的所有叶节点
+     * @return 与给定 UI 元素对应的 UiNode，没找到返回 null
+     */
+    public static UiNode getNodeByStatement(EnhancedMobileElement statement, List<XmlTreeNode> nodeList) {
+        Rectangle rect = new Rectangle(statement.getCoordinate(), statement.getDimension());
 
         for (XmlTreeNode node : nodeList) {
             String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");

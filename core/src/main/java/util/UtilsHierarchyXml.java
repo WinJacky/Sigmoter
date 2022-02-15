@@ -137,7 +137,6 @@ public class UtilsHierarchyXml {
         try {
             String xmlContent = driver.getPageSource();
             FileUtils.writeStringToFile(new File(filePath), xmlContent, Charset.defaultCharset());
-            logger.info("层次布局文件获取成功！");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

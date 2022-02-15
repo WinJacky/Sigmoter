@@ -31,7 +31,7 @@ public class XmlTreeNode {
             throw new NullPointerException("Cannot add null child");
         }
         if (mChildren.contains(child)) {
-            throw new IllegalArgumentException("node already a child");
+            throw new IllegalArgumentException("Node has already been a child");
         }
         mChildren.add(child);
         child.mParent = this;

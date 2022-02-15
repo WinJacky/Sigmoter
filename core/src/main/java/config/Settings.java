@@ -17,14 +17,13 @@ public class Settings {
     public Settings(AppEnum app) {
         this.appName = app.getAppName();
         this.testSuite = app.getTestSuite();
-        this.referenceInfoExtractionFolder = outputPath + sep + testSuite.substring(testSuite.lastIndexOf(".") + 1) + sep;
+        this.referenceInfoExtractionFolder = extractInfoPath + sep + testSuite.substring(testSuite.lastIndexOf(".") + 1) + sep;
     }
 
     public static String sep = File.separator;
-    public static String outputPath = "output";
 
-    public static String extractInfoPath = "AppInfo";
-    public static String repairedTCPath = "RepairedTC";
+    public static String extractInfoPath = "output" + sep + "AppInfo";
+    public static String repairedTCPath = "output" + sep + "RepairedTC";
 
     public static final String XML_EXT = ".xml";
     public static final String JSON_EXT = ".json";

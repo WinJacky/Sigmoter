@@ -73,7 +73,7 @@ public aspect InfoExtractor {
 
             // 测试用例类名,如：TC1
             testCaseName = thisJoinPoint.getSourceLocation().getFileName().replace(Settings.JAVA_EXT, "");
-            testFolder = Settings.outputPath + Settings.sep + Settings.extractInfoPath + Settings.sep + testSuiteName + Settings.sep + testCaseName;
+            testFolder = Settings.extractInfoPath + Settings.sep + testSuiteName + Settings.sep + testCaseName;
             // 例如: output/AppInfo/ADDR/TC1
             UtilsAspect.createTestFolder(testFolder);
         }
