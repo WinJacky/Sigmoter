@@ -63,8 +63,8 @@ public class ParseTest {
         }
 
         new MethodVisitor().visit(cu, pathToTestCase);
-        // 以 JSON 格式保存测试用例（TODO: 可能可以删掉）
-        UtilsParser.serializeTestCase(tc, pathToTestCase, folder);
+        // 以 JSON 格式保存测试用例，可以舍弃
+//        UtilsParser.serializeTestCase(tc, pathToTestCase, folder);
 
         return tc;
     }

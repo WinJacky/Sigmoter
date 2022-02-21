@@ -22,9 +22,9 @@ public class InfoExtractionRunner {
         // enable the AspectJ module
         Settings.aspectActive = true;
 
-        Settings extractorSetting = new Settings(AppEnum.LarkPlayer);
+        Settings extractorSetting = new Settings(AppEnum.Notepad);
 
-        runTest(extractorSetting.testSuite, "SettingTest");
+        runTest(extractorSetting.testSuite, "ShowNoteKeyboardTest");
     }
 
 

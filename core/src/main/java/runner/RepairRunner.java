@@ -14,6 +14,7 @@ import main.java.domain.WordEntry;
 import main.java.util.*;
 import main.java.utils.WordsSplit;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -35,6 +36,10 @@ import java.util.*;
 public class RepairRunner {
 
     private static Logger logger = LoggerFactory.getLogger(RepairRunner.class);
+    // 修复一条语句的最大探索时间为 30s
+    private static final long MAX_EXPLORE_TIME = 30 * 1000;
+    // 最大探索深度为 3，当探索超过 3 个状态时需要回退
+    private static final int MAX_EXPLORE_DEPTH = 3;
 
     private static AppEnum appEnum;
 
@@ -49,21 +54,23 @@ public class RepairRunner {
     private static AndroidDriver driver;
 
     // nlp
-    private static List<Keyword> keywordList = new ArrayList<>();
-
+    public static List<Keyword> keywordList = new ArrayList<>();
     public static Word2Vec word2Vec = null;
+    public static boolean isIdConsidered;
 
     // 修复的语句个数
     private static int repairedStatNum;
 
     // 修复过程需要获取层次布局信息，此文件夹用于临时存储，修复结束需要清理
     public static String tempXmlSavedFolder;
+    // 当前屏幕的层次布局文件存储路径
+    public static String curLayoutXmlFile;
 
     public static void main(String[] args) {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
-        appEnum = AppEnum.LarkPlayer;
-        String testcaseName = "SettingTest";
+        appEnum = AppEnum.Notepad;
+        String testcaseName = "ShowNoteKeyboardTest";
         repairedStatNum = 0;
 
         tempXmlSavedFolder = Settings.repairedTCPath + Settings.sep + "TempXmlSaved";
@@ -77,17 +84,12 @@ public class RepairRunner {
         List<KeyText> keyTextList = readKeyText(appEnum, testcaseName);
         for (KeyText text: keyTextList) {
             Keyword temp = new Keyword(text.getLineNumber(), WordsSplit.getWords(text.getText()));
-            temp.addToExtendSeq(extendKeywords(temp.getKeywords(), 5));
+            temp.addToExtendSeq(extendKeywords(temp.getKeywords(), 3));
             keywordList.add(temp);
         }
 
-        try {
-            // 开始修复
-            repairRunner.startRepair(testcaseName);
-        } catch (MalformedURLException e) {
-            logger.error("Url is incorrect, please check!");
-        }
-
+        // 开始修复
+        repairRunner.startRepair(testcaseName);
     }
 
     public static List<KeyText> readKeyText(AppEnum appEnum, String testCaseName) {
@@ -118,7 +120,7 @@ public class RepairRunner {
         return keywordSeq;
     }
 
-    private void startRepair(String testcaseName) throws MalformedURLException {
+    private void startRepair(String testcaseName) {
         // 开始计时
         startTime = System.currentTimeMillis();
 
@@ -136,7 +138,12 @@ public class RepairRunner {
 
         // 上一步解析后得到配置信息
         DesiredCapabilities capabilities = pt.getCapabilities();
-        URL url = new URL(remoteUrl);
+        URL url = null;
+        try {
+            url = new URL(remoteUrl);
+        } catch (MalformedURLException e) {
+            logger.error("Url is incorrect, please check!");
+        }
         driver = new AndroidDriver(url, capabilities);
         // 运行APP
         driver.launchApp();
@@ -145,18 +152,20 @@ public class RepairRunner {
         Map<Integer, Statement> originStmMap = testBroken.getStatements();
         /* Map of the repaired statements. */
         Map<Integer, Statement> repairedStmMap = new LinkedHashMap<>();
+        /* Map of the repaired path. */
+        Map<Integer, List<EnhancedMobileElement>> repairedPathMap = new LinkedHashMap<>();
 
         boolean noSuchElement;
 
         /* For each statement */
         int keywordPos = 0;
-        Keyword keyword = null;
         Statement previousStatement = null;
         for (int statementNum : originStmMap.keySet()) {
             noSuchElement = true;
             Statement statement = originStmMap.get(statementNum);
             logger.info("Check statement " + statementNum + ": " + statement.toString());
             MobileElement elementFromAppiumLocator = null;
+            List<EnhancedMobileElement> repairedPath = new ArrayList<>();
             Statement repairedStm = UtilsRepair.deepClone(statement);
 
             MobileElement candidateElement = null;
@@ -192,17 +201,20 @@ public class RepairRunner {
             }
 
             // 移动当前关键词索引
-            keyword = keywordList.get(keywordPos);
-            while (keyword.getLineNumber() < statementNum) {
+            while (keywordList.get(keywordPos).getLineNumber() < statementNum) {
                 keywordPos++;
-                keyword = keywordList.get(keywordPos);
             }
 
+            // 若通过resource-id属性可以唯一定位该元素，则将resource-id值考虑计算语义相似度
+            EnhancedMobileElement tempSta = (EnhancedMobileElement) statement;
+            if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
+                isIdConsidered = true;
+            }
             // 当前元素捕获时对应的布局文件路径
             String oriLayoutXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
                     Settings.sep + testcaseName + Settings.sep + statementNum + "-hierarchy" + Settings.XML_EXT;
             // 捕获当前屏幕状态的层次布局文件
-            String curLayoutXmlFile = tempXmlSavedFolder + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
+            curLayoutXmlFile = tempXmlSavedFolder + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
             UtilsHierarchyXml.takeXmlSnapshot(driver, curLayoutXmlFile);
             try{
                 // 先检查元素是否被修复过，对于相同的操作对象，直接使用上一步的修复结果
@@ -228,11 +240,11 @@ public class RepairRunner {
                         if (structSim >= Threshold.ELE_STRUCT_SIM.getValue()) {
                             elementFound = true;
                         } else {
-                            double semanticSim = UtilsRepair.checkElementBySemantic(elementFromAppiumLocator, (EnhancedMobileElement) statement);
+                            double semanticSim = UtilsRepair.checkElementBySemantic(elementFromAppiumLocator, (EnhancedMobileElement) statement, isIdConsidered);
                             if (semanticSim >= Threshold.ELE_SEMAN_SIM.getValue()) {
                                 elementFound = true;
                             } else {
-                                double layoutSim = UtilsRepair.checkElementByLayout(elementFromAppiumLocator, (EnhancedMobileElement) statement, driver.manage().window().getSize(), oriLayoutXmlFile, curLayoutXmlFile);
+                                double layoutSim = UtilsRepair.checkElementByLayout(elementFromAppiumLocator, (EnhancedMobileElement) statement, driver.manage().window().getSize(), oriLayoutXmlFile, curLayoutXmlFile, isIdConsidered);
                                 if (layoutSim >= Threshold.ELE_Layout_SIM.getValue()) {
                                     elementFound = true;
                                 }
@@ -250,23 +262,21 @@ public class RepairRunner {
                         // 按原定位策略找到的元素匹配失败
                         logger.info("Direct breakage detected at line " + statementNum);
                         logger.info("Cause: Locating incorrect element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
-                        candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, curLayoutXmlFile);
+                        candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath);
                         if (candidateElement == null) noSuchElement = true;
                         else noSuchElement = false;
                     }
                 }
-            } catch (NoSuchElementException e) {
-                // 按原定位策略无法找到元素
+            }  catch (RuntimeException e) {
                 logger.info("Direct breakage detected at line " + statementNum);
-                logger.info("Cause: Non-selection of element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
-                candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, curLayoutXmlFile);
-                if (candidateElement == null) noSuchElement = true;
-                else noSuchElement = false;
-            } catch (RuntimeException e) {
-                // 按原定位策略无法唯一定位元素
-                logger.info("Direct breakage detected at line " + statementNum);
-                logger.info("Cause: Found more than one element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
-                candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, curLayoutXmlFile);
+                if (e instanceof NoSuchElementException) {
+                    // 按原定位策略无法找到元素
+                    logger.info("Cause: Non-selection of element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
+                } else {
+                    // 按原定位策略无法唯一定位元素
+                    logger.info("Cause: Found more than one element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
+                }
+                candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath);
                 if (candidateElement == null) noSuchElement = true;
                 else noSuchElement = false;
             }
@@ -279,22 +289,12 @@ public class RepairRunner {
                 if (candidateElement != null) {
                     // 修复
                     AppiumLocator locator = UtilsRepair.getAppropriateLocator(driver, (EnhancedMobileElement) statement, candidateElement, curLayoutXmlFile);
-                    EnhancedMobileElement temp = (EnhancedMobileElement) UtilsRepair.deepClone(repairedStm);
-                    temp.setLocator(locator);
-                    temp.setCoordinate(candidateElement.getLocation());
-                    temp.setDimension(candidateElement.getSize());
-                    temp.setXpath(UtilsXpath.getElementHybridXPath(candidateElement, curLayoutXmlFile));
-                    temp.setClassName(candidateElement.getAttribute("className"));
-                    temp.setResourceId(candidateElement.getAttribute("resourceId"));
-                    temp.setContentDesc(candidateElement.getAttribute("contentDescription"));
-                    temp.setText(candidateElement.getAttribute("text"));
-                    temp.setCheckable(Boolean.parseBoolean(candidateElement.getAttribute("checkable")));
-                    temp.setClickable(Boolean.parseBoolean(candidateElement.getAttribute("clickable")));
-                    temp.setScrollable(Boolean.parseBoolean(candidateElement.getAttribute("scrollable")));
-                    temp.setFocusable(Boolean.parseBoolean(candidateElement.getAttribute("focusable")));
-                    temp.setLongClickable(Boolean.parseBoolean(candidateElement.getAttribute("longClickable")));
-                    repairedStm = temp;
+                    // 对于测试用例生成而言，只需要 AppiumLocator 和 AppiumAction 以及对应的 value 值即可
+                    ((EnhancedMobileElement)repairedStm).setLocator(locator);
                     repairedStmMap.put(statementNum, repairedStm);
+                    if (repairedPath.size() > 0) {
+                        repairedPathMap.put(statementNum, repairedPath);
+                    }
                     repairedStatNum++;
 
                     // 执行
@@ -314,7 +314,7 @@ public class RepairRunner {
         elapsedTime = stopTime - startTime;
         logger.info("Repair spends {} s.", String.format("%.3f", elapsedTime / 1000.0f));
 
-        EnhancedTestCase testRepaired = generateNewTest(testBroken, repairedStmMap);
+        EnhancedTestCase testRepaired = generateNewTest(testBroken, repairedStmMap, repairedPathMap);
         UtilsRepair.saveTest(pt, testRepaired, testBroken.getPath());
         shutDown();
     }
@@ -341,26 +341,188 @@ public class RepairRunner {
     }
 
     // 关键词序列引导搜索
-    private MobileElement repairWithKSG(int keywordPos, EnhancedMobileElement statement, String oriLayoutXmlFile, String curLayoutXmlFile) {
+    private MobileElement repairWithKSG(int keywordPos, EnhancedMobileElement statement, String oriLayoutXmlFile, List<EnhancedMobileElement> clickElementList) {
         logger.info("Start to repair the mobile element...");
 
-        MobileElement targetElement = UtilsRepair.searchForTargetElementOnState(driver, statement, oriLayoutXmlFile, curLayoutXmlFile);
+        MobileElement targetElement = null;
+        Stack<StateVertix> exploreStack = new Stack<>();
+        long exploreStartTime = System.currentTimeMillis();
+
+        // 检查是否超时
+        while(!isOutOfTime(exploreStartTime, exploreStack)) {
+            if (!exploreStack.empty()) {
+                // 捕获当前屏幕状态的层次布局文件
+                curLayoutXmlFile = tempXmlSavedFolder + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
+                UtilsHierarchyXml.takeXmlSnapshot(driver, curLayoutXmlFile);
+                // 探索栈中包含当前状态，表明探索遇到了回路
+                if (exploreStack.contains(new StateVertix(curLayoutXmlFile))) {
+                    // 此时应移除上一个点击事件
+                    clickElementList.remove(clickElementList.size()-1);
+                    if (!exploreStack.peek().equals(new StateVertix(curLayoutXmlFile))) {
+                        // 探索栈栈顶状态与当前状态不一致，表明上一次点击带来了状态变换
+                        // 此时应回退，以避免循环搜索
+                        driver.navigate().back();
+                    }
+                    while (!exploreStack.empty() && exploreStack.peek().getElesToBeClicked().size() == 0) {
+                        // 探索栈栈顶状态没有可点击元素时，表明该状态已经探索完毕
+                        // 此时应当移除该状态，回退点击事件和应用状态
+                        exploreStack.pop();
+                        if (!exploreStack.empty()) {
+                            clickElementList.remove(clickElementList.size()-1);
+                            driver.navigate().back();
+                        }
+                    }
+                    if (exploreStack.empty()) {
+                        // 元素查找失败
+                        break;
+                    } else {
+                        // 拿出栈顶状态的可点击序列，点击第一个元素
+                        fireEleAndAddToList(exploreStack.peek().getElesToBeClicked().remove(0), clickElementList);
+                        continue;
+                    }
+                }
+            }
+
+            // 在当前界面查找元素
+            targetElement = UtilsRepair.searchForTargetElementOnState(driver, statement, oriLayoutXmlFile, curLayoutXmlFile, isIdConsidered);
+            if (targetElement != null) {
+                break;
+            } else if (clickElementList.size() >= MAX_EXPLORE_DEPTH) {
+                // 探索超过 MAX_EXPLORE_DEPTH 个状态时，需要回退
+                clickElementList.remove(clickElementList.size()-1);
+                driver.navigate().back();
+                while (!exploreStack.empty() && exploreStack.peek().getElesToBeClicked().size() == 0) {
+                    exploreStack.pop();
+                    if (!exploreStack.empty()) {
+                        clickElementList.remove(clickElementList.size()-1);
+                        driver.navigate().back();
+                    }
+                }
+                if (exploreStack.empty()) {
+                    break;
+                } else {
+                    // 拿出栈顶状态的可点击序列，点击第一个元素
+                    fireEleAndAddToList(exploreStack.peek().getElesToBeClicked().remove(0), clickElementList);
+                    continue;
+                }
+            }
+
+            // 在当前界面中没找到符合要求的修复元素，接下来根据关键词对该状态下的可点击元素进行语义排序
+            // 决策出最相关的元素进行点击，到达下一个状态后查找目标元素
+            // 如果当前页面状态不存在可点击元素，那么回退到上一个状态
+            StateVertix curState = new StateVertix(curLayoutXmlFile);
+            List<EnhancedMobileElement> clickableStmsOnState = UtilsRepair.fetchClickableStmsOnState(curLayoutXmlFile);
+            if (clickableStmsOnState.isEmpty()) {
+                // 当前页面状态不存在可点击元素
+                // 若没有点击事件到达该状态，则表示此状态为搜索入口状态，此时已经没有可点击事件待搜索了，直接退出
+                // 若通过上一个点击事件到达该状态，则回退到上一个状态，移除上一个点击事件
+                if (clickElementList.size() == 0) {
+                    break;
+                }
+                clickElementList.remove(clickElementList.size()-1);
+                driver.navigate().back();
+                while (!exploreStack.empty() && exploreStack.peek().getElesToBeClicked().size() == 0) {
+                    exploreStack.pop();
+                    if (!exploreStack.empty()) {
+                        clickElementList.remove(clickElementList.size()-1);
+                        driver.navigate().back();
+                    }
+                }
+                if (exploreStack.empty()) {
+                    break;
+                } else {
+                    // 拿出栈顶状态的可点击序列，点击第一个元素
+                    fireEleAndAddToList(exploreStack.peek().getElesToBeClicked().remove(0), clickElementList);
+                }
+            } else {
+                // 计算当前关键词与界面中的可点击元素的相似度得分
+                Map<EnhancedMobileElement, Double> eleSimScoreMap = new HashMap<>();
+                for (EnhancedMobileElement stm : clickableStmsOnState) {
+                    Set<String> stmTxtSet = new HashSet<>();
+                    String temp = stm.getText() + " " + stm.getContentDesc();
+                    if (StringUtils.isNotBlank(temp)) stmTxtSet.addAll(WordsSplit.getWords(UtilsRepair.removeNewLines(temp.trim())));
+
+                    double score = UtilsRepair.computeSimilarity(keywordList.get(keywordPos).getExtendSeq(), stmTxtSet);
+                    eleSimScoreMap.put(stm, score);
+                }
+
+                // 根据相似度得分对界面中的可点击元素进行排序
+                clickableStmsOnState.sort((o1, o2) -> {
+                    // 按照分数从高到低排
+                    if (eleSimScoreMap.get(o1) > eleSimScoreMap.get(o2)) {
+                        return -1;
+                    } else if (eleSimScoreMap.get(o1).equals(eleSimScoreMap.get(o2))) {
+                        return 0;
+                    }
+                    return 1;
+                });
+
+                EnhancedMobileElement mostRelatedEle = clickableStmsOnState.remove(0);
+                // 将剩余的排完序的可点击元素放入列表，将当前状态存入探索栈中，以便后续回退
+                curState.setElesToBeClicked(clickableStmsOnState);
+                exploreStack.push(curState);
+
+                // 点击与当前关键词最相关的元素，并将其加入到点击序列中
+                fireEleAndAddToList(mostRelatedEle, clickElementList);
+            }
+
+        }
 
         if (targetElement != null) {
-            logger.info("Find target element...");
-            repairedStatNum++;
+            logger.info("目标元素已找到。。。");
         } else {
-            logger.info("Target element has been moved...");
+            logger.info("目标元素被移除。。。");
         }
         return targetElement;
     }
 
+    // 检查是否超时
+    private boolean isOutOfTime(long exploreStartTime, Stack exploreStack) {
+        if (System.currentTimeMillis() - exploreStartTime > MAX_EXPLORE_TIME) {
+            // 若探索时间超过规定的最长时间，则停止
+            logger.info("探索超时。。。");
+            while(!exploreStack.empty()){
+                driver.navigate().back();
+                exploreStack.pop();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    // 根据测试语句获取点击元素，将该语句加入点击序列，并点击跳转到下个界面
+    private void fireEleAndAddToList(EnhancedMobileElement clickableStm, List<EnhancedMobileElement> clickElementList) {
+        AppiumLocator locator = clickableStm.getLocator();
+        MobileElement elementToBeClicked = null;
+        if (locator.getStrategy().equals("resourceId")) {
+            elementToBeClicked = (MobileElement) driver.findElementById(locator.getValue());
+        } else if (locator.getStrategy().equals("contentDesc")) {
+            elementToBeClicked = (MobileElement) driver.findElementsByAccessibilityId(locator.getValue());
+        } else if (locator.getStrategy().equals("xpath")) {
+            elementToBeClicked = (MobileElement) driver.findElementByXPath(locator.getValue());
+        }
+        clickElementList.add(clickableStm);
+        elementToBeClicked.click();
+        // 元素点击后需要等待 1s 以待新界面加载完成
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            logger.info("Driver wait has been interrupted");
+        }
+    }
+
     // 根据修复语句 statement 决定对该元素的操作方式：clear、click、sendKeys
-    private void fireEvent(MobileElement element, Statement statement) {
+    private void fireEvent(MobileElement element, Statement statement){
         if (statement.getAction().equals(AppiumAction.Clear)) {
             element.clear();
         } else if (statement.getAction().equals(AppiumAction.Click)) {
             element.click();
+            // 元素点击后需要等待 1s 以待新界面加载完成
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                logger.info("Driver wait has been interrupted");
+            }
         } else if (statement.getAction().equals(AppiumAction.SendKeys)) {
             element.sendKeys(statement.getValue());
         } else {
@@ -369,7 +531,7 @@ public class RepairRunner {
     }
 
     // 根据崩溃测试用例和修复语句生成修复后的测试用例
-    private EnhancedTestCase generateNewTest(EnhancedTestCase testBroken, Map<Integer, Statement> repairedStmMap) {
+    private EnhancedTestCase generateNewTest(EnhancedTestCase testBroken, Map<Integer, Statement> repairedStmMap, Map<Integer, List<EnhancedMobileElement>> repairedPathMap) {
         // 打印失效测试用例
         System.out.println("\n Before repairing....");
         UtilsRepair.printTestCase(testBroken);
@@ -381,8 +543,16 @@ public class RepairRunner {
         int currentLine = 0;
         for (Integer i : repairedStmMap.keySet()) {
             if (currentLine == 0) currentLine = i;
-            // TODO：检查在该步骤前是否有新增步骤
-
+            // 检查在该步骤前是否有新增步骤
+            if (repairedPathMap.keySet().contains(i)) {
+                List<EnhancedMobileElement> addElements = repairedPathMap.get(i);
+                for (EnhancedMobileElement element : addElements) {
+                    element.setLine(currentLine);
+                    element.setAction(AppiumAction.Click);
+                    element.setValue("");
+                    repairedTest.addAndReplaceStatement(currentLine++, element);
+                }
+            }
             Statement statement = repairedStmMap.get(i);
             if (statement == null) continue;
             statement.setLine(currentLine);
@@ -398,7 +568,7 @@ public class RepairRunner {
 
     // 处理退出信息
     private void shutDown(){
-        logger.info("正在处理退出信息...........");
+        logger.info("正在处理退出信息。。。。。。");
         driver.quit();
 
         // 清理临时层次布局文件存储目录

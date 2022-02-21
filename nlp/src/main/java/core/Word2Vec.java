@@ -87,12 +87,15 @@ public class Word2Vec {
      * 计算两个词之间的相似度
      */
     public double getSimWith2Words(String word1, String word2) {
-        if (word1.equals(word2) || isAbbreviation(word1, word2)) {
+        if (word1.equals(word2)) {
             return 1;
         }
         float[] vector1 = wordsMap.get(word1);
         float[] vector2 = wordsMap.get(word2);
         if (vector1 == null || vector2 == null) {
+            if(isAbbreviation(word1, word2)){
+                return 1;
+            }
             // 退化为比较两个单词的编辑距离
             return 1 - getLevenshteinDistance(word1, word2) * 1.0 / Math.max(word1.length(), word2.length());
         }

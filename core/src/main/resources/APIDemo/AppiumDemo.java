@@ -28,7 +28,7 @@ public class AppiumDemo {
         desiredCapabilities.setCapability("platformVersion", "11");
         desiredCapabilities.setCapability("deviceName", "Android Emulator");
         desiredCapabilities.setCapability("automationName", "UiAutomator2");
-        desiredCapabilities.setCapability("app", "E:\\学校事务\\A.毕设\\Android应用\\ApiDemos-debug.apk");
+        desiredCapabilities.setCapability("app", "D:\\学校事务\\A.毕设\\Android应用\\ApiDemos-debug.apk");
         desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
 
         URL remoteUrl = new URL("http://0.0.0.0:4723/wd/hub");

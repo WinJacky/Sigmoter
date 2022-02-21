@@ -10,12 +10,12 @@ public enum Threshold {
     /**
      * 用于元素语义相似度判断，超过该值认为新旧元素相同
      */
-    ELE_SEMAN_SIM(0.7),
+    ELE_SEMAN_SIM(0.8),
 
     /**
      * 用于元素布局相似度判断，超过该值认为新旧元素相同
      */
-    ELE_Layout_SIM(0.7);
+    ELE_Layout_SIM(0.8);
 
     private double value;
 

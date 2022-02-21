@@ -7,7 +7,9 @@ package main.java.util;
  */
 
 import io.appium.java_client.MobileElement;
+import main.java.dataType.AppiumLocator;
 import main.java.dataType.EnhancedMobileElement;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Rectangle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +34,7 @@ public class UtilsXpath {
         List<XmlTreeNode> nodeList = xmlLoader.getLeafNodes();
 
         // 在解析得到的所有叶节点中找到给定的 UI 元素
-        UiNode currentNode = getNodeByElement(element, nodeList);
+        UiNode currentNode = getNodeByEleOrSta(element, nodeList);
         if(currentNode == null) {
             return "";
         }
@@ -60,16 +62,15 @@ public class UtilsXpath {
         List<XmlTreeNode> nodeList = xmlLoader.getLeafNodes();
 
         // 在解析得到的所有叶节点中找到给定的 UI 元素
-        UiNode currentNode = getNodeByElement(element, nodeList);
+        UiNode currentNode = getNodeByEleOrSta(element, nodeList);
         if (currentNode == null) {
             return "";
         }
 
         nodeList = xmlLoader.getAllNodes();
-        String xpath;
 
         // 尝试使用该节点的身份属性信息定位该节点
-        xpath = getIdentityLocator(nodeList, currentNode, "");
+        String xpath = getIdentityLocator(nodeList, currentNode, "");
 
         while(!xpath.startsWith("//")) {
             // 身份属性定位失败（该元素的三个身份属性很可能都为空），递归寻找其可使用身份属性唯一定位的父节点，再使用相对位置信息定位该元素
@@ -95,7 +96,7 @@ public class UtilsXpath {
         List<XmlTreeNode> nodeList = xmlLoader.getLeafNodes();
 
         // 在解析得到的所有叶节点中找到给定的 UI 元素
-        UiNode currentNode = getNodeByElement(element, nodeList);
+        UiNode currentNode = getNodeByEleOrSta(element, nodeList);
         if(currentNode == null) {
             return "";
         }
@@ -104,12 +105,17 @@ public class UtilsXpath {
     }
 
     /**
-     * @param element 获取给定元素的 bound 属性，通过元素位置信息唯一定位 UiNode
+     * @param element 获取给定元素或测试语句对应元素的 bound 属性，通过元素位置信息唯一定位 UiNode
      * @param nodeList 解析得到的所有叶节点
      * @return 与给定 UI 元素对应的 UiNode，没找到返回 null
      */
-    public static UiNode getNodeByElement(MobileElement element, List<XmlTreeNode> nodeList) {
-        Rectangle rect = element.getRect();
+    public static UiNode getNodeByEleOrSta(Object element, List<XmlTreeNode> nodeList) {
+        Rectangle rect = null;
+        if (element instanceof MobileElement) {
+            rect = ((MobileElement) element).getRect();
+        } else if (element instanceof EnhancedMobileElement) {
+            rect = new Rectangle(((EnhancedMobileElement)element).getCoordinate(), ((EnhancedMobileElement)element).getDimension());
+        }
 
         for (XmlTreeNode node : nodeList) {
             String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");
@@ -123,30 +129,23 @@ public class UtilsXpath {
             }
         }
 
-        logger.info("根据给定 UI 元素未找到对应的 UiNode！");
-        return null;
-    }
+        // 有时候 driver.getPageSource() 捕获得到的布局文件中 bounds 属性与 element.getRect() 不一致，但 y 坐标基本是一致的
+//        for (XmlTreeNode node : nodeList) {
+//            String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");
+//            int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
+//            if(bounds[1] == rect.y) {
+//                int height = bounds[3] - bounds[1];
+//                if(rect.height == height) {
+//                    return (UiNode) node;
+//                }
+//            }
+//        }
 
-    /**
-     * @param statement 获取给定测试语句对应元素的 bound 属性，通过元素位置信息唯一定位 UiNode
-     * @param nodeList 解析得到的所有叶节点
-     * @return 与给定 UI 元素对应的 UiNode，没找到返回 null
-     */
-    public static UiNode getNodeByStatement(EnhancedMobileElement statement, List<XmlTreeNode> nodeList) {
-        Rectangle rect = new Rectangle(statement.getCoordinate(), statement.getDimension());
-
-        for (XmlTreeNode node : nodeList) {
-            String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");
-            int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
-            if(bounds[0] == rect.x && bounds[1] == rect.y) {
-                int width = bounds[2] - bounds[0];
-                int height = bounds[3] - bounds[1];
-                if(rect.width == width && rect.height == height) {
-                    return (UiNode) node;
-                }
-            }
+        // TODO: 删除上面无效代码块
+        if (element instanceof MobileElement) {
+            MobileElement temp = (MobileElement) element;
+            System.out.println(temp.getText() + " " + temp.getLocation() + " " + temp.getSize());
         }
-
         logger.info("根据给定 UI 元素未找到对应的 UiNode！");
         return null;
     }
@@ -198,13 +197,13 @@ public class UtilsXpath {
         String text = currentNode.getAttribute("text");
         int len = xpath.length();
 
-        if (content_desc != null && isUnique(nodeList, new AttributePair("content-desc", content_desc))){
+        if (StringUtils.isNotBlank(content_desc) && isUnique(nodeList, new AttributePair("content-desc", content_desc))){
             xpath = "//" + className + "[@content-desc='" + content_desc + "']" + xpath;
         } else {
-            if (resource_id != null && isUnique(nodeList, new AttributePair("resource-id", resource_id))) {
+            if (StringUtils.isNotBlank(resource_id) && isUnique(nodeList, new AttributePair("resource-id", resource_id))) {
                 xpath = "//" + className + "[@resource-id='" + resource_id + "']" + xpath;
             } else {
-                if (text != null && isUnique(nodeList, new AttributePair("text", text))) {
+                if (StringUtils.isNotBlank(text) && isUnique(nodeList, new AttributePair("text", text))) {
                     xpath = "//" + className + "[@text='" + text + "']" + xpath;
                 }
             }
@@ -215,16 +214,16 @@ public class UtilsXpath {
         }
 
         // 单一身份属性（text、resource-id、content-desc）无法唯一定位元素，尝试多个身份属性联合定位
-        if (content_desc != null && resource_id != null && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("resource-id", resource_id))){
+        if (StringUtils.isNotBlank(content_desc) && StringUtils.isNotBlank(resource_id) && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("resource-id", resource_id))){
             xpath = "//" + className + "[@content-desc='" + content_desc + "' and @resource-id='" + resource_id + "']" + xpath;
         } else {
-            if (content_desc != null && text != null && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("text", text))){
+            if (StringUtils.isNotBlank(content_desc) && StringUtils.isNotBlank(text) && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("text", text))){
                 xpath = "//" + className + "[@content-desc='" + content_desc + "' and @text='" + text + "']" + xpath;
             } else {
-                if (resource_id != null && text != null && isUnique(nodeList, new AttributePair("resource-id", resource_id), new AttributePair("text", text))){
+                if (StringUtils.isNotBlank(resource_id) && StringUtils.isNotBlank(text) && isUnique(nodeList, new AttributePair("resource-id", resource_id), new AttributePair("text", text))){
                     xpath = "//" + className + "[@resource-id='" + resource_id + "' and @text='" + text + "']" + xpath;
                 } else {
-                    if (content_desc != null && resource_id != null && text != null &&
+                    if (StringUtils.isNotBlank(content_desc) && StringUtils.isNotBlank(resource_id) && StringUtils.isNotBlank(text) &&
                             isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("resource-id", resource_id), new AttributePair("text", text))){
                         xpath = "//" + className + "[@content-desc='" + content_desc + "' and @resource-id='" + resource_id + "' and @text='" + text + "']" + xpath;
                     }
@@ -243,7 +242,7 @@ public class UtilsXpath {
      * 使用自身的身份属性信息定位
      * 尽量使用一种属性定位，其次使用两种，最次使用三种
      * 使用一种或两种身份属性可以唯一定位时，若多个皆可唯一定位，统统加进来
-     *      例：xpath = //class[@text='SEU'];//class[@content-desc='SEU']
+     *      例：xpath = //class[@content-desc='SEU'];//class[@text='SEU']
      */
     public static String getIdentityXpath(List<XmlTreeNode> nodeList, UiNode currentNode) {
         String className = currentNode.getAttribute("class");
@@ -252,13 +251,13 @@ public class UtilsXpath {
         String text = currentNode.getAttribute("text");
         String xpath = "";
 
-        if (content_desc != null && isUnique(nodeList, new AttributePair("content-desc", content_desc))){
+        if (StringUtils.isNotBlank(content_desc) && isUnique(nodeList, new AttributePair("content-desc", content_desc))){
             xpath += "//" + className + "[@content-desc='" + content_desc + "'];";
         }
-        if (resource_id != null && isUnique(nodeList, new AttributePair("resource-id", resource_id))) {
+        if (StringUtils.isNotBlank(resource_id) && isUnique(nodeList, new AttributePair("resource-id", resource_id))) {
             xpath += "//" + className + "[@resource-id='" + resource_id + "'];";
         }
-        if (text != null && isUnique(nodeList, new AttributePair("text", text))) {
+        if (StringUtils.isNotBlank(text) && isUnique(nodeList, new AttributePair("text", text))) {
             xpath += "//" + className + "[@text='" + text + "'];";
         }
 
@@ -267,13 +266,13 @@ public class UtilsXpath {
         }
 
         // 单一身份属性（text、resource-id、content-desc）无法唯一定位元素，尝试两个身份属性联合定位
-        if (content_desc != null && resource_id != null && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("resource-id", resource_id))){
+        if (StringUtils.isNotBlank(content_desc) && StringUtils.isNotBlank(resource_id) && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("resource-id", resource_id))){
             xpath += "//" + className + "[@content-desc='" + content_desc + "' and @resource-id='" + resource_id + "'];";
         }
-        if (content_desc != null && text != null && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("text", text))){
+        if (StringUtils.isNotBlank(content_desc) && StringUtils.isNotBlank(text) && isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("text", text))){
             xpath += "//" + className + "[@content-desc='" + content_desc + "' and @text='" + text + "'];";
         }
-        if (resource_id != null && text != null && isUnique(nodeList, new AttributePair("resource-id", resource_id), new AttributePair("text", text))){
+        if (StringUtils.isNotBlank(resource_id) && StringUtils.isNotBlank(text) && isUnique(nodeList, new AttributePair("resource-id", resource_id), new AttributePair("text", text))){
             xpath += "//" + className + "[@resource-id='" + resource_id + "' and @text='" + text + "'];";
         }
 
@@ -282,12 +281,55 @@ public class UtilsXpath {
         }
 
         // 双身份属性无法唯一定位元素，尝试三个身份属性联合定位
-        if (content_desc != null && resource_id != null && text != null &&
+        if (StringUtils.isNotBlank(content_desc) && StringUtils.isNotBlank(resource_id) && StringUtils.isNotBlank(text) &&
                 isUnique(nodeList, new AttributePair("content-desc", content_desc), new AttributePair("resource-id", resource_id), new AttributePair("text", text))){
             xpath = "//" + className + "[@content-desc='" + content_desc + "' and @resource-id='" + resource_id + "' and @text='" + text + "']";
         }
 
         return xpath;
+    }
+
+    /**
+     * 对于给定的节点，赋予其最优的定位策略，使其可以通过 driver.findElement 在界面中被找到
+     */
+    public static EnhancedMobileElement castNode2Element(List<XmlTreeNode> nodeList, UiNode currentNode) {
+        EnhancedMobileElement element = new EnhancedMobileElement();
+        AppiumLocator locator;
+
+        String resource_id = currentNode.getAttribute("resource-id");
+        String content_desc = currentNode.getAttribute("content-desc");
+
+        if (StringUtils.isNotBlank(resource_id) && isUnique(nodeList, new AttributePair("resource-id", resource_id))) {
+            locator = new AppiumLocator("resourceId", resource_id);
+            element.setLocator(locator);
+            return element;
+        }
+        if (StringUtils.isNotBlank(content_desc) && isUnique(nodeList, new AttributePair("content-desc", content_desc))){
+            locator = new AppiumLocator("contentDesc", content_desc);
+            element.setLocator(locator);
+            return element;
+        }
+
+        // 尝试使用该节点的身份属性信息定位该节点
+        String xpath = getIdentityLocator(nodeList, currentNode, "");
+
+        while(!xpath.startsWith("//")) {
+            // 身份属性定位失败（该元素的三个身份属性很可能都为空），递归寻找其可使用身份属性唯一定位的父节点，再使用相对位置信息定位该元素
+            if (currentNode.getParent() instanceof RootWindowNode) {
+                // 已上溯到根节点还未找到可使用身份属性唯一定位的父节点，此时使用全Xpath路径定位元素
+                xpath = "//hierarchy" + xpath;
+                break;
+            }
+
+            currentNode = (UiNode) currentNode.getParent();
+            xpath = getIdentityLocator(nodeList, currentNode, xpath);
+        }
+
+        locator = new AppiumLocator("xpath", xpath);
+        element.setLocator(locator);
+        element.setContentDesc(currentNode.getAttribute("content-desc"));
+        element.setText(currentNode.getAttribute("text"));
+        return element;
     }
 
     /**

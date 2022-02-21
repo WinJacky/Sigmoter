@@ -3,12 +3,16 @@ package test.java;
 
 import com.google.gson.Gson;
 import main.java.config.Settings;
+import main.java.dataType.StateVertix;
 import main.java.runner.RepairRunner;
 import main.java.util.UtilsRepair;
 import org.openqa.selenium.Point;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * @author feisher
@@ -72,6 +76,8 @@ public class TempTest {
         System.out.println(isAbbreviation("user", "usrname"));
         System.out.println(isAbbreviation("user", "usrnamer"));
          */
+
+        // 删除 tempXmlSavedFolder 下的文件
         String tempXmlSavedFolder = Settings.repairedTCPath + Settings.sep + "TempXmlSaved";
         File tempFolder = new File(tempXmlSavedFolder);
         String[] content = tempFolder.list();
@@ -81,6 +87,8 @@ public class TempTest {
                 System.out.println("Failed to delete " + name);
             }
         }
+
+
     }
 
     public static boolean isAbbreviation(String word1, String word2) {

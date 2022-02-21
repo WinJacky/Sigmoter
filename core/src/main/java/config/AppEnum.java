@@ -9,6 +9,8 @@ public enum AppEnum {
 
     LarkPlayer("LarkPlayer", "main.resources.LarkPlayer"),
 
+    Notepad("Notepad", "main.resources.Notepad"),
+
     APIDemo("APIDemo", "main.resources.APIDemo");
 
     private String appName;

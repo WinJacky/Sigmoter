@@ -1,7 +1,8 @@
 package main.java.dataType;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author feisher
@@ -11,12 +12,12 @@ import java.util.List;
 public class Keyword {
     private int lineNumber;
     private List<String> keywords;
-    private List<String> extendSeq;
+    private Set<String> extendSeq;
 
     public Keyword(int lineNumber, List<String> keywords) {
         this.lineNumber = lineNumber;
         this.keywords = keywords;
-        this.extendSeq = new ArrayList<>();
+        this.extendSeq = new HashSet<>();
     }
 
     public int getLineNumber() {
@@ -35,11 +36,11 @@ public class Keyword {
         this.keywords = keywords;
     }
 
-    public List<String> getExtendSeq() {
+    public Set<String> getExtendSeq() {
         return extendSeq;
     }
 
-    public void setExtendSeq(List<String> extendSeq) {
+    public void setExtendSeq(Set<String> extendSeq) {
         this.extendSeq = extendSeq;
     }
 

@@ -109,7 +109,7 @@ public aspect InfoExtractor {
             } else if (methodName.equals("click")) {
                 type = "click";
             }
-            // 获取并保存当前元素的text内容，仅限click事件的目标元素
+            // 获取并保存当前元素的文本内容，仅限click事件的目标元素
             String textContent = UtilsAspect.getKeyText(thisJoinPoint);
             if (textContent != null && !textContent.equals("")) {
                 if (keyTexts == null) {

@@ -12,7 +12,6 @@ import main.java.config.Settings;
 import main.java.dataType.AppiumLocator;
 import main.java.dataType.EnhancedTestCase;
 import main.java.dataType.EnhancedTouchAction;
-import main.java.dataType.Statement;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Point;
@@ -22,8 +21,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * This class refers to the class in Vista
