@@ -2,7 +2,11 @@ package main.java.util;
 
 import com.google.gson.Gson;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
+import main.java.config.Settings;
 import main.java.config.Threshold;
 import main.java.dataType.*;
 import main.java.runner.RepairRunner;
@@ -11,10 +15,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.time.Duration;
 import java.util.*;
 
 public class UtilsRepair {
@@ -262,59 +268,122 @@ public class UtilsRepair {
         return Math.max(max1, max2);
     }
 
-    // 在当前页面状态中搜索目标元素，计算元素和语句的三项得分并加权求和，若没有得分超过阈值（0.5）的元素，则返回 null
-    public static MobileElement searchForTargetElementOnState(AndroidDriver driver, EnhancedMobileElement statement, String oriLayoutXmlFile, String curLayoutXmlFile, boolean isIdConsidered) {
+    // 在当前页面状态中搜索目标元素，计算元素和语句的三项得分并加权求和
+    // 若没有得分超过阈值（0.6）的元素，查找当前状态是否包含可滑动组件，对其进行滑动以查找目标元素
+    // 若最终仍没找到目标元素，则返回 null
+    public static MobileElement searchForTargetElementOnState(AndroidDriver driver, EnhancedMobileElement statement, String oriLayoutXmlFile, List<EnhancedTouchAction> repairedSwipe, boolean isIdConsidered) {
         // 根据元素属性查找
         Set<MobileElement> result = new HashSet<>();
         List<MobileElement> tempResult;
-        // 根据元素 classname 查找
-        tempResult = driver.findElementsByClassName(statement.getClassName());
-        if (tempResult != null) result.addAll(tempResult);
-        // 根据身份属性查找
-        if (StringUtils.isNotEmpty(statement.getResourceId())) {
-            tempResult = driver.findElementsById(statement.getResourceId());
-            if (tempResult != null) result.addAll(tempResult);
-        }
-        if (StringUtils.isNotEmpty(statement.getContentDesc())) {
-            tempResult = driver.findElementsByAccessibilityId(statement.getContentDesc());
-            if (tempResult != null) result.addAll(tempResult);
-        }
-        if (StringUtils.isNotEmpty(statement.getText())) {
-            tempResult = driver.findElementsByXPath("//" + statement.getClassName() + "[@text='" + statement.getText() + "']");
-            if (tempResult != null) result.addAll(tempResult);
-        }
-        // 根据 xpath 路径查找
-        String[] xpathArray = statement.getXpath().split(";");
-        for (String xpath : xpathArray) {
-            tempResult = driver.findElementsByXPath(xpath);
-            if (tempResult != null) result.addAll(tempResult);
-        }
+        Rectangle swipeRect = null;
 
-        // 检查相似度
-        double maxSimScore = 0.0;
-        MobileElement mostSimElement = null;
-        for (MobileElement ele : result) {
-            if (!ele.isDisplayed()) continue;
-            // 结构相似度
-            double sim1 = checkElementByCollectedInfo(curLayoutXmlFile, ele, statement);
-            // 语义相似度
-            double sim2 = checkElementBySemantic(ele, statement, isIdConsidered);
-            if (sim2 == 1.0) {
-                // 如果语义完全吻合，则直接返回该元素
-                return ele;
+        while(true) {
+            // 根据元素 classname 查找
+            tempResult = driver.findElementsByClassName(statement.getClassName());
+            if (tempResult != null) result.addAll(tempResult);
+            // 根据身份属性查找
+            if (StringUtils.isNotEmpty(statement.getResourceId())) {
+                tempResult = driver.findElementsById(statement.getResourceId());
+                if (tempResult != null) result.addAll(tempResult);
             }
-            // 布局相似度
-            double sim3 = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, curLayoutXmlFile, isIdConsidered);
-            double beta = 0.3;
-            double score = sim1 * beta + sim2 * (1 - 2 * beta) + sim3 * beta;
+            if (StringUtils.isNotEmpty(statement.getContentDesc())) {
+                tempResult = driver.findElementsByAccessibilityId(statement.getContentDesc());
+                if (tempResult != null) result.addAll(tempResult);
+            }
+            if (StringUtils.isNotEmpty(statement.getText())) {
+                tempResult = driver.findElementsByXPath("//" + statement.getClassName() + "[@text='" + statement.getText() + "']");
+                if (tempResult != null) result.addAll(tempResult);
+            }
+            // 根据 xpath 路径查找
+            String[] xpathArray = statement.getXpath().split(";");
+            for (String xpath : xpathArray) {
+                tempResult = driver.findElementsByXPath(xpath);
+                if (tempResult != null) result.addAll(tempResult);
+            }
 
-            if (score >= 0.6 && score > maxSimScore) {
-                maxSimScore = score;
-                mostSimElement = ele;
+            // 检查相似度
+            double maxSimScore = 0.0;
+            MobileElement mostSimElement = null;
+            for (MobileElement ele : result) {
+                if (!ele.isDisplayed()) continue;
+                // 结构相似度
+                double sim1 = checkElementByCollectedInfo(RepairRunner.curLayoutXmlFile, ele, statement);
+                // 语义相似度
+                double sim2 = checkElementBySemantic(ele, statement, isIdConsidered);
+                if (sim2 == 1.0) {
+                    // 如果语义完全吻合，则直接返回该元素
+                    return ele;
+                }
+                // 布局相似度
+                double sim3 = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, RepairRunner.curLayoutXmlFile, isIdConsidered);
+                double beta = 0.3;
+                double score = sim1 * beta + sim2 * (1 - 2 * beta) + sim3 * beta;
+
+                if (score >= 0.6 && score > maxSimScore) {
+                    maxSimScore = score;
+                    mostSimElement = ele;
+                }
+            }
+
+            if (mostSimElement != null) {
+                return mostSimElement;
+            } else if (swipeRect == null) {
+                // 初始界面找不到修复元素，查找可滑动布局
+                swipeRect = retrieveScrollableNode(RepairRunner.curLayoutXmlFile);
+                if (swipeRect == null) {
+                    // 未找到最相似的元素，同时界面不可滑动
+                    return null;
+                }
+            }
+
+            // 上滑以找出更多候选元素
+            EnhancedTouchAction swipe = new EnhancedTouchAction("swipe");
+            // 起始点为滑动界面从上至下 7/8 处的中间位置
+            // 结束点为滑动界面从上至下 1/8 处的中间位置
+            Point startPoint = new Point(swipeRect.x + swipeRect.width / 2, swipeRect.y + swipeRect.height * 7/8);
+            Point endPoint = new Point(swipeRect.x + swipeRect.width / 2, swipeRect.y + swipeRect.height /8);
+            swipe.setStartPoint(startPoint);
+            swipe.setEndPoint(endPoint);
+            repairedSwipe.add(swipe);
+
+            String preState = driver.getPageSource();
+            // 滑动界面
+            new TouchAction(driver).press(PointOption.point(startPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(endPoint)).release().perform();
+            String postState = driver.getPageSource();
+            if (preState.equals(postState)) {
+                // 上滑过后没变化，表明已经滑到底了，无法再找到新的元素了
+                // 此时将页面状态恢复到滑动前的状态并退出
+                for (int i=1; i<=repairedSwipe.size()-1; i++) {
+                    new TouchAction(driver).press(PointOption.point(endPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(startPoint)).release().perform();
+                }
+                repairedSwipe.clear();
+                return null;
+            } else {
+                // 滑动带来新元素，清除老元素
+                result.clear();
+                // 捕获当前屏幕状态的层次布局文件
+                RepairRunner.curLayoutXmlFile = RepairRunner.tempXmlSavedFolder + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
+                UtilsHierarchyXml.takeXmlSnapshot(driver, RepairRunner.curLayoutXmlFile);
             }
         }
+    }
 
-        return mostSimElement;
+    // 查找当前界面上的可滑动节点，返回可滑动布局位置
+    private static Rectangle retrieveScrollableNode(String curLayoutXmlFile) {
+        UtilsXmlLoader xmlLoader = new UtilsXmlLoader();
+        xmlLoader.parseXml(curLayoutXmlFile);
+        List<XmlTreeNode> nodeList = xmlLoader.getAllNodes();
+
+        for (XmlTreeNode node : nodeList) {
+            if (node instanceof UiNode && ((UiNode) node).getAttribute("scrollable").equals("true")) {
+                String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");
+                int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
+                int width = bounds[2] - bounds[0];
+                int height = bounds[3] - bounds[1];
+                return new Rectangle(bounds[0], bounds[1], height, width);
+            }
+        }
+        return null;
     }
 
     // 在当前布局文件中查找可点击元素，将其转化成 Statement 方便生成测试语句

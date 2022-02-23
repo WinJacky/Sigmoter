@@ -143,4 +143,12 @@ public class EnhancedMobileElement extends Statement {
         }
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof EnhancedMobileElement) {
+            return this.locator.equals(((EnhancedMobileElement) obj).getLocator());
+        }
+        return false;
+    }
 }

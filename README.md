@@ -1,5 +1,5 @@
 # Sigmoter
-* Sigmoter means **S**ement**i**c **G**uided **Mo**bile **Te**st **R**epair 
+* Sigmoter means **S**emant**i**c **G**uided **Mo**bile **Te**st **R**epair 
 * This is my Graduation Design Tool, which is dedicated for automatic mobile test repair. 
 * Sigmoter 能处理的测试用例语句包含（取决于Appium Inspector所支持的操作）：
 > * `driver.findElementBy...`

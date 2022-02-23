@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class AppiumLocator implements Serializable {
     /* strategy 合理取值有：resourceId、contentDesc、xpath */
-    String strategy, value;
+    private String strategy, value;
 
     public AppiumLocator(String strategy, String value) {
         this.strategy = strategy;
@@ -42,5 +42,14 @@ public class AppiumLocator implements Serializable {
             return "ByXPath(\"" + value + "\")";
         }
         return "By" + (char)(strategy.charAt(0) - 32) + strategy.substring(1) + "(\"" + value + "\")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof AppiumLocator) {
+            return this.strategy.equals(((AppiumLocator) obj).getStrategy())
+                    && this.value.equals(((AppiumLocator) obj).getValue());
+        }
+        return false;
     }
 }

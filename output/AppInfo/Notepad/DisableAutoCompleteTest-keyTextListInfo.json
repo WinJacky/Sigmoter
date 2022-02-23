@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 37,
+    "text": "Open navigation drawer",
+    "type": "click"
+  },
+  {
+    "lineNumber": 38,
+    "text": "Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 39,
+    "text": "Disable text autocomplete",
+    "type": "click"
+  }
+]

@@ -24,7 +24,7 @@ public class InfoExtractionRunner {
 
         Settings extractorSetting = new Settings(AppEnum.Notepad);
 
-        runTest(extractorSetting.testSuite, "ShowNoteKeyboardTest");
+        runTest(extractorSetting.testSuite, "DisableAutoCompleteTest");
     }
 
 

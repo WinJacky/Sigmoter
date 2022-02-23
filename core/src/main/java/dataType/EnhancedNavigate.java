@@ -27,6 +27,6 @@ public class EnhancedNavigate extends Statement{
 
     @Override
     public String toString() {
-        return "driver.navigate()." + getValue()+ "();";
+        return "driver.navigate()." + getValue()+ "()";
     }
 }

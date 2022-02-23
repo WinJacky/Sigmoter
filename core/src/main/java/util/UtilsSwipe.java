@@ -10,7 +10,7 @@ import java.time.Duration;
 public class UtilsSwipe {
     static Duration duration=Duration.ofSeconds(1);
 
-    public void swipeToUp(AndroidDriver driver) {
+    public static void swipeToUp(AndroidDriver driver) {
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
         TouchAction action1=new TouchAction(driver).press(PointOption.point(width/2, height*3/4)).waitAction(WaitOptions.waitOptions(duration))
@@ -19,7 +19,7 @@ public class UtilsSwipe {
     }
 
 
-    public void swipeToDown(AndroidDriver driver) {
+    public static void swipeToDown(AndroidDriver driver) {
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
         TouchAction action2=new TouchAction(driver).press(PointOption.point(width/2, height/4)).waitAction(WaitOptions.waitOptions(duration))
@@ -27,7 +27,7 @@ public class UtilsSwipe {
         action2.perform();
     }
 
-    public void swipeToLeft(AndroidDriver driver) {
+    public static void swipeToLeft(AndroidDriver driver) {
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
         TouchAction action3=new TouchAction(driver).press(PointOption.point(width*3/4, height/2)).waitAction(WaitOptions.waitOptions(duration))
@@ -36,7 +36,7 @@ public class UtilsSwipe {
     }
 
 
-    public void swipeToRight(AndroidDriver driver) {
+    public static void swipeToRight(AndroidDriver driver) {
         int width = driver.manage().window().getSize().width;
         int height = driver.manage().window().getSize().height;
         TouchAction action4=new TouchAction(driver).press(PointOption.point(width / 4, height / 2)).waitAction(WaitOptions.waitOptions(duration))

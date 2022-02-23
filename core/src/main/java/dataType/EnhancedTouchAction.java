@@ -41,9 +41,9 @@ public class EnhancedTouchAction extends Statement{
     @Override
     public String toString() {
         if (getValue().equals("swipe")) {
-            return "new TouchAction(driver).press(PointOption.point" + startPoint + ").moveTo(PointOption.point" + endPoint +").release().perform();";
+            return "new TouchAction(driver).press(PointOption.point" + startPoint + ").moveTo(PointOption.point" + endPoint +").release().perform()";
         } else if (getValue().equals("tap")) {
-            return "new TouchAction(driver).tap" + startPoint + ".perform();";
+            return "new TouchAction(driver).tap" + startPoint + ".perform()";
         }
         return null;
     }
