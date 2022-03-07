@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.Button[@resource-id='com.atomczak.notepat:id/sort_notes_button'];//android.widget.Button[@text='SORT'];//android.widget.RelativeLayout[@resource-id='com.atomczak.notepat:id/note_list_menu_header']/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/androidx.drawerlayout.widget.DrawerLayout[1]/android.view.ViewGroup[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "resourceId": "com.atomczak.notepat:id/sort_notes_button",
+  "text": "SORT",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 8,
+  "y": 164,
+  "width": 752,
+  "height": 60
+}

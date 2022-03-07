@@ -19,6 +19,18 @@ public class Word2VecTest {
         // 测试加载词向量文件
         Word2Vec w2v = new Word2Vec("nlp/src/main/resources/GloVe/glove.6B.100d.txt");
 
+        // 测试计算两个词集的语义相似度
+        Set<String> set1, set2, set3, set4, set5;
+        set1 = new HashSet<>(WordsSplit.getWords("Search…".trim()));
+        set2 = new HashSet<>(WordsSplit.getWords("Search YouTube and Library".trim()));
+        set3 = new HashSet<>(WordsSplit.getWords("Sort by…".trim()));
+        set4 = new HashSet<>(WordsSplit.getWords("Navigate up".trim()));
+        set5 = new HashSet<>(WordsSplit.getWords("Note editing".trim()));
+        System.out.println(computeSimilarity(w2v, set1, set2));
+        System.out.println(computeSimilarity(w2v, set1, set3));
+        System.out.println(computeSimilarity(w2v, set1, set4));
+        System.out.println(computeSimilarity(w2v, set1, set5));
+
         // 测试获取某个词的词向量
 //        float[] f = w2v.getWordVector("username");
 //        for (float ff: f) {
@@ -40,16 +52,6 @@ public class Word2VecTest {
 //        for (String word : words) {
 //            System.out.println(word);
 //        }
-
-        // 测试计算两个词集的语义相似度
-        Set<String> set1, set2, set3;
-        set1 = new HashSet<>(WordsSplit.getWords("Show note keyboard".trim()));
-        set2 = new HashSet<>(WordsSplit.getWords("Note list".trim()));
-        set3 = new HashSet<>(WordsSplit.getWords("Note editing".trim()));
-        System.out.println(computeSimilarity(w2v, set1, set2));
-        System.out.println(computeSimilarity(w2v, set2, set1));
-        System.out.println(computeSimilarity(w2v, set1, set3));
-        System.out.println(computeSimilarity(w2v, set3, set1));
     }
 
     private static double computeSimilarity(Word2Vec word2Vec, Set<String> set1, Set<String> set2) {

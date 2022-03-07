@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.FrameLayout[@resource-id='com.dywx.larkplayer:id/custom']/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 40,
+  "y": 605,
+  "width": 688,
+  "height": 91
+}

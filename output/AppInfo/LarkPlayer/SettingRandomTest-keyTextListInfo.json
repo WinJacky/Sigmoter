@@ -1,0 +1,27 @@
+[
+  {
+    "lineNumber": 37,
+    "text": "Navigate up",
+    "type": "click"
+  },
+  {
+    "lineNumber": 38,
+    "text": "Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 39,
+    "text": "Playback history",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Hardware Acceleration",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Full acceleration",
+    "type": "click"
+  }
+]

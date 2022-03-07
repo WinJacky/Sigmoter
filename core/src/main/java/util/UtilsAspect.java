@@ -6,13 +6,12 @@ package main.java.util;
  * @date 2021/6/30 10:36
  */
 
-import io.appium.java_client.MobileDriver;
 import io.appium.java_client.MobileElement;
 import main.java.dataType.KeyText;
 import main.java.dataType.ViewTreeInfo;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.openqa.selenium.JavascriptExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,12 +74,18 @@ public class UtilsAspect {
         if (methodName.equals("click")) {
             MobileElement me = (MobileElement) joinPoint.getTarget();
             textualContent = me.getAttribute("text");
-            if (textualContent == null || textualContent.trim().equals("")) {
+            if (StringUtils.isBlank(textualContent)) {
                 textualContent = me.getAttribute("contentDescription");
+                if (StringUtils.isBlank(textualContent) && joinPoint.getStaticPart().toString().contains("findElementById")) {
+                    textualContent = me.getAttribute("resourceId");
+                    if (StringUtils.isNotBlank(textualContent) && textualContent.contains(":id/")) {
+                            textualContent = textualContent.substring(textualContent.indexOf("/") + 1);
+                    }
+                }
             }
         }
 
-        return textualContent == null ? "" : textualContent.trim();
+        return StringUtils.isBlank(textualContent) ? "" : textualContent.trim();
     }
 
     public static void saveKeyTextInfo(List<KeyText> keyTextList, String keyTextInfoJsonFile) {

@@ -69,19 +69,23 @@ public class UtilsRepair {
         xpath2 = xpath2.substring(xpath2.indexOf("//hierarchy"));
 
         double pho1 = UtilsSimilarity.simOfXpath(xpath1, xpath2);
+        if (pho1 == 1.0) {
+            // 绝对路径完全相同，认为两元素结构一致
+            return pho1;
+        }
         double pho2 = 0.0;
         double divid = 17.0;
         String temp;
         // 身份属性
         temp = element.getAttribute("resourceId");
-        if (temp == null && collectedInfo.getResourceId() == null) divid-=3;
-        else if (temp != null && temp.equalsIgnoreCase(collectedInfo.getResourceId())) pho2+=3;
+        if (StringUtils.isBlank(temp) && StringUtils.isBlank(collectedInfo.getResourceId())) divid-=3;
+        else if (StringUtils.isNotBlank(temp) && temp.equalsIgnoreCase(collectedInfo.getResourceId())) pho2+=3;
         temp = element.getAttribute("contentDescription");
-        if (temp == null && collectedInfo.getContentDesc() == null) divid-=3;
-        else if (temp != null && temp.equalsIgnoreCase(collectedInfo.getContentDesc())) pho2+=3;
+        if (StringUtils.isBlank(temp) && StringUtils.isBlank(collectedInfo.getContentDesc())) divid-=3;
+        else if (StringUtils.isNotBlank(temp) && temp.equalsIgnoreCase(collectedInfo.getContentDesc())) pho2+=3;
         temp = element.getAttribute("text");
-        if (temp == null && collectedInfo.getText() == null) divid-=3;
-        else if (temp != null && temp.equalsIgnoreCase(collectedInfo.getText())) pho2+=3;
+        if (StringUtils.isBlank(temp) && StringUtils.isBlank(collectedInfo.getText())) divid-=3;
+        else if (StringUtils.isNotBlank(temp) && temp.equalsIgnoreCase(collectedInfo.getText())) pho2+=3;
 
         // 重要属性
         if (element.getAttribute("checkable").equals(Boolean.toString(collectedInfo.isCheckable()))) pho2+=2;
@@ -93,7 +97,7 @@ public class UtilsRepair {
         if (element.getAttribute("longClickable").equals(Boolean.toString(collectedInfo.isLongClickable()))) pho2++;
 
         pho2 = pho2 / divid;
-        double alpha = 0.4;
+        double alpha = Threshold.XPATH_WEIGHT.getValue();
         return (pho1 * alpha + (pho2) * (1 - alpha));
     }
 
@@ -102,26 +106,26 @@ public class UtilsRepair {
         // 提取元素关键信息
         // 此处元素关键信息和关键词相比较
         Set<String> set1 = new HashSet<>();
-        String temp = element.getAttribute("contentDescription");
+        String temp = statement.getContentDesc();
         if (StringUtils.isNotBlank(temp)) set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-        temp = element.getAttribute("text");
+        temp = statement.getText();
         if (StringUtils.isNotBlank(temp)) set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
 
         Set<String> set2 = new HashSet<>();
-        temp = statement.getContentDesc();
+        temp = element.getAttribute("contentDescription");
         if (StringUtils.isNotBlank(temp)) set2.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-        temp = statement.getText();
+        temp = element.getAttribute("text");
         if (StringUtils.isNotBlank(temp)) set2.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
 
-        if (isIdConsidered) {
-            temp = element.getAttribute("resourceId");
+        if (isIdConsidered && set1.isEmpty()) {
+            temp = statement.getResourceId();
             if (StringUtils.isNotBlank(temp)) {
                 if (temp.contains(":id/")) {
                     temp = temp.substring(temp.indexOf("/") + 1);
                 }
                 set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
             }
-            temp = statement.getResourceId();
+            temp = element.getAttribute("resourceId");
             if (StringUtils.isNotBlank(temp)) {
                 if (temp.contains(":id/")) {
                     temp = temp.substring(temp.indexOf("/") + 1);
@@ -148,7 +152,20 @@ public class UtilsRepair {
             }
             sumScore1 += maxScore;
         }
-        return  sumScore1 / origin.size();
+        sumScore1 = sumScore1 / origin.size();
+        return sumScore1;
+
+//        double sumScore2 = 0.0;
+//        for (String s1: current) {
+//            double maxScore = 0.0;
+//            for (String s2: origin) {
+//                maxScore = Math.max(maxScore, RepairRunner.word2Vec.getSimWith2Words(s1, s2));
+//            }
+//            sumScore2 += maxScore;
+//        }
+//        sumScore2 =  sumScore2 / current.size();
+//
+//        return Math.max(sumScore1, sumScore2);
     }
 
     // 计算根据旧元素定位信息查找到的新元素，与旧元素之间的布局相似度得分
@@ -164,7 +181,7 @@ public class UtilsRepair {
         double disScore = 1 - centerDis / maxDis;
 
         // disScore 所占比重
-        double alpha = 0.3;
+        double alpha = Threshold.DISTANCE_WEIGHT.getValue();
         // 计算兄弟节点匹配成功的数目
         UtilsXmlLoader xmlLoader = new UtilsXmlLoader();
         xmlLoader.parseXml(oriLayoutXmlFile);
@@ -276,10 +293,13 @@ public class UtilsRepair {
         Set<MobileElement> result = new HashSet<>();
         List<MobileElement> tempResult;
         Rectangle swipeRect = null;
+        String originXmlFile = RepairRunner.curLayoutXmlFile;
 
         while(true) {
             // 根据元素 classname 查找
             tempResult = driver.findElementsByClassName(statement.getClassName());
+            if (tempResult != null) result.addAll(tempResult);
+            tempResult = driver.findElementsByClassName("android.widget.TextView");
             if (tempResult != null) result.addAll(tempResult);
             // 根据身份属性查找
             if (StringUtils.isNotEmpty(statement.getResourceId())) {
@@ -291,7 +311,7 @@ public class UtilsRepair {
                 if (tempResult != null) result.addAll(tempResult);
             }
             if (StringUtils.isNotEmpty(statement.getText())) {
-                tempResult = driver.findElementsByXPath("//" + statement.getClassName() + "[@text='" + statement.getText() + "']");
+                tempResult = driver.findElementsByXPath("//*[@text=\"" + statement.getText() + "\"]");
                 if (tempResult != null) result.addAll(tempResult);
             }
             // 根据 xpath 路径查找
@@ -304,22 +324,35 @@ public class UtilsRepair {
             // 检查相似度
             double maxSimScore = 0.0;
             MobileElement mostSimElement = null;
+            Map<MobileElement, Double> eleSemanticSimMap = new HashMap<>();
+            for (MobileElement ele : result) {
+                double semanticSim = checkElementBySemantic(ele, statement, isIdConsidered);
+                if (semanticSim == 1.0) {
+                    // 如果语义完全吻合，则直接返回该元素
+                    return ele;
+                }
+                eleSemanticSimMap.put(ele, semanticSim);
+            }
             for (MobileElement ele : result) {
                 if (!ele.isDisplayed()) continue;
                 // 结构相似度
                 double sim1 = checkElementByCollectedInfo(RepairRunner.curLayoutXmlFile, ele, statement);
-                // 语义相似度
-                double sim2 = checkElementBySemantic(ele, statement, isIdConsidered);
-                if (sim2 == 1.0) {
-                    // 如果语义完全吻合，则直接返回该元素
+                if (sim1 == 1.0) {
+                    // 如果结构完全吻合，则直接返回该元素
                     return ele;
                 }
+                // 语义相似度
+                double sim2 = eleSemanticSimMap.get(ele);
                 // 布局相似度
                 double sim3 = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, RepairRunner.curLayoutXmlFile, isIdConsidered);
+                if (sim3 == 1.0) {
+                    // 如果布局完全吻合，则直接返回该元素
+                    return ele;
+                }
                 double beta = 0.3;
                 double score = sim1 * beta + sim2 * (1 - 2 * beta) + sim3 * beta;
 
-                if (score >= 0.6 && score > maxSimScore) {
+                if (score >= Threshold.ELE_SIM_SCORE.getValue() && score > maxSimScore) {
                     maxSimScore = score;
                     mostSimElement = ele;
                 }
@@ -357,6 +390,7 @@ public class UtilsRepair {
                     new TouchAction(driver).press(PointOption.point(endPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(startPoint)).release().perform();
                 }
                 repairedSwipe.clear();
+                RepairRunner.curLayoutXmlFile = originXmlFile;
                 return null;
             } else {
                 // 滑动带来新元素，清除老元素
@@ -375,7 +409,7 @@ public class UtilsRepair {
         List<XmlTreeNode> nodeList = xmlLoader.getAllNodes();
 
         for (XmlTreeNode node : nodeList) {
-            if (node instanceof UiNode && ((UiNode) node).getAttribute("scrollable").equals("true")) {
+            if (node instanceof UiNode && "true".equals(((UiNode) node).getAttribute("scrollable"))) {
                 String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");
                 int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
                 int width = bounds[2] - bounds[0];
@@ -410,11 +444,13 @@ public class UtilsRepair {
     private static void getClickableNodes(XmlTreeNode node, List<XmlTreeNode> clickableNodes) {
         // 叶节点
         if (!node.hasChild()) {
-            if (((UiNode)node).getAttribute("clickable").equals("true")) clickableNodes.add(node);
+            if ("true".equals(((UiNode)node).getAttribute("clickable"))) {
+                clickableNodes.add(node);
+            }
             return;
         }
         // clickable 属性值为 true 的非叶节点需找到子节点中第一个包含显式文本的叶元素，找不到就返回第一个找到的叶元素
-        if (node instanceof UiNode && ((UiNode) node).getAttribute("clickable").equals("true")) {
+        if (node instanceof UiNode && "true".equals(((UiNode) node).getAttribute("clickable"))) {
             UiNode keyNode = null;
             Stack<XmlTreeNode> stack = new Stack<>();
             stack.push(node);
@@ -422,7 +458,7 @@ public class UtilsRepair {
             while(!stack.empty()) {
                 UiNode cur = (UiNode) stack.pop();
                 if(!cur.hasChild()) {
-                    if (cur.getAttribute("clickable").equals("true")) {
+                    if ("true".equals(cur.getAttribute("clickable"))) {
                         clickableNodes.add(cur);
                     } else if (!flag && (StringUtils.isNotBlank(cur.getAttribute("text")) || StringUtils.isNotBlank(cur.getAttribute("content-desc")))) {
                         // 获取第一个遇到的包含显式文本的叶元素，对于后面遇到的显式文本叶元素不予理会
@@ -455,15 +491,24 @@ public class UtilsRepair {
     // 对于查找到的修复元素，根据原测试语句的定位策略决策出合适的定位器
     public static AppiumLocator getAppropriateLocator(AndroidDriver driver, EnhancedMobileElement statement, MobileElement candidateElement, String curLayoutXmlFile) {
         AppiumLocator originLocator = statement.getLocator();
-        if (originLocator.getStrategy().equals("resourceId")) {
+        if (originLocator.getStrategy().equals("resourceId") && StringUtils.isNotBlank(candidateElement.getAttribute("resourceId"))) {
             if (driver.findElementsById(candidateElement.getAttribute("resourceId")).size() == 1) {
                 return new AppiumLocator("resourceId", candidateElement.getAttribute("resourceId"));
             }
-        } else if (originLocator.getStrategy().equals("contentDesc")) {
+        } else if (originLocator.getStrategy().equals("contentDesc") && StringUtils.isNotBlank(candidateElement.getAttribute("contentDescription"))) {
+            if (driver.findElementsByAccessibilityId(candidateElement.getAttribute("contentDescription")).size() == 1) {
+                return new AppiumLocator("contentDesc", candidateElement.getAttribute("contentDescription"));
+            }
+        } else if (StringUtils.isNotBlank(candidateElement.getAttribute("resourceId"))) {
+            if (driver.findElementsById(candidateElement.getAttribute("resourceId")).size() == 1) {
+                return new AppiumLocator("resourceId", candidateElement.getAttribute("resourceId"));
+            }
+        } else if (StringUtils.isNotBlank(candidateElement.getAttribute("contentDescription"))) {
             if (driver.findElementsByAccessibilityId(candidateElement.getAttribute("contentDescription")).size() == 1) {
                 return new AppiumLocator("contentDesc", candidateElement.getAttribute("contentDescription"));
             }
         }
+
         String xpath = UtilsXpath.getElementOptimalXpath(candidateElement,curLayoutXmlFile);
         return new AppiumLocator("xpath", xpath);
     }

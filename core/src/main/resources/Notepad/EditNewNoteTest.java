@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V1
+// From V1.1
 // New note fab -> sendKeys("SEU") -> sendKeys("I am a student.") -> Save
 public class EditNewNoteTest {
 

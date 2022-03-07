@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.Button[@resource-id='com.dywx.larkplayer:id/btn_install_theme'];//android.widget.Button[@text=\"Install\"];//android.widget.FrameLayout[@resource-id='com.dywx.larkplayer:id/theme_needs_install_container']/android.widget.LinearLayout[1]/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/com.android.widget.SlidingPaneLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.ScrollView[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "resourceId": "com.dywx.larkplayer:id/btn_install_theme",
+  "text": "Install",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 164,
+  "y": 1075,
+  "width": 440,
+  "height": 96
+}

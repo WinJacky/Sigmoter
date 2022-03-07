@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.atomczak.notepat:id/textNoteContentEdit'];//android.widget.EditText[@text='Enter text...'];//android.widget.LinearLayout[@resource-id='com.atomczak.notepat:id/text_note_fragment']/android.widget.EditText[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.FrameLayout[2]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[2]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.atomczak.notepat:id/textNoteContentEdit",
+  "text": "Enter text...",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 8,
+  "y": 259,
+  "width": 752,
+  "height": 917
+}

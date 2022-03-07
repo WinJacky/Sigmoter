@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.Button[@resource-id='android:id/button1'];//android.widget.Button[@text='DELETE'];//android.widget.LinearLayout[@resource-id='com.atomczak.notepat:id/buttonPanel']/android.widget.Button[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.Button[2]",
+  "className": "android.widget.Button",
+  "resourceId": "android:id/button1",
+  "text": "DELETE",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 545,
+  "y": 616,
+  "width": 147,
+  "height": 96
+}

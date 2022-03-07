@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.ImageButton[@resource-id='com.atomczak.notepat:id/new_note_fab'];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.ImageButton[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.ImageButton[1]",
+  "className": "android.widget.ImageButton",
+  "resourceId": "com.atomczak.notepat:id/new_note_fab",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 624,
+  "y": 1040,
+  "width": 112,
+  "height": 112
+}

@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.dywx.larkplayer:id/search_box_edit'];//android.widget.EditText[@text=\"Search media\"];//android.widget.LinearLayout[@resource-id='com.dywx.larkplayer:id/custom_search_view']/android.widget.LinearLayout[1]/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.dywx.larkplayer:id/search_box_edit",
+  "text": "Search media",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 112,
+  "y": 68,
+  "width": 626,
+  "height": 72
+}

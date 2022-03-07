@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.CheckedTextView[@text='Settings'];//androidx.appcompat.widget.LinearLayoutCompat[@resource-id='com.atomczak.notepat:id/nav_settings']/android.widget.CheckedTextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/androidx.drawerlayout.widget.DrawerLayout[1]/android.widget.FrameLayout[1]/androidx.recyclerview.widget.RecyclerView[1]/androidx.appcompat.widget.LinearLayoutCompat[3]/android.widget.CheckedTextView[1]",
+  "className": "android.widget.CheckedTextView",
+  "resourceId": "com.atomczak.notepat:id/design_menu_item_text",
+  "text": "Settings",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 32,
+  "y": 404,
+  "width": 496,
+  "height": 96
+}

@@ -9,8 +9,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V1
-// "SEU" note -> More options -> Delete -> DELETE
+// From V1.1
+// "SEU" note ->  Delete -> DELETE
 public class DeleteNoteTest {
 
     private AndroidDriver driver;
@@ -34,9 +34,8 @@ public class DeleteNoteTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[2]/android.widget.TextView").click();
-        driver.findElementByAccessibilityId("More options").click();
-        driver.findElementById("com.atomczak.notepat:id/title").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[2]/android.widget.TextView").click();
+        driver.findElementByAccessibilityId("Delete").click();
         driver.findElementById("android:id/button1").click();
     }
 

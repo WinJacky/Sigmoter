@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V2
+// From V1.3.2
 // SORT -> edit date: from oldest -> SORT
 public class SortByOldestTest {
 
@@ -35,7 +35,7 @@ public class SortByOldestTest {
     @Test
     public void sampleTest() {
         driver.findElementById("com.atomczak.notepat:id/sort_notes_button").click();
-        driver.findElementByXPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.CheckedTextView[2]").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout/android.widget.ListView/android.widget.CheckedTextView[2]").click();
         driver.findElementById("android:id/button1").click();
     }
 

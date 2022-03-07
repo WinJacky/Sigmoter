@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V1
+// From V1.1
 // Hello,how are you? -> sendKeys("Hello, I am from SEU!") -> sendKeys("My name is Feisher.") -> Save
 public class ModifyNoteTest {
 

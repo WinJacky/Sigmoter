@@ -1,0 +1,12 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Open navigation drawer",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Settings",
+    "type": "click"
+  }
+]

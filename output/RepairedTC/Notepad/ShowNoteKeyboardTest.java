@@ -30,9 +30,8 @@ public class ShowNoteKeyboardTest {
     @Test
     public void sampleTest() {
         driver.findElementByAccessibilityId("Open navigation drawer").click();
-        driver.findElementByXPath("//android.widget.CheckedTextView[@text='Settings']").click();
-        driver.findElementByXPath("//android.widget.TextView[@text='Note editing']").click();
-        driver.findElementByXPath("//android.widget.TextView[@text='Show note keyboard']").click();
+        driver.findElementByXPath("//android.widget.CheckedTextView[@text=\"Settings\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Note list\"]").click();
     }
 
     @After

@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 37,
+    "text": "Navigate up",
+    "type": "click"
+  },
+  {
+    "lineNumber": 38,
+    "text": "Video",
+    "type": "click"
+  },
+  {
+    "lineNumber": 39,
+    "text": "Sort by…",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Length",
+    "type": "click"
+  }
+]

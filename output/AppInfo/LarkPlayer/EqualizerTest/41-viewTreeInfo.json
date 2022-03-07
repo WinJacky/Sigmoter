@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.ImageButton[@resource-id='com.dywx.larkplayer:id/img_btn_rock'];//android.widget.FrameLayout[@resource-id='com.dywx.larkplayer:id/equalizer_placeholder']/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.ImageButton[3];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.ImageButton[3]",
+  "className": "android.widget.ImageButton",
+  "resourceId": "com.dywx.larkplayer:id/img_btn_rock",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 384,
+  "y": 884,
+  "width": 180,
+  "height": 114
+}

@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V3.2
+// From V1.3.2
 // Open navigation drawer -> Settings -> Attach diagnostic info -> Hide note titles in diagnostic log
 public class DiagnosticInfoTest {
 

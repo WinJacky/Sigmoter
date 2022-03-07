@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V5.1
+// From V1.5.1
 // Search -> sendKeys("SEU")
 public class SearchTest {
 

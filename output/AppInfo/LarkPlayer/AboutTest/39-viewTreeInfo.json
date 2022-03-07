@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.ImageButton[@content-desc='Navigate up'];//android.view.ViewGroup[@resource-id='com.dywx.larkplayer:id/main_toolbar']/android.widget.ImageButton[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.ImageButton[1]",
+  "className": "android.widget.ImageButton",
+  "contentDesc": "Navigate up",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 0,
+  "y": 48,
+  "width": 112,
+  "height": 112
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Navigate up",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Directories",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "OK",
+    "type": "click"
+  }
+]

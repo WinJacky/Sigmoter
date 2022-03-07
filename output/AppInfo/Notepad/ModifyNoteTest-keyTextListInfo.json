@@ -1,0 +1,12 @@
+[
+  {
+    "lineNumber": 37,
+    "text": "Hello, how are you?",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "SAVE",
+    "type": "click"
+  }
+]

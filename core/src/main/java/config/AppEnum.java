@@ -7,9 +7,25 @@ package main.java.config;
  */
 public enum AppEnum {
 
+    AlarmMon("AlarmMon", "main.resources.AlarmMon"),
+
+    BBCNews("BBCNews", "main.resources.BBCNews"),
+
+    DaysMatter("DaysMatter", "main.resources.DaysMatter"),
+
+    FotMob("FotMob", "main.resources.FotMob"),
+
+    HryFine("HryFine", "main.resources.HryFine"),
+
+    iReader("iReader", "main.resources.iReader"),
+
     LarkPlayer("LarkPlayer", "main.resources.LarkPlayer"),
 
     Notepad("Notepad", "main.resources.Notepad"),
+
+    SenseWeather("SenseWeather", "main.resources.SenseWeather"),
+
+    Webtoon("Webtoon", "main.resources.Webtoon"),
 
     APIDemo("APIDemo", "main.resources.APIDemo");
 

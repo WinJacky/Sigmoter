@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 37,
+    "text": "Open navigation drawer",
+    "type": "click"
+  },
+  {
+    "lineNumber": 38,
+    "text": "Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 39,
+    "text": "Cursor position in a note",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Cursor at the end of a note",
+    "type": "click"
+  }
+]

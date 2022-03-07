@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Themes\"];//android.widget.ListView[@resource-id='com.dywx.larkplayer:id/drawer_listview']/android.widget.LinearLayout[6]/android.widget.RelativeLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.RelativeLayout[1]/android.widget.ListView[1]/android.widget.LinearLayout[6]/android.widget.RelativeLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.dywx.larkplayer:id/text",
+  "text": "Themes",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 144,
+  "y": 918,
+  "width": 296,
+  "height": 100
+}

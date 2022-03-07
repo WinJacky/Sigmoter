@@ -7,6 +7,7 @@ import main.java.dataType.KeyText;
 import main.java.util.UtilsAspect;
 import main.java.util.UtilsHierarchyXml;
 import main.java.util.UtilsParser;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Alert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +47,7 @@ public aspect InfoExtractor {
                                     call(* io.appium.java_client.MobileDriver.findElementByClassName(..)) ||
                                     call(* io.appium.java_client.MobileDriver.findElementByCssSelector(..)) ||
                                     call(* io.appium.java_client.MobileDriver.findElementByLinkText(..)) ||
-                                    call(* io.appium.java_client.MobileDriver.findElementByPartialLinkText(..)) ||
                                     call(* io.appium.java_client.MobileDriver.findElementByName(..)) ||
-                                    call(* io.appium.java_client.MobileDriver.findElementByTagName(..)) ||
                                     call(* io.appium.java_client.MobileDriver.findElementByXPath(..));
 
     // Intercept the calls to MobileElement methods
@@ -111,7 +110,7 @@ public aspect InfoExtractor {
             }
             // 获取并保存当前元素的文本内容，仅限click事件的目标元素
             String textContent = UtilsAspect.getKeyText(thisJoinPoint);
-            if (textContent != null && !textContent.equals("")) {
+            if (StringUtils.isNotBlank(textContent)) {
                 if (keyTexts == null) {
                     keyTexts = new ArrayList<>();
                 }

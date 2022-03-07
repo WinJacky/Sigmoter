@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 37,
+    "text": "Navigate up",
+    "type": "click"
+  },
+  {
+    "lineNumber": 38,
+    "text": "Themes",
+    "type": "click"
+  },
+  {
+    "lineNumber": 39,
+    "text": "Night Mode",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Install",
+    "type": "click"
+  }
+]

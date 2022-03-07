@@ -1,0 +1,16 @@
+{
+  "xpath": "//android.widget.TextView[@content-desc='Sort by…'];//android.widget.TextView[@resource-id='com.dywx.larkplayer:id/ml_menu_sortby'];//android.view.ViewGroup[@resource-id='com.dywx.larkplayer:id/main_toolbar']/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.TextView[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.TextView[2]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.dywx.larkplayer:id/ml_menu_sortby",
+  "contentDesc": "Sort by…",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 656,
+  "y": 56,
+  "width": 112,
+  "height": 96
+}

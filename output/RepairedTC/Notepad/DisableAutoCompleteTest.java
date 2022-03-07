@@ -1,16 +1,12 @@
 package Notepad;
 
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.Duration;
 
 public class DisableAutoCompleteTest {
 
@@ -34,9 +30,7 @@ public class DisableAutoCompleteTest {
     @Test
     public void sampleTest() {
         driver.findElementByAccessibilityId("Open navigation drawer").click();
-        driver.findElementByXPath("//android.widget.CheckedTextView[@text='Settings']").click();
-        new TouchAction(driver).press(PointOption.point(384, 1056)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(384, 288)).release().perform();
-        driver.findElementByXPath("//android.widget.TextView[@text='Disable text autocomplete']").click();
+        driver.findElementByXPath("//android.widget.CheckedTextView[@text=\"Settings\"]").click();
     }
 
     @After

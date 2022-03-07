@@ -239,7 +239,15 @@ public class ParseTest {
                 BlockStmt newBlockStmt = new BlockStmt();
 
                 for (Integer i : tc.getStatements().keySet()) {
-                    ASTHelper.addStmt(newBlockStmt, new NameExpr(tc.getStatements().get(i).toString()));
+                    String stm = tc.getStatements().get(i).toString();
+                    if (stm.contains("findElementByXPath")) {
+                        String bracket = StringUtils.substringBetween(stm, "[", "]");
+                        if (bracket != null) {
+                            String bracketPlus = bracket.replaceAll("\"", "\\\\\"");
+                            stm = stm.replace(bracket, bracketPlus);
+                        }
+                    }
+                    ASTHelper.addStmt(newBlockStmt, new NameExpr(stm));
                 }
                 n.setBody(newBlockStmt);
             }
