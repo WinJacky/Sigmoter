@@ -434,7 +434,9 @@ public class UtilsRepair {
         // 将可点击节点转化为可点击元素
         List<EnhancedMobileElement> clickableElements = new ArrayList<>();
         for (XmlTreeNode node : clickableNodes) {
-            clickableElements.add(UtilsXpath.castNode2Element(xmlLoader.getAllNodes(), (UiNode) node));
+            if (node != null) {
+                clickableElements.add(UtilsXpath.castNode2Element(xmlLoader.getAllNodes(), (UiNode) node));
+            }
         }
 
         return clickableElements;

@@ -74,7 +74,7 @@ public class RepairRunner {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
         appEnum = AppEnum.LarkPlayer;
-        String testcaseName = "VideoTest";
+        String testcaseName = "EqualizerTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;
@@ -274,6 +274,32 @@ public class RepairRunner {
                         logger.info("Direct breakage detected at line " + statementNum);
                         logger.info("Cause: Locating incorrect element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
                         brokenStmNum++;
+
+                        // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
+                        if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
+                            int nextStmNum = statementNum + 1;
+                            Statement nextStm = originStmMap.get(nextStmNum);
+                            if (nextStm instanceof EnhancedMobileElement) {
+                                tempSta = (EnhancedMobileElement) nextStm;
+                                if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
+                                    isIdConsidered = true;
+                                }
+                                // 在当前界面查找元素
+                                MobileElement targetElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
+                                if (targetElement != null) {
+                                    if (!repairedSwipe.isEmpty()) {
+                                        repairedSwipeMap.put(nextStmNum, repairedSwipe);
+                                    }
+                                    // 下一条语句在当前界面找到，当前语句被删除
+                                    logger.info("Current statement has been removed, it will be deleted from the test");
+                                    repairedStmMap.put(statementNum, null);
+                                    deletedStmNum++;
+                                    previousStatement = statement;
+                                    continue;
+                                }
+                            }
+                        }
+
                         candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
                         if (candidateElement == null) noSuchElement = true;
                         else noSuchElement = false;
@@ -289,6 +315,29 @@ public class RepairRunner {
                     logger.info("Cause: Found more than one element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
                 }
                 brokenStmNum++;
+
+                if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
+                    int nextStmNum = statementNum + 1;
+                    Statement nextStm = originStmMap.get(nextStmNum);
+                    if (nextStm instanceof EnhancedMobileElement) {
+                        tempSta = (EnhancedMobileElement) nextStm;
+                        if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
+                            isIdConsidered = true;
+                        }
+                        MobileElement targetElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
+                        if (targetElement != null) {
+                            if (!repairedSwipe.isEmpty()) {
+                                repairedSwipeMap.put(nextStmNum, repairedSwipe);
+                            }
+                            logger.info("Current statement has been removed, it will be deleted from the test");
+                            repairedStmMap.put(statementNum, null);
+                            deletedStmNum++;
+                            previousStatement = statement;
+                            continue;
+                        }
+                    }
+                }
+
                 candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
                 if (candidateElement == null) noSuchElement = true;
                 else noSuchElement = false;
@@ -467,6 +516,7 @@ public class RepairRunner {
                     }
                 }
                 if (exploreStack.empty()) {
+                    logger.info("元素未查找到。。。");
                     break;
                 } else {
                     // 拿出栈顶状态的可点击序列，点击第一个元素
@@ -547,13 +597,21 @@ public class RepairRunner {
         AppiumLocator locator = clickableStm.getLocator();
         MobileElement elementToBeClicked = null;
         logger.info("Click Element: " + locator.toString());
-        if (locator.getStrategy().equals("resourceId")) {
-            elementToBeClicked = (MobileElement) driver.findElementById(locator.getValue());
-        } else if (locator.getStrategy().equals("contentDesc")) {
-            elementToBeClicked = (MobileElement) driver.findElementByAccessibilityId(locator.getValue());
-        } else if (locator.getStrategy().equals("xpath")) {
-            elementToBeClicked = (MobileElement) driver.findElementByXPath(locator.getValue());
+        try {
+            if (locator.getStrategy().equals("resourceId")) {
+                elementToBeClicked = (MobileElement) driver.findElementById(locator.getValue());
+            } else if (locator.getStrategy().equals("contentDesc")) {
+                elementToBeClicked = (MobileElement) driver.findElementByAccessibilityId(locator.getValue());
+            } else if (locator.getStrategy().equals("xpath")) {
+                elementToBeClicked = (MobileElement) driver.findElementByXPath(locator.getValue());
+            }
+        } catch (NoSuchElementException e) {
+            logger.info("界面变动，元素已不在当前界面，将点击下一个元素。。。");
+            // 为了不影响整体流程，由于不会造成状态变换，因此会在下一个循环将该语句删除
+            clickElementList.add(clickableStm);
+            return;
         }
+
         clickElementList.add(clickableStm);
         elementToBeClicked.click();
         // 元素点击后需要等待 1s 以待新界面加载完成
