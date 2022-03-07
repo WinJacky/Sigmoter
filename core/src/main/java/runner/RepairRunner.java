@@ -74,7 +74,7 @@ public class RepairRunner {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
         appEnum = AppEnum.LarkPlayer;
-        String testcaseName = "EqualizerTest";
+        String testcaseName = "SortArtistTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;
@@ -151,6 +151,14 @@ public class RepairRunner {
         driver = new AndroidDriver(url, capabilities);
         // 运行APP
         driver.launchApp();
+        while(driver.getPageSource().contains("Test Ad")) {
+            logger.error("Please remove ads manually!!");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                logger.info("Driver wait has been interrupted");
+            }
+        }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.findElementByClassName("android.widget.TextView");
 
