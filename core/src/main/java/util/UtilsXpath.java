@@ -129,19 +129,6 @@ public class UtilsXpath {
             }
         }
 
-        // 有时候元素点击带来界面滑动，但 y 坐标基本是一致的
-//        for (XmlTreeNode node : nodeList) {
-//            String[] boundStr = ((UiNode)node).getAttribute("bounds").substring(1).split("[,\\[\\]]+");
-//            int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
-//            if(bounds[1] == rect.y) {
-//                int height = bounds[3] - bounds[1];
-//                if(rect.height == height) {
-//                    return (UiNode) node;
-//                }
-//            }
-//        }
-
-        // TODO: 删除上面无效代码块
         if (element instanceof MobileElement) {
             MobileElement temp = (MobileElement) element;
             logger.info(temp.getText() + " " + temp.getLocation() + " " + temp.getSize());

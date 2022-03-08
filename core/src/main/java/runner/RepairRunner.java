@@ -74,7 +74,7 @@ public class RepairRunner {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
         appEnum = AppEnum.LarkPlayer;
-        String testcaseName = "SortArtistTest";
+        String testcaseName = "AboutTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;
@@ -283,34 +283,47 @@ public class RepairRunner {
                         logger.info("Cause: Locating incorrect element by the locator " + ((EnhancedMobileElement)statement).getLocator() + " in the current state");
                         brokenStmNum++;
 
-                        // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
-                        if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
-                            int nextStmNum = statementNum + 1;
-                            Statement nextStm = originStmMap.get(nextStmNum);
-                            if (nextStm instanceof EnhancedMobileElement) {
-                                tempSta = (EnhancedMobileElement) nextStm;
-                                if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
-                                    isIdConsidered = true;
-                                }
-                                // 在当前界面查找元素
-                                MobileElement targetElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
-                                if (targetElement != null) {
-                                    if (!repairedSwipe.isEmpty()) {
-                                        repairedSwipeMap.put(nextStmNum, repairedSwipe);
+                        // 在当前界面查找元素
+                        candidateElement = UtilsRepair.searchForTargetElementOnState(driver, (EnhancedMobileElement)statement, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
+                        if (candidateElement != null) {
+                            noSuchElement = false;
+                            if (repairedSwipe.isEmpty()) {
+                                // 在当前页面直接修复，表明该情况属于元素修复
+                                eleBrokenNum++;
+                            }
+                            logger.info("目标元素在当前界面被找到。。。");
+                        } else {
+                            // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
+                            if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
+                                int nextStmNum = statementNum + 1;
+                                Statement nextStm = originStmMap.get(nextStmNum);
+                                if (nextStm instanceof EnhancedMobileElement) {
+                                    tempSta = (EnhancedMobileElement) nextStm;
+                                    if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
+                                        isIdConsidered = true;
                                     }
-                                    // 下一条语句在当前界面找到，当前语句被删除
-                                    logger.info("Current statement has been removed, it will be deleted from the test");
-                                    repairedStmMap.put(statementNum, null);
-                                    deletedStmNum++;
-                                    previousStatement = statement;
-                                    continue;
+                                    // 在当前界面查找元素
+                                    String nextStmXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
+                                            Settings.sep + testcaseName + Settings.sep + nextStmNum + "-hierarchy" + Settings.XML_EXT;
+                                    candidateElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, nextStmXmlFile, repairedSwipe, isIdConsidered);
+                                    if (candidateElement != null) {
+                                        if (!repairedSwipe.isEmpty()) {
+                                            repairedSwipeMap.put(nextStmNum, repairedSwipe);
+                                        }
+                                        // 下一条语句在当前界面找到，当前语句被删除
+                                        logger.info("当前操作对象被移除，该测试语句将被删除。。。");
+                                        repairedStmMap.put(statementNum, null);
+                                        deletedStmNum++;
+                                        previousStatement = statement;
+                                        continue;
+                                    }
                                 }
                             }
-                        }
 
-                        candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
-                        if (candidateElement == null) noSuchElement = true;
-                        else noSuchElement = false;
+                            candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
+                            if (candidateElement == null) noSuchElement = true;
+                            else noSuchElement = false;
+                        }
                     }
                 }
             }  catch (RuntimeException e) {
@@ -324,31 +337,47 @@ public class RepairRunner {
                 }
                 brokenStmNum++;
 
-                if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
-                    int nextStmNum = statementNum + 1;
-                    Statement nextStm = originStmMap.get(nextStmNum);
-                    if (nextStm instanceof EnhancedMobileElement) {
-                        tempSta = (EnhancedMobileElement) nextStm;
-                        if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
-                            isIdConsidered = true;
-                        }
-                        MobileElement targetElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
-                        if (targetElement != null) {
-                            if (!repairedSwipe.isEmpty()) {
-                                repairedSwipeMap.put(nextStmNum, repairedSwipe);
+                // 在当前界面查找元素
+                candidateElement = UtilsRepair.searchForTargetElementOnState(driver, (EnhancedMobileElement)statement, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
+                if (candidateElement != null) {
+                    noSuchElement = false;
+                    if (repairedSwipe.isEmpty()) {
+                        // 在当前页面直接修复，表明该情况属于元素修复
+                        eleBrokenNum++;
+                    }
+                    logger.info("目标元素在当前界面被找到。。。");
+                } else {
+                    // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
+                    if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
+                        int nextStmNum = statementNum + 1;
+                        Statement nextStm = originStmMap.get(nextStmNum);
+                        if (nextStm instanceof EnhancedMobileElement) {
+                            tempSta = (EnhancedMobileElement) nextStm;
+                            if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
+                                isIdConsidered = true;
                             }
-                            logger.info("Current statement has been removed, it will be deleted from the test");
-                            repairedStmMap.put(statementNum, null);
-                            deletedStmNum++;
-                            previousStatement = statement;
-                            continue;
+                            // 在当前界面查找元素
+                            String nextStmXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
+                                    Settings.sep + testcaseName + Settings.sep + nextStmNum + "-hierarchy" + Settings.XML_EXT;
+                            candidateElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, nextStmXmlFile, repairedSwipe, isIdConsidered);
+                            if (candidateElement != null) {
+                                if (!repairedSwipe.isEmpty()) {
+                                    repairedSwipeMap.put(nextStmNum, repairedSwipe);
+                                }
+                                // 下一条语句在当前界面找到，当前语句被删除
+                                logger.info("当前操作对象被移除，该测试语句将被删除。。。");
+                                repairedStmMap.put(statementNum, null);
+                                deletedStmNum++;
+                                previousStatement = statement;
+                                continue;
+                            }
                         }
                     }
-                }
 
-                candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
-                if (candidateElement == null) noSuchElement = true;
-                else noSuchElement = false;
+                    candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
+                    if (candidateElement == null) noSuchElement = true;
+                    else noSuchElement = false;
+                }
             }
 
             if (noSuchElement) {
@@ -633,8 +662,10 @@ public class RepairRunner {
     // 根据修复语句 statement 决定对该元素的操作方式：clear、click、sendKeys
     private void fireEvent(MobileElement element, Statement statement){
         if (statement.getAction().equals(AppiumAction.Clear)) {
+            logger.info("Clear Element: " + ((EnhancedMobileElement)statement).getLocator().toString());
             element.clear();
         } else if (statement.getAction().equals(AppiumAction.Click)) {
+            logger.info("Click Element: " + ((EnhancedMobileElement)statement).getLocator().toString());
             element.click();
             // 元素点击后需要等待 1s 以待新界面加载完成
             try {
@@ -643,6 +674,7 @@ public class RepairRunner {
                 logger.info("Driver wait has been interrupted");
             }
         } else if (statement.getAction().equals(AppiumAction.SendKeys)) {
+            logger.info("SendKeys Element: " + ((EnhancedMobileElement)statement).getLocator().toString());
             element.sendKeys(statement.getValue());
         } else {
             logger.info("UnKnown operation! Cannot fire event");
