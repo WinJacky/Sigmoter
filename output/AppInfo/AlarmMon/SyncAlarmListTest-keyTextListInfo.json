@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 41,
+    "text": "Sync my alarm list",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Upload alarm list in server.",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Cancel",
+    "type": "click"
+  }
+]

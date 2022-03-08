@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.malangstudio.alarmmon:id/edit_id'];//android.widget.EditText[@text=\"Reply email address\"];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.malangstudio.alarmmon:id/edit_id",
+  "text": "Reply email address",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 48,
+  "y": 160,
+  "width": 672,
+  "height": 96
+}

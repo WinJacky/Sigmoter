@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Contact Us\"];//android.support.v7.widget.RecyclerView[@resource-id='com.malangstudio.alarmmon:id/settingsRecyclerView']/android.widget.RelativeLayout[4]/android.widget.LinearLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.support.v4.view.ViewPager[1]/android.view.ViewGroup[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[4]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.malangstudio.alarmmon:id/titleTextView",
+  "text": "Contact Us",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 590,
+  "y": 331,
+  "width": 164,
+  "height": 41
+}

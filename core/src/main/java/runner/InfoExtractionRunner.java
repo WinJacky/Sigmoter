@@ -22,9 +22,9 @@ public class InfoExtractionRunner {
         // enable the AspectJ module
         Settings.aspectActive = true;
 
-        Settings extractorSetting = new Settings(AppEnum.LarkPlayer);
+        Settings extractorSetting = new Settings(AppEnum.AlarmMon);
 
-        runTest(extractorSetting.testSuite, "EqualizerTest");
+        runTest(extractorSetting.testSuite, "ContactUsTest");
     }
 
 

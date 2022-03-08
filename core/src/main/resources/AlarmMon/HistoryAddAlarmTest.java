@@ -10,9 +10,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V6.9.3
-// History -> Add alarms -> (Swipe) -> Use -> sendKeys("SEU") -> Save
+// History -> Add alarms -> (Swipe) -> Not Use -> sendKeys("SEU") -> Save
 public class HistoryAddAlarmTest {
 
     private AndroidDriver driver;
@@ -32,13 +33,14 @@ public class HistoryAddAlarmTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
     public void sampleTest() {
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.ImageView").click();
         driver.findElementById("com.malangstudio.alarmmon:id/addAlarmButton").click();
-        new TouchAction(driver).press(PointOption.point(343, 985)).moveTo(PointOption.point(343, 416)).release().perform();
+        new TouchAction(driver).press(PointOption.point(343, 1000)).moveTo(PointOption.point(343, 250)).release().perform();
         driver.findElementById("com.malangstudio.alarmmon:id/snoozeButton").click();
         driver.findElementById("com.malangstudio.alarmmon:id/memoEditText").sendKeys("SEU");
         driver.findElementById("com.malangstudio.alarmmon:id/saveButton").click();

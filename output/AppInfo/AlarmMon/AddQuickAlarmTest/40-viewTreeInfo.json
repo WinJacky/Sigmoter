@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.ImageButton[@resource-id='com.malangstudio.alarmmon:id/add_floating_action_menu_quick'];//android.view.ViewGroup[@resource-id='com.malangstudio.alarmmon:id/add_floating_action_menu']/android.widget.ImageButton[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.support.v4.view.ViewPager[1]/android.view.ViewGroup[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.view.ViewGroup[1]/android.widget.ImageButton[1]",
+  "className": "android.widget.ImageButton",
+  "resourceId": "com.malangstudio.alarmmon:id/add_floating_action_menu_quick",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 319,
+  "y": 632,
+  "width": 132,
+  "height": 140
+}

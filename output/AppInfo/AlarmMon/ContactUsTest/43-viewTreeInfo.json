@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Send\"];//android.widget.FrameLayout[@resource-id='com.malangstudio.alarmmon:id/button_confirm']/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "text": "Send",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 0,
+  "y": 1074,
+  "width": 768,
+  "height": 110
+}

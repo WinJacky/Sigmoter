@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@resource-id='com.malangstudio.alarmmon:id/uploadButton'];//android.widget.TextView[@text=\"Upload alarm list in server.\"];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.LinearLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.malangstudio.alarmmon:id/uploadButton",
+  "text": "Upload alarm list in server.",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 16,
+  "y": 168,
+  "width": 736,
+  "height": 120
+}

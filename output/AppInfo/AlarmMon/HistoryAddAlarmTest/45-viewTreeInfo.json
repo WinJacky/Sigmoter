@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.malangstudio.alarmmon:id/memoEditText'];//android.widget.EditText[@text=\"Write memo here.\"];//android.widget.ScrollView[@resource-id='com.malangstudio.alarmmon:id/scrollView']/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.LinearLayout[6]/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.LinearLayout[6]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.malangstudio.alarmmon:id/memoEditText",
+  "text": "Write memo here.",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 171,
+  "y": 969,
+  "width": 549,
+  "height": 49
+}

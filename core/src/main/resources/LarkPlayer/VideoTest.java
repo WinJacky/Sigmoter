@@ -35,7 +35,7 @@ public class VideoTest {
     @Test
     public void sampleTest() {
     	driver.findElementByAccessibilityId("Navigate up").click();
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Video\"]").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.ListView/android.widget.LinearLayout[2]/android.widget.RelativeLayout/android.widget.TextView").click();
         driver.findElementByAccessibilityId("Sort by…").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.LinearLayout[2]/android.widget.RelativeLayout/android.widget.TextView").click();
     }
@@ -46,4 +46,4 @@ public class VideoTest {
     }
 }
 
-// 38: //hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.ListView/android.widget.LinearLayout[2]/android.widget.RelativeLayout/android.widget.TextView
+// 38: //android.widget.TextView[@text="Video"]

@@ -73,8 +73,8 @@ public class RepairRunner {
     public static void main(String[] args) {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
-        appEnum = AppEnum.LarkPlayer;
-        String testcaseName = "AboutTest";
+        appEnum = AppEnum.AlarmMon;
+        String testcaseName = "SettingsBtnSwitchTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;
@@ -151,16 +151,13 @@ public class RepairRunner {
         driver = new AndroidDriver(url, capabilities);
         // 运行APP
         driver.launchApp();
-        while(driver.getPageSource().contains("Test Ad")) {
-            logger.error("Please remove ads manually!!");
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                logger.info("Driver wait has been interrupted");
-            }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            logger.info("Driver wait has been interrupted");
         }
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElementByClassName("android.widget.TextView");
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        driver.findElementByClassName("android.widget.TextView");
 
         /* Map of the original statements. */
         Map<Integer, Statement> originStmMap = testBroken.getStatements();
@@ -284,46 +281,46 @@ public class RepairRunner {
                         brokenStmNum++;
 
                         // 在当前界面查找元素
-                        candidateElement = UtilsRepair.searchForTargetElementOnState(driver, (EnhancedMobileElement)statement, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
-                        if (candidateElement != null) {
-                            noSuchElement = false;
-                            if (repairedSwipe.isEmpty()) {
-                                // 在当前页面直接修复，表明该情况属于元素修复
-                                eleBrokenNum++;
-                            }
-                            logger.info("目标元素在当前界面被找到。。。");
-                        } else {
-                            // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
-                            if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
-                                int nextStmNum = statementNum + 1;
-                                Statement nextStm = originStmMap.get(nextStmNum);
-                                if (nextStm instanceof EnhancedMobileElement) {
-                                    tempSta = (EnhancedMobileElement) nextStm;
-                                    if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
-                                        isIdConsidered = true;
-                                    }
-                                    // 在当前界面查找元素
-                                    String nextStmXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
-                                            Settings.sep + testcaseName + Settings.sep + nextStmNum + "-hierarchy" + Settings.XML_EXT;
-                                    candidateElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, nextStmXmlFile, repairedSwipe, isIdConsidered);
-                                    if (candidateElement != null) {
-                                        if (!repairedSwipe.isEmpty()) {
-                                            repairedSwipeMap.put(nextStmNum, repairedSwipe);
-                                        }
-                                        // 下一条语句在当前界面找到，当前语句被删除
-                                        logger.info("当前操作对象被移除，该测试语句将被删除。。。");
-                                        repairedStmMap.put(statementNum, null);
-                                        deletedStmNum++;
-                                        previousStatement = statement;
-                                        continue;
-                                    }
-                                }
-                            }
-
+//                        candidateElement = UtilsRepair.searchForTargetElementOnState(driver, (EnhancedMobileElement)statement, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
+//                        if (candidateElement != null) {
+//                            noSuchElement = false;
+//                            if (repairedSwipe.isEmpty()) {
+//                                // 在当前页面直接修复，表明该情况属于元素修复
+//                                eleBrokenNum++;
+//                            }
+//                            logger.info("目标元素在当前界面被找到。。。");
+//                        } else {
+//                            // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
+//                            if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
+//                                int nextStmNum = statementNum + 1;
+//                                Statement nextStm = originStmMap.get(nextStmNum);
+//                                if (nextStm instanceof EnhancedMobileElement) {
+//                                    tempSta = (EnhancedMobileElement) nextStm;
+//                                    if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
+//                                        isIdConsidered = true;
+//                                    }
+//                                    // 在当前界面查找元素
+//                                    String nextStmXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
+//                                            Settings.sep + testcaseName + Settings.sep + nextStmNum + "-hierarchy" + Settings.XML_EXT;
+//                                    candidateElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, nextStmXmlFile, repairedSwipe, isIdConsidered);
+//                                    if (candidateElement != null) {
+//                                        if (!repairedSwipe.isEmpty()) {
+//                                            repairedSwipeMap.put(nextStmNum, repairedSwipe);
+//                                        }
+//                                        // 下一条语句在当前界面找到，当前语句被删除
+//                                        logger.info("当前操作对象被移除，该测试语句将被删除。。。");
+//                                        repairedStmMap.put(statementNum, null);
+//                                        deletedStmNum++;
+//                                        previousStatement = statement;
+//                                        continue;
+//                                    }
+//                                }
+//                            }
+//
                             candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
                             if (candidateElement == null) noSuchElement = true;
                             else noSuchElement = false;
-                        }
+//                        }
                     }
                 }
             }  catch (RuntimeException e) {
@@ -338,46 +335,46 @@ public class RepairRunner {
                 brokenStmNum++;
 
                 // 在当前界面查找元素
-                candidateElement = UtilsRepair.searchForTargetElementOnState(driver, (EnhancedMobileElement)statement, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
-                if (candidateElement != null) {
-                    noSuchElement = false;
-                    if (repairedSwipe.isEmpty()) {
-                        // 在当前页面直接修复，表明该情况属于元素修复
-                        eleBrokenNum++;
-                    }
-                    logger.info("目标元素在当前界面被找到。。。");
-                } else {
-                    // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
-                    if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
-                        int nextStmNum = statementNum + 1;
-                        Statement nextStm = originStmMap.get(nextStmNum);
-                        if (nextStm instanceof EnhancedMobileElement) {
-                            tempSta = (EnhancedMobileElement) nextStm;
-                            if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
-                                isIdConsidered = true;
-                            }
-                            // 在当前界面查找元素
-                            String nextStmXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
-                                    Settings.sep + testcaseName + Settings.sep + nextStmNum + "-hierarchy" + Settings.XML_EXT;
-                            candidateElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, nextStmXmlFile, repairedSwipe, isIdConsidered);
-                            if (candidateElement != null) {
-                                if (!repairedSwipe.isEmpty()) {
-                                    repairedSwipeMap.put(nextStmNum, repairedSwipe);
-                                }
-                                // 下一条语句在当前界面找到，当前语句被删除
-                                logger.info("当前操作对象被移除，该测试语句将被删除。。。");
-                                repairedStmMap.put(statementNum, null);
-                                deletedStmNum++;
-                                previousStatement = statement;
-                                continue;
-                            }
-                        }
-                    }
-
+//                candidateElement = UtilsRepair.searchForTargetElementOnState(driver, (EnhancedMobileElement)statement, oriLayoutXmlFile, repairedSwipe, isIdConsidered);
+//                if (candidateElement != null) {
+//                    noSuchElement = false;
+//                    if (repairedSwipe.isEmpty()) {
+//                        // 在当前页面直接修复，表明该情况属于元素修复
+//                        eleBrokenNum++;
+//                    }
+//                    logger.info("目标元素在当前界面被找到。。。");
+//                } else {
+//                    // 这条测试语句不是最后一句，观察其后的测试语句是否对元素操作，如果是，那么尝试找到该元素并删除当前测试语句
+//                    if (statementNum < (Integer) originStmMap.keySet().toArray()[originStmMap.size()-1]) {
+//                        int nextStmNum = statementNum + 1;
+//                        Statement nextStm = originStmMap.get(nextStmNum);
+//                        if (nextStm instanceof EnhancedMobileElement) {
+//                            tempSta = (EnhancedMobileElement) nextStm;
+//                            if (tempSta.getXpath().contains("//"+tempSta.getClassName()+"[@resource-id='" + tempSta.getResourceId() + "'];")) {
+//                                isIdConsidered = true;
+//                            }
+//                            // 在当前界面查找元素
+//                            String nextStmXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
+//                                    Settings.sep + testcaseName + Settings.sep + nextStmNum + "-hierarchy" + Settings.XML_EXT;
+//                            candidateElement = UtilsRepair.searchForTargetElementOnState(driver, tempSta, nextStmXmlFile, repairedSwipe, isIdConsidered);
+//                            if (candidateElement != null) {
+//                                if (!repairedSwipe.isEmpty()) {
+//                                    repairedSwipeMap.put(nextStmNum, repairedSwipe);
+//                                }
+//                                // 下一条语句在当前界面找到，当前语句被删除
+//                                logger.info("当前操作对象被移除，该测试语句将被删除。。。");
+//                                repairedStmMap.put(statementNum, null);
+//                                deletedStmNum++;
+//                                previousStatement = statement;
+//                                continue;
+//                            }
+//                        }
+//                    }
+//
                     candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
                     if (candidateElement == null) noSuchElement = true;
                     else noSuchElement = false;
-                }
+//                }
             }
 
             if (noSuchElement) {

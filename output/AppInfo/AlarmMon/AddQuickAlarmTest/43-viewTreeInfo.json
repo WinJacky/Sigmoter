@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.Button[@resource-id='com.malangstudio.alarmmon:id/thirtyMinuteButton'];//android.widget.Button[@text=\"30\"];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[4]/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[4]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "resourceId": "com.malangstudio.alarmmon:id/thirtyMinuteButton",
+  "text": "30",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 468,
+  "y": 878,
+  "width": 96,
+  "height": 96
+}

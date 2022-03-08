@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 41,
+    "text": "06:30",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Th",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "Select alarm game",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Save",
+    "type": "click"
+  }
+]

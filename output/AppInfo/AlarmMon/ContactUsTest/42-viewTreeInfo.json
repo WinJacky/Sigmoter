@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.malangstudio.alarmmon:id/edit_content'];//android.widget.EditText[@text=\"Please write your message \nex) The Pico alarm which I set during the weekdays did not ring at all! \n* Tip! -If you are using an app that manages memory, let us know the name of the service and it will be taken care of right away!\"];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[2]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.malangstudio.alarmmon:id/edit_content",
+  "text": "Please write your message \nex) The Pico alarm which I set during the weekdays did not ring at all! \n* Tip! -If you are using an app that manages memory, let us know the name of the service and it will be taken care of right away!",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 48,
+  "y": 288,
+  "width": 672,
+  "height": 481
+}

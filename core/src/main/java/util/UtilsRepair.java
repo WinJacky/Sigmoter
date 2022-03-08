@@ -125,6 +125,8 @@ public class UtilsRepair {
                 }
                 set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
             }
+        }
+        if (set2.isEmpty()) {
             temp = element.getAttribute("resourceId");
             if (StringUtils.isNotBlank(temp)) {
                 if (temp.contains(":id/")) {

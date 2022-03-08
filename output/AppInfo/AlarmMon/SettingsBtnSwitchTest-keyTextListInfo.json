@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 44,
+    "text": "Display weather in °F",
+    "type": "click"
+  },
+  {
+    "lineNumber": 45,
+    "text": "Notifications ON",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Turn off alarm without games",
+    "type": "click"
+  }
+]

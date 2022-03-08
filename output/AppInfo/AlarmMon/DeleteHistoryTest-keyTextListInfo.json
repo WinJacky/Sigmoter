@@ -1,0 +1,12 @@
+[
+  {
+    "lineNumber": 41,
+    "text": "Delete all alarm histories",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "OK",
+    "type": "click"
+  }
+]

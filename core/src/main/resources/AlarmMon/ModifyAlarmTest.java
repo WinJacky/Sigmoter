@@ -10,9 +10,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V6.9.3
-// 06：30 -> (Swipe:6->7) -> Th -> Select alarm game -> (<-) -> Save
+// 06：30 -> (Swipe:6->7) -> Th -> Select alarm game -> navigate.back -> Save
 public class ModifyAlarmTest {
 
     private AndroidDriver driver;
@@ -32,6 +33,7 @@ public class ModifyAlarmTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test

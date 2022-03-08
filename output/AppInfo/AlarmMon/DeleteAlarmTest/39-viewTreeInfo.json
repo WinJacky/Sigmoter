@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.support.v7.widget.RecyclerView[@resource-id='com.malangstudio.alarmmon:id/alarmListRecyclerView']/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.LinearLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.support.v4.view.ViewPager[1]/android.view.ViewGroup[1]/android.widget.RelativeLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.malangstudio.alarmmon:id/clockTextView",
+  "text": "07:30",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 150,
+  "y": 172,
+  "width": 195,
+  "height": 75
+}

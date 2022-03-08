@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 42,
+    "text": "Add alarms",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "Not Use",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Save",
+    "type": "click"
+  }
+]
