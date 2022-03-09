@@ -1,6 +1,8 @@
 package AlarmMon;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class DeleteAlarmTest {
+public class StoreTest {
 
     private AndroidDriver driver;
 
@@ -31,9 +33,11 @@ public class DeleteAlarmTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.support.v4.view.ViewPager/android.view.ViewGroup/android.widget.RelativeLayout[1]/android.support.v7.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.LinearLayout[1]/android.widget.TextView").click();
-        driver.findElementById("com.malangstudio.alarmmon:id/deleteButton").click();
-        driver.findElementById("com.malangstudio.alarmmon:id/button_confirm").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[3]/android.widget.ImageView").click();
+        new TouchAction(driver).press(PointOption.point(329, 878)).moveTo(PointOption.point(329, 602)).release().perform();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"All\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Noisy\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Take care of Mao Mao Chong!\"]").click();
     }
 
     @After

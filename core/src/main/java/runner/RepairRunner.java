@@ -38,7 +38,7 @@ public class RepairRunner {
 
     private static Logger logger = LoggerFactory.getLogger(RepairRunner.class);
     // 修复一条语句的最大探索时间为 30s
-    private static final long MAX_EXPLORE_TIME = 30 * 1000;
+    private static final long MAX_EXPLORE_TIME = 60 * 1000;
     // 最大探索深度为 3，当探索超过 3 个状态时需要回退
     private static final int MAX_EXPLORE_DEPTH = 3;
 
@@ -74,7 +74,7 @@ public class RepairRunner {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
         appEnum = AppEnum.AlarmMon;
-        String testcaseName = "SettingsBtnSwitchTest";
+        String testcaseName = "SyncAlarmListTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;
@@ -563,8 +563,8 @@ public class RepairRunner {
                 while(iterator.hasNext()) {
                     EnhancedMobileElement stm = iterator.next();
                     String temp = stm.getText() + " " + stm.getContentDesc();
-                    if (temp.contains("More") || temp.contains("more")) {
-                        // 考虑到路径增加的情况，很多功能被放置在 More options 按钮中，应将该关键词提高优先级
+                    if (temp.contains("More") || temp.contains("All")) {
+                        // 考虑到路径增加的情况，很多功能被放置在 More options 或 All 按钮中，应将该关键词提高优先级
                         eleSimScoreMap.put(stm, 0.8);
                         continue;
                     }

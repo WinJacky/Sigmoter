@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.support.v7.widget.RecyclerView[@resource-id='com.malangstudio.alarmmon:id/settingsRecyclerView']/android.widget.RelativeLayout[9]/android.widget.LinearLayout[1]/android.view.View[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.support.v4.view.ViewPager[1]/android.view.ViewGroup[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[9]/android.widget.LinearLayout[1]/android.view.View[1]",
+  "className": "android.view.View",
+  "resourceId": "com.malangstudio.alarmmon:id/iconView",
+  "text": "",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 68,
+  "y": 646,
+  "width": 56,
+  "height": 56
+}

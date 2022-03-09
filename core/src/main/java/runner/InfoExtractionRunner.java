@@ -24,7 +24,7 @@ public class InfoExtractionRunner {
 
         Settings extractorSetting = new Settings(AppEnum.AlarmMon);
 
-        runTest(extractorSetting.testSuite, "ContactUsTest");
+        runTest(extractorSetting.testSuite, "ServiceInfoTest");
     }
 
 

@@ -33,8 +33,10 @@ public class ModifyAlarmTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByXPath("").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.support.v4.view.ViewPager/android.view.ViewGroup/android.widget.RelativeLayout[1]/android.support.v7.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.LinearLayout/android.widget.TextView").click();
         new TouchAction(driver).press(PointOption.point(378, 636)).moveTo(PointOption.point(378, 548)).release().perform();
+        driver.findElementById("com.malangstudio.alarmmon:id/characterTitleTextView").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Choose\"]").click();
         driver.findElementById("com.malangstudio.alarmmon:id/thursdayCheckBox").click();
         driver.findElementById("com.malangstudio.alarmmon:id/characterTitleTextView").click();
         driver.navigate().back();

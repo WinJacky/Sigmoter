@@ -1,0 +1,12 @@
+[
+  {
+    "lineNumber": 41,
+    "text": "Agree to Privacy Policy (Required)",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Agree",
+    "type": "click"
+  }
+]

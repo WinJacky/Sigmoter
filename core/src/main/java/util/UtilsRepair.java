@@ -192,68 +192,19 @@ public class UtilsRepair {
         UiNode originNode = UtilsXpath.getNodeByEleOrSta(statement, nodeList);
         if(originNode == null) return disScore;
 
-        List<UiNode> oriBroNodes = originNode.getBrotherNodes();
-        if(oriBroNodes == null) return disScore;
-        int oriBroNum = oriBroNodes.size(), matchedBroNum = 0;
-        List<Set<String>> broTextList = new ArrayList<>();
-        for (UiNode node : oriBroNodes) {
-            Set<String> broText = new HashSet<>();
-            String temp = node.getAttribute("content-desc");
-            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-            temp = node.getAttribute("text");
-            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-
-            if (isIdConsidered) {
-                temp = node.getAttribute("resource-id");
-                if (StringUtils.isNotBlank(temp)) {
-                    if (temp.contains(":id/")) {
-                        temp = temp.substring(temp.indexOf("/") + 1);
-                    }
-                    broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-                }
-            }
-
-            // 三个身份属性都为空，则认为该兄弟节点没有匹配价值
-            if (broText.isEmpty()) {
-                oriBroNum--;
-            } else {
-                broTextList.add(broText);
-            }
-        }
+        // 获取邻近节点的文本信息， List 的大小表明邻近节点的数量
+        List<Set<String>> broTextList = getBroNodesText(originNode, windowSize, isIdConsidered);
+        int oriBroNum = broTextList.size(), matchedBroNum = 0;
         if(oriBroNum == 0) return disScore;
+
 
         xmlLoader.parseXml(curLayoutXmlFile);
         nodeList = xmlLoader.getLeafNodes();
         UiNode curNode = UtilsXpath.getNodeByEleOrSta(element, nodeList);
         if(curNode == null) return disScore;
 
-        List<UiNode> curBroNodes = curNode.getBrotherNodes();
-        if(curBroNodes == null) return disScore * alpha;
-        int curBroNum = curBroNodes.size();
-        List<Set<String>> curBroTextList = new ArrayList<>();
-        for (UiNode node : curBroNodes) {
-            Set<String> broText = new HashSet<>();
-            String temp = node.getAttribute("content-desc");
-            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-            temp = node.getAttribute("text");
-            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-
-            if (isIdConsidered) {
-                temp = node.getAttribute("resource-id");
-                if (StringUtils.isNotBlank(temp)) {
-                    if (temp.contains(":id/")) {
-                        temp = temp.substring(temp.indexOf("/") + 1);
-                    }
-                    broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-                }
-            }
-
-            if (broText.isEmpty()) {
-                curBroNum--;
-            } else {
-                curBroTextList.add(broText);
-            }
-        }
+        List<Set<String>> curBroTextList = getBroNodesText(curNode, windowSize, isIdConsidered);
+        int curBroNum = curBroTextList.size();
 
         if (curBroNum == 0) {
             return disScore * alpha;
@@ -267,6 +218,9 @@ public class UtilsRepair {
                         break;
                     }
                 }
+            }
+            if (matchedBroNum == oriBroNum) {
+                return 1.0;
             }
 
             return disScore * alpha + (matchedBroNum / oriBroNum) * (1 - alpha);
@@ -285,6 +239,57 @@ public class UtilsRepair {
         double max2 = Math.max(getEuclideanDistance(new Point(0, windowSize.height), point),
                 getEuclideanDistance(new Point(windowSize.width, windowSize.height), point));
         return Math.max(max1, max2);
+    }
+
+    // 查找当前节点的兄弟节点，兄弟节点必须包含文本
+    // 逐级向上层节点查找（最多找三步，且母节点尺寸必须小于屏幕尺寸的 1/6），遍历其下的叶节点，找不到返回一个空 List
+    public static List<Set<String>> getBroNodesText(UiNode curNode, Dimension windowSize, boolean isIdConsidered) {
+        List<Set<String>> broTextList = new ArrayList<>();
+        int windowArea = windowSize.height * windowSize.width;
+        for (int i=1; i<=3; i++) {
+            XmlTreeNode parentNode = curNode.getParent();
+            if (parentNode instanceof RootWindowNode) {
+                return broTextList;
+            } else {
+                UiNode parNode = (UiNode) parentNode;
+                // 计算母节点的面积，面积应小于
+                int parNodeArea = parNode.getDimension().height * parNode.getDimension().width;
+                if (parNodeArea > windowArea / 6) {
+                    return broTextList;
+                } else {
+                    List<UiNode> broNodes = curNode.getBrotherNodes();
+                    for (UiNode bro : broNodes) {
+                        Set<String> broText = new HashSet<>();
+                        List<UiNode> leaves = bro.getLeafNodes();
+                        for (UiNode leaf : leaves) {
+                            String temp = leaf.getAttribute("content-desc");
+                            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+                            temp = leaf.getAttribute("text");
+                            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+
+                            if (isIdConsidered) {
+                                temp = leaf.getAttribute("resource-id");
+                                if (StringUtils.isNotBlank(temp)) {
+                                    if (temp.contains(":id/")) {
+                                        temp = temp.substring(temp.indexOf("/") + 1);
+                                    }
+                                    broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+                                }
+                            }
+                        }
+                        if (!broText.isEmpty()) {
+                            broTextList.add(broText);
+                        }
+                    }
+                    if (!broTextList.isEmpty()) {
+                        // 找到临近节点的文本就返回，不再向上迭代查找
+                        return broTextList;
+                    }
+                }
+            }
+            curNode = (UiNode) parentNode;
+        }
+        return broTextList;
     }
 
     // 在当前页面状态中搜索目标元素，计算元素和语句的三项得分并加权求和
@@ -331,6 +336,7 @@ public class UtilsRepair {
                 double semanticSim = checkElementBySemantic(ele, statement, isIdConsidered);
                 if (semanticSim == 1.0) {
                     // 如果语义完全吻合，则直接返回该元素
+                    log.info("根据待修复元素语义信息找到匹配元素。。。");
                     return ele;
                 }
                 eleSemanticSimMap.put(ele, semanticSim);
@@ -341,6 +347,7 @@ public class UtilsRepair {
                 double sim1 = checkElementByCollectedInfo(RepairRunner.curLayoutXmlFile, ele, statement);
                 if (sim1 == 1.0) {
                     // 如果结构完全吻合，则直接返回该元素
+                    log.info("根据待修复元素结构信息找到匹配元素。。。");
                     return ele;
                 }
                 // 语义相似度
@@ -349,6 +356,7 @@ public class UtilsRepair {
                 double sim3 = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, RepairRunner.curLayoutXmlFile, isIdConsidered);
                 if (sim3 == 1.0) {
                     // 如果布局完全吻合，则直接返回该元素
+                    log.info("根据待修复元素布局信息找到匹配元素。。。");
                     return ele;
                 }
                 double beta = 0.3;

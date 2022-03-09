@@ -38,7 +38,7 @@ public class SettingsBtnSwitchTest {
         new TouchAction(driver).press(PointOption.point(325, 1000)).moveTo(PointOption.point(325, 250)).release().perform();
         driver.findElementById("com.malangstudio.alarmmon:id/useFahrenheitButton").click();
         driver.findElementById("com.malangstudio.alarmmon:id/button_use_notification").click();
-        driver.findElementById("com.malangstudio.alarmmon:id/button_use_direct_input").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Notifications ON\"]").click();
     }
 
     @After

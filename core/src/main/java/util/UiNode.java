@@ -1,9 +1,10 @@
 package main.java.util;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.Dimension;
+
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author feisher
@@ -22,15 +23,40 @@ public class UiNode extends XmlTreeNode {
         return mAttributes.get(key);
     }
 
-    // 返回当前节点的兄弟节点，没有兄弟节点返回 null
+    // 获取当前元素的尺寸
+    public Dimension getDimension() {
+        if (StringUtils.isNotBlank(getAttribute("bounds"))) {
+            String[] boundStr = getAttribute("bounds").substring(1).split("[,\\[\\]]+");
+            int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
+            int width = bounds[2] - bounds[0];
+            int height = bounds[3] - bounds[1];
+            return new Dimension(width, height);
+        }
+        return null;
+    }
+
+    // 获取当前节点的兄弟节点，没有兄弟节点返回空 List
     public List<UiNode> getBrotherNodes() {
         List<UiNode> broNodes = new ArrayList<>();
         for (XmlTreeNode node : getParent().getChildrenList()) {
             UiNode temp = (UiNode) node;
             if (!temp.equals(this)) broNodes.add(temp);
         }
-        if (broNodes.size() == 0) return null;
         return broNodes;
+    }
+
+    // 获取当前节点下属的所有叶子节点
+    public List<UiNode> getLeafNodes() {
+        List<UiNode> leaves = new ArrayList<>();
+        if (!hasChild()) {
+            leaves.add(this);
+            return leaves;
+        }
+
+        for (XmlTreeNode child : mChildren) {
+            leaves.addAll(((UiNode) child).getLeafNodes());
+        }
+        return leaves;
     }
 
     @Override
