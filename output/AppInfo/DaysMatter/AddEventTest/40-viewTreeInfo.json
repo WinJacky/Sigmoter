@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.clover.daysmatter:id/text_title'];//android.widget.RelativeLayout[@resource-id='com.clover.daysmatter:id/item_title']/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.clover.daysmatter:id/text_title",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 100,
+  "y": 173,
+  "width": 568,
+  "height": 85
+}

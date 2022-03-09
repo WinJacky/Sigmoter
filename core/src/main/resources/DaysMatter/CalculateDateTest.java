@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 // From V0.2.5
-// Open the main menu -> Date Calculator -> sendKeys("30") -> sendKeys("100")
+// Open the menu -> Date Calculator -> sendKeys("30") -> sendKeys("100")
 public class CalculateDateTest {
 
     private AndroidDriver driver;
@@ -34,7 +34,7 @@ public class CalculateDateTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Open the main menu").click(); 
+        driver.findElementByAccessibilityId("Open the menu").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.RelativeLayout[8]/android.widget.TextView").click();
         driver.findElementById("com.clover.daysmatter:id/after_date_num").sendKeys("30");
         driver.findElementById("com.clover.daysmatter:id/before_date_num").sendKeys("100");

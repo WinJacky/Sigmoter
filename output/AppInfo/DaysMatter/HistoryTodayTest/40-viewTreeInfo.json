@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.Button[@resource-id='android:id/chooser_copy_button'];//android.widget.Button[@text=\"Copy\"];//android.widget.LinearLayout[@resource-id='android:id/chooser_action_row']/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.ScrollView[1]/android.widget.TabHost[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/com.android.internal.widget.ViewPager[1]/android.widget.RelativeLayout[1]/com.android.internal.widget.RecyclerView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "resourceId": "android:id/chooser_copy_button",
+  "text": "Copy",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 296,
+  "y": 751,
+  "width": 176,
+  "height": 96
+}

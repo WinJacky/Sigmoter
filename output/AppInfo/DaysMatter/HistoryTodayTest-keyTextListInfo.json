@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 37,
+    "text": "Open the main menu",
+    "type": "click"
+  },
+  {
+    "lineNumber": 38,
+    "text": "Today in History",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Copy",
+    "type": "click"
+  }
+]

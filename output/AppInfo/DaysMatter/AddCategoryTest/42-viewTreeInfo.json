@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@text=\"New Category\"];//android.widget.ListView[@resource-id='com.clover.daysmatter:id/dynamiclistview']/android.widget.RelativeLayout[4]/android.widget.LinearLayout[1]/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ListView[1]/android.widget.RelativeLayout[4]/android.widget.LinearLayout[1]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.clover.daysmatter:id/list_item_title_edit",
+  "text": "New Category",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 144,
+  "y": 478,
+  "width": 512,
+  "height": 104
+}

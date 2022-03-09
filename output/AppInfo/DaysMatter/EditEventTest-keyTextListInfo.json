@@ -1,0 +1,32 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Today Arrives in",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Edit",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Pin Top",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Repeat",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Repeat Every Year",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "SAVE",
+    "type": "click"
+  }
+]

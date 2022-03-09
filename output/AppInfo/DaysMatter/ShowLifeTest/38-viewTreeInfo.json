@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"2\"];//android.widget.ExpandableListView[@resource-id='com.clover.daysmatter:id/drawer_list']/android.widget.RelativeLayout[3]/android.widget.TextView[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.LinearLayout[1]/android.widget.ExpandableListView[1]/android.widget.RelativeLayout[3]/android.widget.TextView[2]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.clover.daysmatter:id/drawer_item_num",
+  "text": "2",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 544,
+  "y": 293,
+  "width": 64,
+  "height": 38
+}

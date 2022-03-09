@@ -32,8 +32,6 @@ public class SearchSongTest {
     @Test
     public void sampleTest() {
         driver.findElementByXPath("//android.widget.TextView[@text=\"SONGS\"]").click();
-        driver.findElementById("com.dywx.larkplayer:id/q2").click();
-        driver.findElementById("com.dywx.larkplayer:id/q0").sendKeys("Sugar");
     }
 
     @After

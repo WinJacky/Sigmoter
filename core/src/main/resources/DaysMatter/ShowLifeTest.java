@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 // From V0.2.5
-// Open the main menu -> Life
+// Open the menu -> Life
 public class ShowLifeTest {
 
     private AndroidDriver driver;
@@ -34,7 +34,7 @@ public class ShowLifeTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Open the main menu").click();
+        driver.findElementByAccessibilityId("Open the menu").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.RelativeLayout[3]/android.widget.TextView[1]").click();
     }
     
@@ -43,3 +43,4 @@ public class ShowLifeTest {
         driver.quit();
     }
 }
+

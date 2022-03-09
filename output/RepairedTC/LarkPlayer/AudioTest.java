@@ -29,8 +29,6 @@ public class AudioTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Navigate up").click();
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Music & Video\"]").click();
     }
 
     @After

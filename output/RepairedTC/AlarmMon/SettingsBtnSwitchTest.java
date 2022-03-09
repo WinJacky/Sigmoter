@@ -34,11 +34,11 @@ public class SettingsBtnSwitchTest {
     @Test
     public void sampleTest() {
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[4]/android.widget.ImageView").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.support.v4.view.ViewPager/android.view.ViewGroup/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[2]/android.widget.LinearLayout/android.view.View").click();
+        driver.findElementByXPath("//androidx.recyclerview.widget.RecyclerView[@resource-id='com.malangstudio.alarmmon:id/settingsRecyclerView']/android.widget.RelativeLayout[2]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.view.View[1]").click();
         new TouchAction(driver).press(PointOption.point(325, 1000)).moveTo(PointOption.point(325, 250)).release().perform();
         driver.findElementById("com.malangstudio.alarmmon:id/useFahrenheitButton").click();
         driver.findElementById("com.malangstudio.alarmmon:id/button_use_notification").click();
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Notifications ON\"]").click();
+        driver.findElementById("com.malangstudio.alarmmon:id/button_use_notification").click();
     }
 
     @After

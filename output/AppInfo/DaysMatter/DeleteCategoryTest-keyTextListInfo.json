@@ -1,0 +1,12 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Open the main menu",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Manage Category",
+    "type": "click"
+  }
+]

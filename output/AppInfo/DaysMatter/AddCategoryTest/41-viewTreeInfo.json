@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.Button[@resource-id='com.clover.daysmatter:id/button_add'];//android.widget.Button[@text=\"ADD NEW CATEGORY\"];//android.widget.ListView[@resource-id='com.clover.daysmatter:id/dynamiclistview']/android.widget.LinearLayout[1]/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ListView[1]/android.widget.LinearLayout[1]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "resourceId": "com.clover.daysmatter:id/button_add",
+  "text": "ADD NEW CATEGORY",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 40,
+  "y": 518,
+  "width": 688,
+  "height": 96
+}

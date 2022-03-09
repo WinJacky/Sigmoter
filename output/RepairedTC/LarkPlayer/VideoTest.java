@@ -29,10 +29,6 @@ public class VideoTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Navigate up").click();
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Music & Video\"]").click();
-        driver.findElementByAccessibilityId("Sort by…").click();
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Length\"]").click();
     }
 
     @After

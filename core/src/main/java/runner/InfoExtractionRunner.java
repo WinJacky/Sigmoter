@@ -22,9 +22,9 @@ public class InfoExtractionRunner {
         // enable the AspectJ module
         Settings.aspectActive = true;
 
-        Settings extractorSetting = new Settings(AppEnum.AlarmMon);
+        Settings extractorSetting = new Settings(AppEnum.DaysMatter);
 
-        runTest(extractorSetting.testSuite, "ServiceInfoTest");
+        runTest(extractorSetting.testSuite, "CalculateDateTest");
     }
 
 

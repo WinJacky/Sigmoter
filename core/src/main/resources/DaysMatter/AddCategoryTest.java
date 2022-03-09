@@ -8,9 +8,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V0.2.5
-// Open the main menu -> Manage Category -> ADD NEW CATEGORY -> ("New Category").clear -> sendKeys("SEU") -> navigate.back
+// Open the menu -> Manage Category -> ADD NEW CATEGORY -> ("New Category").clear -> sendKeys("SEU") -> navigate.back
 public class AddCategoryTest {
 
     private AndroidDriver driver;
@@ -30,11 +31,12 @@ public class AddCategoryTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Open the main menu").click();
+        driver.findElementByAccessibilityId("Open the menu").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.RelativeLayout[6]/android.widget.TextView").click();
         driver.findElementById("com.clover.daysmatter:id/button_add").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.widget.RelativeLayout[4]/android.widget.LinearLayout/android.widget.EditText").clear();

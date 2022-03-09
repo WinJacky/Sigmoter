@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Add a New Event",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Category",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Work",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "SAVE",
+    "type": "click"
+  }
+]

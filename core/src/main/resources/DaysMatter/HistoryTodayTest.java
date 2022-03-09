@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 // From V0.2.5
-// Open the main menu -> Today in History -> (Share) -> Copy
+// Open the menu -> Today in History -> (Share) -> Copy
 public class HistoryTodayTest {
 
     private AndroidDriver driver;
@@ -34,7 +34,7 @@ public class HistoryTodayTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Open the main menu").click();
+        driver.findElementByAccessibilityId("Open the menu").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.RelativeLayout[7]/android.widget.TextView").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.ListView/android.widget.LinearLayout[1]/android.widget.RelativeLayout[2]/android.widget.ImageView").click();
         driver.findElementById("android:id/chooser_copy_button").click();

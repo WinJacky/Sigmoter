@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.CheckedTextView[@text=\"Repeat Every Year\"];//android.widget.ListView[@resource-id='com.clover.daysmatter:id/select_dialog_listview']/android.widget.CheckedTextView[4];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.ListView[1]/android.widget.CheckedTextView[4]",
+  "className": "android.widget.CheckedTextView",
+  "resourceId": "android:id/text1",
+  "text": "Repeat Every Year",
+  "checkable": true,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 32,
+  "y": 693,
+  "width": 704,
+  "height": 96
+}

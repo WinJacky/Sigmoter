@@ -73,8 +73,8 @@ public class RepairRunner {
     public static void main(String[] args) {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
-        appEnum = AppEnum.AlarmMon;
-        String testcaseName = "SyncAlarmListTest";
+        appEnum = AppEnum.DaysMatter;
+        String testcaseName = "MoreRandomTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;
@@ -563,8 +563,8 @@ public class RepairRunner {
                 while(iterator.hasNext()) {
                     EnhancedMobileElement stm = iterator.next();
                     String temp = stm.getText() + " " + stm.getContentDesc();
-                    if (temp.contains("More") || temp.contains("All")) {
-                        // 考虑到路径增加的情况，很多功能被放置在 More options 或 All 按钮中，应将该关键词提高优先级
+                    if (temp.contains("More") || temp.contains("All") || temp.contains("Setting")) {
+                        // 考虑到路径增加的情况，很多功能被放置在 More options 或 All 或 Setting 按钮中，应将该关键词提高优先级
                         eleSimScoreMap.put(stm, 0.8);
                         continue;
                     }

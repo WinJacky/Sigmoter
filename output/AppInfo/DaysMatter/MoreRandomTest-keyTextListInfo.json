@@ -1,0 +1,27 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Open the main menu",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "More",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Sort",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Date of Adding",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Hide Description",
+    "type": "click"
+  }
+]

@@ -37,7 +37,6 @@ public class StoreTest {
         new TouchAction(driver).press(PointOption.point(329, 878)).moveTo(PointOption.point(329, 602)).release().perform();
         driver.findElementByXPath("//android.widget.TextView[@text=\"All\"]").click();
         driver.findElementByXPath("//android.widget.TextView[@text=\"Noisy\"]").click();
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Take care of Mao Mao Chong!\"]").click();
     }
 
     @After

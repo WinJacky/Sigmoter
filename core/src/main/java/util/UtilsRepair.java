@@ -252,7 +252,7 @@ public class UtilsRepair {
                 return broTextList;
             } else {
                 UiNode parNode = (UiNode) parentNode;
-                // 计算母节点的面积，面积应小于
+                // 计算母节点的面积，面积应小于屏幕面积的 1/6
                 int parNodeArea = parNode.getDimension().height * parNode.getDimension().width;
                 if (parNodeArea > windowArea / 6) {
                     return broTextList;
@@ -369,6 +369,7 @@ public class UtilsRepair {
             }
 
             if (mostSimElement != null) {
+                log.info("根据待修复元素综合信息找到匹配元素。。。");
                 return mostSimElement;
             } else if (swipeRect == null) {
                 // 初始界面找不到修复元素，查找可滑动布局
@@ -393,7 +394,7 @@ public class UtilsRepair {
             // 滑动界面
             new TouchAction(driver).press(PointOption.point(startPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(endPoint)).release().perform();
             String postState = driver.getPageSource();
-            if (preState.equals(postState)) {
+            if (preState.equals(postState) || repairedSwipe.size() >= 3) {
                 // 上滑过后没变化，表明已经滑到底了，无法再找到新的元素了
                 // 此时将页面状态恢复到滑动前的状态并退出
                 for (int i=1; i<=repairedSwipe.size()-1; i++) {

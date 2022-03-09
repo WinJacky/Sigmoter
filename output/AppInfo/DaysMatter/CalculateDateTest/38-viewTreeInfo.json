@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Date Calculator\"];//android.widget.ExpandableListView[@resource-id='com.clover.daysmatter:id/drawer_list']/android.widget.RelativeLayout[8]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.LinearLayout[1]/android.widget.ExpandableListView[1]/android.widget.RelativeLayout[8]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.clover.daysmatter:id/drawer_item_title",
+  "text": "Date Calculator",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 144,
+  "y": 820,
+  "width": 218,
+  "height": 43
+}

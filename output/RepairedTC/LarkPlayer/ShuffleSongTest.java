@@ -20,7 +20,7 @@ public class ShuffleSongTest {
         desiredCapabilities.setCapability("deviceName", "Android Emulator");
         desiredCapabilities.setCapability("automationName", "UiAutomator2");
         desiredCapabilities.setCapability("appPackage", "com.dywx.larkplayer");
-        desiredCapabilities.setCapability("appActivity", ".gui.MainActivity");
+        desiredCapabilities.setCapability("appActivity", "com.dywx.larkplayer.main.MainActivity");
         desiredCapabilities.setCapability("noReset", true);
         desiredCapabilities.setCapability("ensureWebviewsHavePages", true);
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
@@ -29,7 +29,7 @@ public class ShuffleSongTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByXPath("//android.widget.TextView[@text=\"SONGS\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Songs\"]").click();
     }
 
     @After
