@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "More options",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Filter and sort tournaments",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "DESELECT ALL",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "NOT FAVORITES",
+    "type": "click"
+  }
+]

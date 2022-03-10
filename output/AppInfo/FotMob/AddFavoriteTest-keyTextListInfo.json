@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Navigate up",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "View favorites",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "ADD FAVORITE",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Atalanta - Serie A",
+    "type": "click"
+  }
+]

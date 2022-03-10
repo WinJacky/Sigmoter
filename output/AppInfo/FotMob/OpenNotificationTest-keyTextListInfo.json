@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 40,
+    "text": "Show table",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "FIXTURES",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Toggle notifications",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "OK",
+    "type": "click"
+  }
+]

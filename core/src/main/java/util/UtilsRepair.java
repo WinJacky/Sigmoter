@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.time.Duration;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class UtilsRepair {
     private static Logger log = LoggerFactory.getLogger(UtilsRepair.class);
@@ -262,14 +263,14 @@ public class UtilsRepair {
                         Set<String> broText = new HashSet<>();
                         List<UiNode> leaves = bro.getLeafNodes();
                         for (UiNode leaf : leaves) {
-                            String temp = leaf.getAttribute("content-desc");
-                            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-                            temp = leaf.getAttribute("text");
-                            if (StringUtils.isNotBlank(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+//                            String temp = leaf.getAttribute("content-desc");
+//                            if (StringUtils.isNotBlank(temp) && !isInteger(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+                            String temp = leaf.getAttribute("text");
+                            if (StringUtils.isNotBlank(temp) && !isInteger(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
 
                             if (isIdConsidered) {
                                 temp = leaf.getAttribute("resource-id");
-                                if (StringUtils.isNotBlank(temp)) {
+                                if (StringUtils.isNotBlank(temp) && !isInteger(temp)) {
                                     if (temp.contains(":id/")) {
                                         temp = temp.substring(temp.indexOf("/") + 1);
                                     }
@@ -292,6 +293,11 @@ public class UtilsRepair {
         return broTextList;
     }
 
+    public static boolean isInteger(String str) {
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+        return pattern.matcher(str).matches();
+    }
+
     // 在当前页面状态中搜索目标元素，计算元素和语句的三项得分并加权求和
     // 若没有得分超过阈值（0.6）的元素，查找当前状态是否包含可滑动组件，对其进行滑动以查找目标元素
     // 若最终仍没找到目标元素，则返回 null
@@ -303,80 +309,89 @@ public class UtilsRepair {
         String originXmlFile = RepairRunner.curLayoutXmlFile;
 
         while(true) {
-            // 根据元素 classname 查找
-            tempResult = driver.findElementsByClassName(statement.getClassName());
-            if (tempResult != null) result.addAll(tempResult);
-            tempResult = driver.findElementsByClassName("android.widget.TextView");
-            if (tempResult != null) result.addAll(tempResult);
-            // 根据身份属性查找
-            if (StringUtils.isNotEmpty(statement.getResourceId())) {
-                tempResult = driver.findElementsById(statement.getResourceId());
-                if (tempResult != null) result.addAll(tempResult);
-            }
-            if (StringUtils.isNotEmpty(statement.getContentDesc())) {
-                tempResult = driver.findElementsByAccessibilityId(statement.getContentDesc());
-                if (tempResult != null) result.addAll(tempResult);
-            }
-            if (StringUtils.isNotEmpty(statement.getText())) {
-                tempResult = driver.findElementsByXPath("//*[@text=\"" + statement.getText() + "\"]");
-                if (tempResult != null) result.addAll(tempResult);
-            }
-            // 根据 xpath 路径查找
-            String[] xpathArray = statement.getXpath().split(";");
-            for (String xpath : xpathArray) {
-                tempResult = driver.findElementsByXPath(xpath);
-                if (tempResult != null) result.addAll(tempResult);
-            }
-
-            // 检查相似度
-            double maxSimScore = 0.0;
-            MobileElement mostSimElement = null;
-            Map<MobileElement, Double> eleSemanticSimMap = new HashMap<>();
-            for (MobileElement ele : result) {
-                double semanticSim = checkElementBySemantic(ele, statement, isIdConsidered);
-                if (semanticSim == 1.0) {
+            if (statement.getAction().equals(AppiumAction.Clear) || statement.getAction().equals(AppiumAction.SendKeys)) {
+                tempResult = driver.findElementsByClassName(statement.getClassName());
+                if (tempResult.size() == 1) {
                     // 如果语义完全吻合，则直接返回该元素
-                    log.info("根据待修复元素语义信息找到匹配元素。。。");
-                    return ele;
+                    log.info("找到当前界面唯一可接受输入元素。。。");
+                    return tempResult.get(0);
                 }
-                eleSemanticSimMap.put(ele, semanticSim);
-            }
-            for (MobileElement ele : result) {
-                if (!ele.isDisplayed()) continue;
-                // 结构相似度
-                double sim1 = checkElementByCollectedInfo(RepairRunner.curLayoutXmlFile, ele, statement);
-                if (sim1 == 1.0) {
-                    // 如果结构完全吻合，则直接返回该元素
-                    log.info("根据待修复元素结构信息找到匹配元素。。。");
-                    return ele;
+            } else {
+                // 根据元素 classname 查找
+                tempResult = driver.findElementsByClassName(statement.getClassName());
+                if (tempResult != null) result.addAll(tempResult);
+                tempResult = driver.findElementsByClassName("android.widget.TextView");
+                if (tempResult != null) result.addAll(tempResult);
+                // 根据身份属性查找
+                if (StringUtils.isNotEmpty(statement.getResourceId())) {
+                    tempResult = driver.findElementsById(statement.getResourceId());
+                    if (tempResult != null) result.addAll(tempResult);
                 }
-                // 语义相似度
-                double sim2 = eleSemanticSimMap.get(ele);
-                // 布局相似度
-                double sim3 = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, RepairRunner.curLayoutXmlFile, isIdConsidered);
-                if (sim3 == 1.0) {
-                    // 如果布局完全吻合，则直接返回该元素
-                    log.info("根据待修复元素布局信息找到匹配元素。。。");
-                    return ele;
+                if (StringUtils.isNotEmpty(statement.getContentDesc())) {
+                    tempResult = driver.findElementsByAccessibilityId(statement.getContentDesc());
+                    if (tempResult != null) result.addAll(tempResult);
                 }
-                double beta = 0.3;
-                double score = sim1 * beta + sim2 * (1 - 2 * beta) + sim3 * beta;
+                if (StringUtils.isNotEmpty(statement.getText())) {
+                    tempResult = driver.findElementsByXPath("//*[@text=\"" + statement.getText() + "\"]");
+                    if (tempResult != null) result.addAll(tempResult);
+                }
+                // 根据 xpath 路径查找
+                String[] xpathArray = statement.getXpath().split(";");
+                for (String xpath : xpathArray) {
+                    tempResult = driver.findElementsByXPath(xpath);
+                    if (tempResult != null) result.addAll(tempResult);
+                }
 
-                if (score >= Threshold.ELE_SIM_SCORE.getValue() && score > maxSimScore) {
-                    maxSimScore = score;
-                    mostSimElement = ele;
+                // 检查相似度
+                double maxSimScore = 0.0;
+                MobileElement mostSimElement = null;
+                Map<MobileElement, Double> eleSemanticSimMap = new HashMap<>();
+                for (MobileElement ele : result) {
+                    double semanticSim = checkElementBySemantic(ele, statement, isIdConsidered);
+                    if (semanticSim == 1.0) {
+                        // 如果语义完全吻合，则直接返回该元素
+                        log.info("根据待修复元素语义信息找到匹配元素。。。");
+                        return ele;
+                    }
+                    eleSemanticSimMap.put(ele, semanticSim);
                 }
-            }
+                for (MobileElement ele : result) {
+                    if (!ele.isDisplayed()) continue;
+                    // 结构相似度
+                    double sim1 = checkElementByCollectedInfo(RepairRunner.curLayoutXmlFile, ele, statement);
+                    if (sim1 == 1.0) {
+                        // 如果结构完全吻合，则直接返回该元素
+                        log.info("根据待修复元素结构信息找到匹配元素。。。");
+                        return ele;
+                    }
+                    // 语义相似度
+                    double sim2 = eleSemanticSimMap.get(ele);
+                    // 布局相似度
+                    double sim3 = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, RepairRunner.curLayoutXmlFile, isIdConsidered);
+                    if (sim3 == 1.0) {
+                        // 如果布局完全吻合，则直接返回该元素
+                        log.info("根据待修复元素布局信息找到匹配元素。。。");
+                        return ele;
+                    }
+                    double beta = 0.3;
+                    double score = sim1 * beta + sim2 * (1 - 2 * beta) + sim3 * beta;
 
-            if (mostSimElement != null) {
-                log.info("根据待修复元素综合信息找到匹配元素。。。");
-                return mostSimElement;
-            } else if (swipeRect == null) {
-                // 初始界面找不到修复元素，查找可滑动布局
-                swipeRect = retrieveScrollableNode(RepairRunner.curLayoutXmlFile);
-                if (swipeRect == null) {
-                    // 未找到最相似的元素，同时界面不可滑动
-                    return null;
+                    if (score >= Threshold.ELE_SIM_SCORE.getValue() && score > maxSimScore) {
+                        maxSimScore = score;
+                        mostSimElement = ele;
+                    }
+                }
+
+                if (mostSimElement != null) {
+                    log.info("根据待修复元素综合信息找到匹配元素。。。");
+                    return mostSimElement;
+                } else if (swipeRect == null) {
+                    // 初始界面找不到修复元素，查找可滑动布局
+                    swipeRect = retrieveScrollableNode(RepairRunner.curLayoutXmlFile);
+                    if (swipeRect == null) {
+                        // 未找到最相似的元素，同时界面不可滑动
+                        return null;
+                    }
                 }
             }
 

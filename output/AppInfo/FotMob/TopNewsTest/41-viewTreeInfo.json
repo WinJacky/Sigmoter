@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"WORLD NEWS\"];//android.widget.HorizontalScrollView[@resource-id='com.mobilefootie.wc2010:id/titles']/android.widget.LinearLayout[1]/android.widget.TextView[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.HorizontalScrollView[1]/android.widget.LinearLayout[1]/android.widget.TextView[2]",
+  "className": "android.widget.TextView",
+  "text": "WORLD NEWS",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 213,
+  "y": 160,
+  "width": 243,
+  "height": 81
+}

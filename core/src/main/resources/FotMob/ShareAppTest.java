@@ -2,6 +2,7 @@ package main.resources.FotMob;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Before;
@@ -10,10 +11,12 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 // From V71.0.4619
-// Navigate up -> Settings -> (Swipe) -> Enable offline cache
-public class DisableCacheTest {
+// Navigate up -> Settings -> More options -> Share FotMob
+public class ShareAppTest {
 
     private AndroidDriver driver;
 
@@ -32,16 +35,17 @@ public class DisableCacheTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
     public void sampleTest() {
         driver.findElementByAccessibilityId("Navigate up").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.TextView").click();
-        new TouchAction(driver).press(PointOption.point(350, 830)).moveTo(PointOption.point(350, 550)).release().perform();
-        driver.findElementById("com.mobilefootie.wc2010:id/txtHttpCachePush").click();
+        driver.findElementByAccessibilityId("More options").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.LinearLayout[2]/android.widget.RelativeLayout/android.widget.TextView").click();
     }
-    
+
     @After
     public void tearDown() {
         driver.quit();

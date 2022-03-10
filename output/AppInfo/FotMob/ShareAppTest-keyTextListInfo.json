@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 43,
+    "text": "Navigate up",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 45,
+    "text": "More options",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Share FotMob",
+    "type": "click"
+  }
+]

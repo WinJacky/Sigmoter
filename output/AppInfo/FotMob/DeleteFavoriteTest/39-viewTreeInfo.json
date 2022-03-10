@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.support.v7.widget.RecyclerView[@resource-id='com.mobilefootie.wc2010:id/recyclerView']/android.widget.LinearLayout[3]/android.widget.LinearLayout[1]/android.widget.ImageView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.view.ViewGroup[1]/android.widget.FrameLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.LinearLayout[3]/android.widget.LinearLayout[1]/android.widget.ImageView[1]",
+  "className": "android.widget.ImageView",
+  "resourceId": "com.mobilefootie.wc2010:id/imageView_edit",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 664,
+  "y": 592,
+  "width": 96,
+  "height": 72
+}

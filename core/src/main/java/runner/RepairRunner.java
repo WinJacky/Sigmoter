@@ -73,8 +73,8 @@ public class RepairRunner {
     public static void main(String[] args) {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
-        appEnum = AppEnum.DaysMatter;
-        String testcaseName = "MoreRandomTest";
+        appEnum = AppEnum.FotMob;
+        String testcaseName = "AddFavoriteTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;

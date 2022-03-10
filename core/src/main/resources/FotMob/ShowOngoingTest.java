@@ -2,6 +2,7 @@ package main.resources.FotMob;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +11,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 // From V71.0.4619
 // (Down Swipe) -> ONGOING -> BY TIME
@@ -32,11 +35,12 @@ public class ShowOngoingTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @Test
     public void sampleTest() {
-        new TouchAction(driver).press(PointOption.point(350, 550)).moveTo(PointOption.point(350, 700)).release().perform();
+        new TouchAction(driver).press(PointOption.point(350, 550)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(5))).moveTo(PointOption.point(350, 700)).release().perform();
         driver.findElementById("com.mobilefootie.wc2010:id/ongoingBtn").click();
         driver.findElementById("com.mobilefootie.wc2010:id/sortByTime").click();
     }
