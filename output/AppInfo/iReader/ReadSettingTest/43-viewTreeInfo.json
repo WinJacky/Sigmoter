@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Click screen to turn pages\"];//android.widget.LinearLayout[@resource-id='com.zhangyue.read:id/setting_fullscreen_nextpage_id']/android.widget.LinearLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "text": "Click screen to turn pages",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 32,
+  "y": 306,
+  "width": 371,
+  "height": 43
+}

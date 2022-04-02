@@ -1,0 +1,27 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "DISCOVER",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "ALL",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Sorting",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Sort by Likes",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "HOME",
+    "type": "click"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.ImageView[@resource-id='com.lianhezhuli.hyfit:id/fragment_sport_history_img'];//android.widget.RelativeLayout[@resource-id='com.lianhezhuli.hyfit:id/fragment_sport_container_rl']/android.widget.RelativeLayout[1]/android.widget.ImageView[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/androidx.viewpager.widget.ViewPager[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.ImageView[2]",
+  "className": "android.widget.ImageView",
+  "resourceId": "com.lianhezhuli.hyfit:id/fragment_sport_history_img",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 554,
+  "y": 833,
+  "width": 124,
+  "height": 124
+}

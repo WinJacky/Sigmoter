@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@content-desc='Settings'];//android.view.ViewGroup[@resource-id='com.droid27.senseflipclockweather:id/toolbar']/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.view.ViewGroup[1]/android.widget.LinearLayout[1]/android.view.ViewGroup[1]/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "contentDesc": "Settings",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 576,
+  "y": 0,
+  "width": 112,
+  "height": 90
+}

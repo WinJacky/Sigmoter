@@ -1,0 +1,16 @@
+{
+  "xpath": "//android.widget.TextView[@content-desc='Button: Business '];//android.widget.TextView[@text=\"Business\"];//android.widget.FrameLayout[@resource-id='bbc.mobile.news.uk:id/drawer_container']/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[12]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.FrameLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[12]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "android:id/text1",
+  "contentDesc": "Button: Business ",
+  "text": "Business",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 0,
+  "y": 1104,
+  "width": 600,
+  "height": 80
+}

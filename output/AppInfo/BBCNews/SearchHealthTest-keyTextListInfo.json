@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "My News",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Edit My News",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Search for topics",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Close search",
+    "type": "click"
+  }
+]

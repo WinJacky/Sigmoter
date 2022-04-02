@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Bengali\"];//android.widget.ListView[@resource-id='com.naver.linewebtoon:id/list_view']/android.widget.TextView[3];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.ListView[1]/android.widget.TextView[3]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.naver.linewebtoon:id/dialog_fragment_share_layout",
+  "text": "Bengali",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 134,
+  "y": 484,
+  "width": 500,
+  "height": 78
+}

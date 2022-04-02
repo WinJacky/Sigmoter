@@ -10,8 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-// From V71.0.4619
-// Navigate up -> View favorites -> ADD FAVORITE -> sendKeys("Atalanta") -> Atalanta-Serie A
+// From V78.0.5104
+// Favorites -> Search -> Liverpool -> sendKeys("Atalanta")
 public class AddFavoriteTest {
 
     private AndroidDriver driver;
@@ -36,11 +36,10 @@ public class AddFavoriteTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Navigate up").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.LinearLayout[9]/android.widget.TextView").click();
-        driver.findElementById("com.mobilefootie.wc2010:id/stateButton").click();
-        driver.findElementById("com.mobilefootie.wc2010:id/search_src_text").sendKeys("Atalanta");
-        driver.findElementById("com.mobilefootie.wc2010:id/lblTeam").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.view.ViewGroup/android.widget.FrameLayout[4]/android.view.ViewGroup/android.widget.TextView").click();
+        driver.findElementByAccessibilityId("Search").click();
+        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[5]/android.widget.TextView").click();
+        driver.findElementById("com.mobilefootie.wc2010:id/editText_search").sendKeys("Atalanta");
     }
     
     @After

@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"health\"];//android.widget.LinearLayout[@resource-id='com.lianhezhuli.hyfit:id/main_tab_health_ll']/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "text": "health",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 63,
+  "y": 1131,
+  "width": 66,
+  "height": 33
+}

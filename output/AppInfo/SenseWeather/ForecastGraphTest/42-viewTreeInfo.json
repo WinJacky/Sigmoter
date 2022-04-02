@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.ImageView[@resource-id='com.droid27.senseflipclockweather:id/btnGraphDaily'];//android.view.ViewGroup[@resource-id='com.droid27.senseflipclockweather:id/coordinatorLayout']/android.view.ViewGroup[1]/android.widget.ImageView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.ImageView[1]",
+  "className": "android.widget.ImageView",
+  "resourceId": "com.droid27.senseflipclockweather:id/btnGraphDaily",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 339,
+  "y": 872,
+  "width": 90,
+  "height": 90
+}

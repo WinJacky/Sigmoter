@@ -1,0 +1,32 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "MORE",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "SETTINGS",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Clear Cache",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Image Resolution",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Low",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "High",
+    "type": "click"
+  }
+]

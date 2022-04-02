@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.CheckBox[@resource-id='com.lianhezhuli.hyfit:id/sport_setting_screen_on_cb'];//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.CheckBox[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.CheckBox[1]",
+  "className": "android.widget.CheckBox",
+  "resourceId": "com.lianhezhuli.hyfit:id/sport_setting_screen_on_cb",
+  "text": "",
+  "checkable": true,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 669,
+  "y": 142,
+  "width": 80,
+  "height": 52
+}

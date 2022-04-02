@@ -8,9 +8,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V4.96.51
-// (Spinner) -> Shanghai
+// Mountain View -> Shanghai
 public class LocationSwitchTest {
 
     private AndroidDriver driver;
@@ -30,11 +31,12 @@ public class LocationSwitchTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
     public void sampleTest() {
-        driver.findElementById("com.droid27.senseflipclockweather:id/toolbarSpinner").click();
+        driver.findElementById("com.droid27.senseflipclockweather:id/txtLocation").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.RelativeLayout[2]/android.widget.TextView[1]").click();
     }
 

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import main.java.config.AppEnum;
 import main.java.config.Settings;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -65,24 +67,21 @@ public class RepairRunner {
     private static int eleRepairedNum;
     private static int deletedStmNum;
 
-    // 修复过程需要获取层次布局信息，此文件夹用于临时存储，修复结束需要清理
-    public static String tempXmlSavedFolder;
     // 当前屏幕的层次布局文件存储路径
     public static String curLayoutXmlFile;
 
     public static void main(String[] args) {
         RepairRunner repairRunner = new RepairRunner();
         // 待修复用例配置
-        appEnum = AppEnum.FotMob;
-        String testcaseName = "AddFavoriteTest";
+        appEnum = AppEnum.LarkPlayer;
+        String testcaseName = "EqualizerTest";
         brokenStmNum = 0;
         eleBrokenNum = 0;
         eleRepairedNum = 0;
         deletedStmNum = 0;
 
-        tempXmlSavedFolder = Settings.repairedTCPath + Settings.sep + "TempXmlSaved";
         // 例如: output/RepairedTC/TempXmlSaved
-        UtilsAspect.createTestFolder(tempXmlSavedFolder);
+        UtilsAspect.createTestFolder(Settings.TEMP_XML_SAVED_FOLDER);
 
         // 读取 Word2Vector 模型
         word2Vec = new Word2Vec("nlp/src/main/resources/GloVe/glove.6B.100d.txt");
@@ -142,6 +141,7 @@ public class RepairRunner {
 
         // 上一步解析后得到配置信息
         DesiredCapabilities capabilities = pt.getCapabilities();
+        capabilities.setCapability("dontStopAppOnReset", true);
         URL url = null;
         try {
             url = new URL(remoteUrl);
@@ -150,14 +150,8 @@ public class RepairRunner {
         }
         driver = new AndroidDriver(url, capabilities);
         // 运行APP
-        driver.launchApp();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            logger.info("Driver wait has been interrupted");
-        }
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//        driver.findElementByClassName("android.widget.TextView");
+//        driver.launchApp();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         /* Map of the original statements. */
         Map<Integer, Statement> originStmMap = testBroken.getStatements();
@@ -208,7 +202,7 @@ public class RepairRunner {
                     // 执行页面滑动
                     Point startPoint = ((EnhancedTouchAction)repairedStm).getStartPoint();
                     Point endPoint = ((EnhancedTouchAction)repairedStm).getEndPoint();
-                    new TouchAction(driver).press(PointOption.point(startPoint)).moveTo(PointOption.point(endPoint)).release().perform();
+                    new TouchAction(driver).press(PointOption.point(startPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(5))).moveTo(PointOption.point(endPoint)).release().perform();
                 } else if (statement.getValue().equals("tap")) {
                     // TODO：根据元素位置进行点击，应考虑提取元素信息判断修复
                 }
@@ -216,7 +210,8 @@ public class RepairRunner {
             }
 
             // 移动当前关键词索引
-            while (keywordPos < keywordList.size()-1 && keywordList.get(keywordPos).getLineNumber() < statementNum) {
+            while (keywordPos < keywordList.size()-1 && keywordList.get(keywordPos).getLineNumber() < statementNum
+                    && !statement.getAction().equals(AppiumAction.Clear) && !statement.getAction().equals(AppiumAction.SendKeys)) {
                 keywordPos++;
             }
 
@@ -229,7 +224,7 @@ public class RepairRunner {
             String oriLayoutXmlFile = Settings.extractInfoPath + Settings.sep + appEnum.getAppName() +
                     Settings.sep + testcaseName + Settings.sep + statementNum + "-hierarchy" + Settings.XML_EXT;
             // 捕获当前屏幕状态的层次布局文件
-            curLayoutXmlFile = tempXmlSavedFolder + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
+            curLayoutXmlFile = Settings.TEMP_XML_SAVED_FOLDER + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
             UtilsHierarchyXml.takeXmlSnapshot(driver, curLayoutXmlFile);
 
             // 检查当前测试语句是否符合测试意图
@@ -370,10 +365,10 @@ public class RepairRunner {
 //                            }
 //                        }
 //                    }
-//
-                    candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
-                    if (candidateElement == null) noSuchElement = true;
-                    else noSuchElement = false;
+
+                candidateElement = repairWithKSG(keywordPos, (EnhancedMobileElement) statement, oriLayoutXmlFile, repairedPath, repairedSwipe);
+                if (candidateElement == null) noSuchElement = true;
+                else noSuchElement = false;
 //                }
             }
 
@@ -462,7 +457,7 @@ public class RepairRunner {
         while(!isOutOfTime(exploreStartTime, exploreStack)) {
             if (!exploreStack.empty()) {
                 // 捕获当前屏幕状态的层次布局文件
-                curLayoutXmlFile = tempXmlSavedFolder + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
+                curLayoutXmlFile = Settings.TEMP_XML_SAVED_FOLDER + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
                 UtilsHierarchyXml.takeXmlSnapshot(driver, curLayoutXmlFile);
                 // 探索栈中包含当前状态，表明探索遇到了回路
                 if (exploreStack.contains(new StateVertix(curLayoutXmlFile))) {
@@ -735,10 +730,10 @@ public class RepairRunner {
         // driver.quit();
 
         // 清理临时层次布局文件存储目录
-        File tempFolder = new File(tempXmlSavedFolder);
+        File tempFolder = new File(Settings.TEMP_XML_SAVED_FOLDER);
         String[] content = tempFolder.list();
         for(String name : content) {
-            File temp = new File(tempXmlSavedFolder + Settings.sep + name);
+            File temp = new File(Settings.TEMP_XML_SAVED_FOLDER + Settings.sep + name);
             if(!temp.delete()){
                 logger.error("Failed to delete " + name);
             }

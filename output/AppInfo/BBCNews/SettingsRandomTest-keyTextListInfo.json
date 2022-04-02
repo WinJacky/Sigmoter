@@ -1,0 +1,27 @@
+[
+  {
+    "lineNumber": 41,
+    "text": "More options",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "Share statistics",
+    "type": "click"
+  },
+  {
+    "lineNumber": 45,
+    "text": "Widget update frequency",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Every three hours",
+    "type": "click"
+  }
+]

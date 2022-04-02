@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 43,
+    "text": "health",
+    "type": "click"
+  },
+  {
+    "lineNumber": 45,
+    "text": "Sport",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Statistics",
+    "type": "click"
+  },
+  {
+    "lineNumber": 47,
+    "text": "Month",
+    "type": "click"
+  }
+]

@@ -7,6 +7,8 @@ package main.java.util;
  */
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+import main.java.config.Settings;
 import main.java.dataType.AppiumLocator;
 import main.java.dataType.EnhancedMobileElement;
 import org.apache.commons.lang3.StringUtils;
@@ -56,7 +58,7 @@ public class UtilsXpath {
     /**
      * 给定待定位元素和层次布局文件，生成其最优 Xpath 路径
      */
-    public static String getElementOptimalXpath(MobileElement element, String hierarchyLayoutXmlFile) {
+    public static String getElementOptimalXpath(AndroidDriver driver, MobileElement element, String hierarchyLayoutXmlFile) {
         UtilsXmlLoader xmlLoader = new UtilsXmlLoader();
         xmlLoader.parseXml(hierarchyLayoutXmlFile);
         List<XmlTreeNode> nodeList = xmlLoader.getLeafNodes();
@@ -64,7 +66,11 @@ public class UtilsXpath {
         // 在解析得到的所有叶节点中找到给定的 UI 元素
         UiNode currentNode = getNodeByEleOrSta(element, nodeList);
         if (currentNode == null) {
-            return "";
+            hierarchyLayoutXmlFile = Settings.TEMP_XML_SAVED_FOLDER + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
+            UtilsHierarchyXml.takeXmlSnapshot(driver, hierarchyLayoutXmlFile);
+            xmlLoader.parseXml(hierarchyLayoutXmlFile);
+            nodeList = xmlLoader.getLeafNodes();
+            currentNode = getNodeByEleOrSta(element, nodeList);
         }
 
         nodeList = xmlLoader.getAllNodes();
@@ -132,8 +138,8 @@ public class UtilsXpath {
         if (element instanceof MobileElement) {
             MobileElement temp = (MobileElement) element;
             logger.info(temp.getText() + " " + temp.getLocation() + " " + temp.getSize());
+            logger.info("页面加载导致布局文件过期，正在重新获取界面。。。");
         }
-        logger.info("根据给定 UI 元素未找到对应的 UiNode！");
         return null;
     }
 

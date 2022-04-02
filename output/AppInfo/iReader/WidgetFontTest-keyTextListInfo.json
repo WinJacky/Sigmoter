@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 43,
+    "text": "Mine",
+    "type": "click"
+  },
+  {
+    "lineNumber": 45,
+    "text": "Widgets",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "Font",
+    "type": "click"
+  },
+  {
+    "lineNumber": 47,
+    "text": "System Font",
+    "type": "click"
+  }
+]

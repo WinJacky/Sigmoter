@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.RadioButton[@resource-id='com.lianhezhuli.hyfit:id/date_type_year'];//android.widget.RadioButton[@text=\"Year\"];//android.widget.RadioGroup[@resource-id='com.lianhezhuli.hyfit:id/group']/android.widget.RadioButton[3];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.RadioGroup[1]/android.widget.RadioButton[3]",
+  "className": "android.widget.RadioButton",
+  "resourceId": "com.lianhezhuli.hyfit:id/date_type_year",
+  "text": "Year",
+  "checkable": true,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 488,
+  "y": 688,
+  "width": 204,
+  "height": 56
+}

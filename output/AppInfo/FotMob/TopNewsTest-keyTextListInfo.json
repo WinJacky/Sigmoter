@@ -1,21 +1,16 @@
 [
   {
     "lineNumber": 39,
-    "text": "Navigate up",
+    "text": "News",
     "type": "click"
   },
   {
     "lineNumber": 40,
-    "text": "Top news",
-    "type": "click"
-  },
-  {
-    "lineNumber": 41,
     "text": "WORLD NEWS",
     "type": "click"
   },
   {
-    "lineNumber": 42,
+    "lineNumber": 41,
     "text": "PREMIER LEAGUE",
     "type": "click"
   }

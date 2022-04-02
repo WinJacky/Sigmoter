@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Down To Earth\"];//android.support.v7.widget.RecyclerView[@resource-id='com.naver.linewebtoon:id/recycler_view']/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[2]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.naver.linewebtoon:id/top_rated_title",
+  "text": "Down To Earth",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 25,
+  "y": 461,
+  "width": 187,
+  "height": 70
+}

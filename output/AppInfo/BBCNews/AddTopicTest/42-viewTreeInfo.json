@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Russia-Ukraine war\"];//android.widget.FrameLayout[@content-desc='Button: Add Russia-Ukraine war to My News']/android.widget.LinearLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.view.ViewGroup[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.support.v4.view.ViewPager[1]/android.view.ViewGroup[1]/android.widget.ViewAnimator[1]/android.support.v7.widget.RecyclerView[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "bbc.mobile.news.uk:id/text",
+  "text": "Russia-Ukraine war",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 96,
+  "y": 500,
+  "width": 656,
+  "height": 75
+}

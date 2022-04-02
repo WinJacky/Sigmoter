@@ -31,13 +31,11 @@ public class EditEventTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Today Its Today\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Today is Today\"]").click();
         driver.findElementByAccessibilityId("Edit").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[4]/android.widget.TextView").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[5]/android.widget.TextView[1]").click();
-        driver.findElementByXPath("//android.widget.TextView[@text=\"Repeat Every Month\"]").click();
-        driver.findElementById("com.clover.daysmatter:id/text_confirm").click();
-        driver.findElementById("com.clover.daysmatter:id/button_save").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Pin Top\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Repeat\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Choose repetition type\"]").click();
     }
 
     @After

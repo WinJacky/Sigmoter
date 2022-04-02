@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-// From V71.0.4619
+// From V78.0.5104
 // (More options) -> Show table -> FIXTURES -> Toggle notifications -> OK
 public class OpenNotificationTest {
 
@@ -36,7 +36,7 @@ public class OpenNotificationTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.view.ViewGroup/android.support.v4.view.ViewPager/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ExpandableListView/android.widget.RelativeLayout[1]/android.widget.RelativeLayout/android.widget.LinearLayout[2]/android.widget.ImageView").click();
+        driver.findElementByXPath("//android.widget.ImageView[@resource-id='com.mobilefootie.wc2010:id/viewMenu']").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.TextView").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.view.ViewGroup/android.widget.RelativeLayout/android.widget.FrameLayout[2]/android.widget.RelativeLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.TextView[2]").click();
         driver.findElementByAccessibilityId("Toggle notifications").click();

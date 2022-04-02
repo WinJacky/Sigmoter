@@ -31,7 +31,7 @@ public class DeleteEventTest {
 
     @Test
     public void sampleTest() {
-        driver.findElementByXPath("//android.widget.TextView[@resource-id='com.clover.daysmatter:id/date_card_small_title' and @text=\"Today Its Today\"]").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Today is Today\"]").click();
         driver.findElementByAccessibilityId("Edit").click();
         driver.findElementById("com.clover.daysmatter:id/button_delete").click();
         driver.findElementById("android:id/button1").click();

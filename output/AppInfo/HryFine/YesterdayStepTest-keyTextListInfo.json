@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 41,
+    "text": "health",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Sport",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "Steps today",
+    "type": "click"
+  }
+]

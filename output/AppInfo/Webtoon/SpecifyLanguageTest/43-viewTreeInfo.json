@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.Button[@resource-id='com.naver.linewebtoon:id/language_selector'];//android.widget.Button[@text=\"ALL LANGUAGES\"];//android.support.v7.widget.RecyclerView[@resource-id='com.naver.linewebtoon:id/title_list']/android.widget.FrameLayout[2]/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.FrameLayout[2]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "resourceId": "com.naver.linewebtoon:id/language_selector",
+  "text": "ALL LANGUAGES",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 34,
+  "y": 351,
+  "width": 276,
+  "height": 80
+}

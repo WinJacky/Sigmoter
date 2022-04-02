@@ -1,0 +1,27 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Mine",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "My Account",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Recharge History",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Consumption History",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "OTHERS",
+    "type": "click"
+  }
+]

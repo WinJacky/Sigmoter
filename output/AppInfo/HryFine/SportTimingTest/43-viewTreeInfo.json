@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.Button[@text=\"End\"];//android.widget.LinearLayout[@resource-id='com.lianhezhuli.hyfit:id/qmui_dialog_operator_layout_id']/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.LinearLayout[1]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "text": "End",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 315,
+  "y": 710,
+  "width": 128,
+  "height": 72
+}

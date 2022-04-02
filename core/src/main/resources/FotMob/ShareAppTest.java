@@ -14,7 +14,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-// From V71.0.4619
+// From V78.0.5104
 // Navigate up -> Settings -> More options -> Share FotMob
 public class ShareAppTest {
 

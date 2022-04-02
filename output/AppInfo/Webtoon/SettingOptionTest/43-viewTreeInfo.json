@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Low\"];//android.widget.ListView[@resource-id='android:id/list']/android.widget.RelativeLayout[2]/android.widget.LinearLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.ListView[1]/android.widget.RelativeLayout[2]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "android:id/title",
+  "text": "Low",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 44,
+  "y": 452,
+  "width": 67,
+  "height": 49
+}

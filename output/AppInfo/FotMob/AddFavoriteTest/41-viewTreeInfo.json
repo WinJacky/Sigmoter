@@ -1,15 +1,15 @@
 {
-  "xpath": "//android.widget.Button[@resource-id='com.mobilefootie.wc2010:id/stateButton'];//android.widget.Button[@text=\"ADD FAVORITE\"];//android.widget.LinearLayout[@resource-id='com.mobilefootie.wc2010:id/view_empty_content_linearlayout']/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.Button[1]",
-  "className": "android.widget.Button",
-  "resourceId": "com.mobilefootie.wc2010:id/stateButton",
-  "text": "ADD FAVORITE",
+  "xpath": "//android.support.v7.widget.RecyclerView[@resource-id='com.mobilefootie.wc2010:id/recyclerView_historyAndSuggestions']/android.widget.LinearLayout[5]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.LinearLayout[5]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.mobilefootie.wc2010:id/textView",
+  "text": "Liverpool",
   "checkable": false,
-  "clickable": true,
+  "clickable": false,
   "scrollable": false,
-  "focusable": true,
+  "focusable": false,
   "longClickable": false,
-  "x": 274,
-  "y": 764,
-  "width": 219,
-  "height": 72
+  "x": 120,
+  "y": 626,
+  "width": 534,
+  "height": 38
 }

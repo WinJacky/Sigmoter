@@ -12,10 +12,8 @@ import main.java.dataType.*;
 import main.java.runner.RepairRunner;
 import main.java.utils.WordsSplit;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.Dimension;
+import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.Rectangle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +68,7 @@ public class UtilsRepair {
         xpath2 = xpath2.substring(xpath2.indexOf("//hierarchy"));
 
         double pho1 = UtilsSimilarity.simOfXpath(xpath1, xpath2);
-        if (pho1 == 1.0) {
+        if (pho1 == 1.0 && StringUtils.isBlank(element.getText())) {
             // 绝对路径完全相同，认为两元素结构一致
             return pho1;
         }
@@ -106,35 +104,48 @@ public class UtilsRepair {
     public static double checkElementBySemantic(MobileElement element, EnhancedMobileElement statement, boolean isIdConsidered) {
         // 提取元素关键信息
         // 此处元素关键信息和关键词相比较
-        Set<String> set1 = new HashSet<>();
+        boolean bothContainText = false;
+        Set<String> set1 = new HashSet<>(), set2 = new HashSet<>();
         String temp = statement.getContentDesc();
         if (StringUtils.isNotBlank(temp)) set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
         temp = statement.getText();
-        if (StringUtils.isNotBlank(temp)) set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-
-        Set<String> set2 = new HashSet<>();
-        temp = element.getAttribute("contentDescription");
-        if (StringUtils.isNotBlank(temp)) set2.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-        temp = element.getAttribute("text");
-        if (StringUtils.isNotBlank(temp)) set2.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-
-        if (isIdConsidered && set1.isEmpty()) {
-            temp = statement.getResourceId();
-            if (StringUtils.isNotBlank(temp)) {
-                if (temp.contains(":id/")) {
-                    temp = temp.substring(temp.indexOf("/") + 1);
-                }
-                set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-            }
+        if (StringUtils.isNotBlank(temp)) {
+            bothContainText = true;
+            set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
         }
-        if (set2.isEmpty()) {
-            temp = element.getAttribute("resourceId");
+
+        try{
+            temp = element.getAttribute("contentDescription");
+            if (StringUtils.isNotBlank(temp)) set2.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+            temp = element.getAttribute("text");
             if (StringUtils.isNotBlank(temp)) {
-                if (temp.contains(":id/")) {
-                    temp = temp.substring(temp.indexOf("/") + 1);
-                }
                 set2.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+            } else {
+                bothContainText = false;
             }
+
+            if (!bothContainText) {
+                if (isIdConsidered && set1.isEmpty()) {
+                    temp = statement.getResourceId();
+                    if (StringUtils.isNotBlank(temp)) {
+                        if (temp.contains(":id/")) {
+                            temp = temp.substring(temp.indexOf("/") + 1);
+                        }
+                        set1.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+                    }
+                }
+                if (isIdConsidered || set2.isEmpty()) {
+                    temp = element.getAttribute("resourceId");
+                    if (StringUtils.isNotBlank(temp)) {
+                        if (temp.contains(":id/")) {
+                            temp = temp.substring(temp.indexOf("/") + 1);
+                        }
+                        set2.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+                    }
+                }
+            }
+        } catch (StaleElementReferenceException e) {
+            return 0;
         }
 
         return computeSimilarity(set1, set2);
@@ -191,18 +202,17 @@ public class UtilsRepair {
         List<XmlTreeNode> nodeList = xmlLoader.getLeafNodes();
         // 在解析得到的所有叶节点中找到给定的 UI 元素
         UiNode originNode = UtilsXpath.getNodeByEleOrSta(statement, nodeList);
-        if(originNode == null) return disScore;
+        if(originNode == null) return disScore * 0.7;
 
         // 获取邻近节点的文本信息， List 的大小表明邻近节点的数量
         List<Set<String>> broTextList = getBroNodesText(originNode, windowSize, isIdConsidered);
-        int oriBroNum = broTextList.size(), matchedBroNum = 0;
-        if(oriBroNum == 0) return disScore;
-
+        int oriBroNum = broTextList.size(), matchedBroNum = 0, perfectMatchNum = 0;
+        if(oriBroNum == 0) return disScore * 0.7;
 
         xmlLoader.parseXml(curLayoutXmlFile);
         nodeList = xmlLoader.getLeafNodes();
         UiNode curNode = UtilsXpath.getNodeByEleOrSta(element, nodeList);
-        if(curNode == null) return disScore;
+        if(curNode == null) return disScore * alpha;
 
         List<Set<String>> curBroTextList = getBroNodesText(curNode, windowSize, isIdConsidered);
         int curBroNum = curBroTextList.size();
@@ -213,15 +223,21 @@ public class UtilsRepair {
             for (Set<String> broText : broTextList) {
                 for (Set<String> curBroText : curBroTextList) {
                     // 如果两个文本集合语义相似度达到 ELE_SEMAN_SIM，则认为新旧兄弟节点匹配成功
-                    if (computeSimilarity(broText, curBroText) >= Threshold.ELE_SEMAN_SIM.getValue()) {
+                    double simScore = computeSimilarity(broText, curBroText);
+                    if (simScore == 1.0) {
+                        perfectMatchNum++;
+                    }
+                    if (simScore >= Threshold.ELE_SEMAN_SIM.getValue()) {
                         matchedBroNum++;
                         curBroTextList.remove(curBroText);
                         break;
                     }
                 }
             }
-            if (matchedBroNum == oriBroNum) {
+            if (perfectMatchNum == oriBroNum && Boolean.parseBoolean(curNode.getAttribute("clickable"))) {
                 return 1.0;
+            } else if (matchedBroNum == oriBroNum) {
+                return 0.99;
             }
 
             return disScore * alpha + (matchedBroNum / oriBroNum) * (1 - alpha);
@@ -249,7 +265,7 @@ public class UtilsRepair {
         int windowArea = windowSize.height * windowSize.width;
         for (int i=1; i<=3; i++) {
             XmlTreeNode parentNode = curNode.getParent();
-            if (parentNode instanceof RootWindowNode) {
+            if (parentNode instanceof RootWindowNode || ((UiNode) parentNode).getY2() == windowSize.height) {
                 return broTextList;
             } else {
                 UiNode parNode = (UiNode) parentNode;
@@ -263,12 +279,12 @@ public class UtilsRepair {
                         Set<String> broText = new HashSet<>();
                         List<UiNode> leaves = bro.getLeafNodes();
                         for (UiNode leaf : leaves) {
-//                            String temp = leaf.getAttribute("content-desc");
-//                            if (StringUtils.isNotBlank(temp) && !isInteger(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
-                            String temp = leaf.getAttribute("text");
+                            String temp = leaf.getAttribute("content-desc");
+                            if (StringUtils.isNotBlank(temp) && !isInteger(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
+                            temp = leaf.getAttribute("text");
                             if (StringUtils.isNotBlank(temp) && !isInteger(temp)) broText.addAll(WordsSplit.getWords(removeNewLines(temp.trim())));
 
-                            if (isIdConsidered) {
+                            if (isIdConsidered && broText.isEmpty()) {
                                 temp = leaf.getAttribute("resource-id");
                                 if (StringUtils.isNotBlank(temp) && !isInteger(temp)) {
                                     if (temp.contains(":id/")) {
@@ -307,8 +323,10 @@ public class UtilsRepair {
         List<MobileElement> tempResult;
         Rectangle swipeRect = null;
         String originXmlFile = RepairRunner.curLayoutXmlFile;
+        Set<String> clazzSet = new HashSet<>(Arrays.asList("android.widget.TextView", "android.widget.ImageView",
+                "android.widget.RadioButton", "android.widget.CheckedTextView", "android.widget.ImageButton"));
 
-        while(true) {
+//        while(true) {
             if (statement.getAction().equals(AppiumAction.Clear) || statement.getAction().equals(AppiumAction.SendKeys)) {
                 tempResult = driver.findElementsByClassName(statement.getClassName());
                 if (tempResult.size() == 1) {
@@ -318,10 +336,11 @@ public class UtilsRepair {
                 }
             } else {
                 // 根据元素 classname 查找
-                tempResult = driver.findElementsByClassName(statement.getClassName());
-                if (tempResult != null) result.addAll(tempResult);
-                tempResult = driver.findElementsByClassName("android.widget.TextView");
-                if (tempResult != null) result.addAll(tempResult);
+                clazzSet.add(statement.getClassName());
+                for (String clazz : clazzSet) {
+                    tempResult = driver.findElementsByClassName(clazz);
+                    if (tempResult != null) result.addAll(tempResult);
+                }
                 // 根据身份属性查找
                 if (StringUtils.isNotEmpty(statement.getResourceId())) {
                     tempResult = driver.findElementsById(statement.getResourceId());
@@ -355,6 +374,23 @@ public class UtilsRepair {
                     }
                     eleSemanticSimMap.put(ele, semanticSim);
                 }
+                Map<MobileElement, Double> eleLayoutSimMap = new HashMap<>();
+                for (MobileElement ele : result) {
+                    double layoutSim = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, RepairRunner.curLayoutXmlFile, isIdConsidered);
+                    if (layoutSim == 1.0) {
+                        // 如果布局完全吻合，则直接返回该元素
+                        log.info("根据待修复元素布局信息找到匹配元素。。。");
+                        return ele;
+                    } else if (layoutSim == 0.99) {
+                        mostSimElement = ele;
+                    }
+                    eleLayoutSimMap.put(ele, layoutSim);
+                }
+                if (mostSimElement != null) {
+                    // 如果布局基本吻合，则直接返回该元素
+                    log.info("根据待修复元素布局信息找到匹配元素。。。");
+                    return mostSimElement;
+                }
                 for (MobileElement ele : result) {
                     if (!ele.isDisplayed()) continue;
                     // 结构相似度
@@ -367,12 +403,8 @@ public class UtilsRepair {
                     // 语义相似度
                     double sim2 = eleSemanticSimMap.get(ele);
                     // 布局相似度
-                    double sim3 = checkElementByLayout(ele, statement, driver.manage().window().getSize(), oriLayoutXmlFile, RepairRunner.curLayoutXmlFile, isIdConsidered);
-                    if (sim3 == 1.0) {
-                        // 如果布局完全吻合，则直接返回该元素
-                        log.info("根据待修复元素布局信息找到匹配元素。。。");
-                        return ele;
-                    }
+                    double sim3 = eleLayoutSimMap.get(ele);
+
                     double beta = 0.3;
                     double score = sim1 * beta + sim2 * (1 - 2 * beta) + sim3 * beta;
 
@@ -385,47 +417,50 @@ public class UtilsRepair {
                 if (mostSimElement != null) {
                     log.info("根据待修复元素综合信息找到匹配元素。。。");
                     return mostSimElement;
-                } else if (swipeRect == null) {
-                    // 初始界面找不到修复元素，查找可滑动布局
-                    swipeRect = retrieveScrollableNode(RepairRunner.curLayoutXmlFile);
-                    if (swipeRect == null) {
-                        // 未找到最相似的元素，同时界面不可滑动
-                        return null;
-                    }
                 }
             }
 
-            // 上滑以找出更多候选元素
-            EnhancedTouchAction swipe = new EnhancedTouchAction("swipe");
-            // 起始点为滑动界面从上至下 7/8 处的中间位置
-            // 结束点为滑动界面从上至下 1/8 处的中间位置
-            Point startPoint = new Point(swipeRect.x + swipeRect.width / 2, swipeRect.y + swipeRect.height * 7/8);
-            Point endPoint = new Point(swipeRect.x + swipeRect.width / 2, swipeRect.y + swipeRect.height /8);
-            swipe.setStartPoint(startPoint);
-            swipe.setEndPoint(endPoint);
-            repairedSwipe.add(swipe);
-
-            String preState = driver.getPageSource();
-            // 滑动界面
-            new TouchAction(driver).press(PointOption.point(startPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(endPoint)).release().perform();
-            String postState = driver.getPageSource();
-            if (preState.equals(postState) || repairedSwipe.size() >= 3) {
-                // 上滑过后没变化，表明已经滑到底了，无法再找到新的元素了
-                // 此时将页面状态恢复到滑动前的状态并退出
-                for (int i=1; i<=repairedSwipe.size()-1; i++) {
-                    new TouchAction(driver).press(PointOption.point(endPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(startPoint)).release().perform();
-                }
-                repairedSwipe.clear();
-                RepairRunner.curLayoutXmlFile = originXmlFile;
-                return null;
-            } else {
-                // 滑动带来新元素，清除老元素
-                result.clear();
-                // 捕获当前屏幕状态的层次布局文件
-                RepairRunner.curLayoutXmlFile = RepairRunner.tempXmlSavedFolder + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
-                UtilsHierarchyXml.takeXmlSnapshot(driver, RepairRunner.curLayoutXmlFile);
-            }
-        }
+//            if (swipeRect == null) {
+//                // 初始界面找不到修复元素，查找可滑动布局
+//                swipeRect = retrieveScrollableNode(RepairRunner.curLayoutXmlFile);
+//                if (swipeRect == null) {
+//                    // 未找到最相似的元素，同时界面不可滑动
+//                    return null;
+//                }
+//            }
+//            // 上滑以找出更多候选元素
+//            EnhancedTouchAction swipe = new EnhancedTouchAction("swipe");
+//            // 起始点为滑动界面从上至下 7/8 处的中间位置
+//            // 结束点为滑动界面从上至下 1/8 处的中间位置
+//            Point startPoint = new Point(swipeRect.x + swipeRect.width / 2, swipeRect.y + swipeRect.height * 7/8);
+//            Point endPoint = new Point(swipeRect.x + swipeRect.width / 2, swipeRect.y + swipeRect.height /8);
+//            swipe.setStartPoint(startPoint);
+//            swipe.setEndPoint(endPoint);
+//            repairedSwipe.add(swipe);
+//
+//            String preState = driver.getPageSource();
+//            // 滑动界面
+//            log.info("滑动界面，继续探索。。。");
+//            new TouchAction(driver).press(PointOption.point(startPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2))).moveTo(PointOption.point(endPoint)).release().perform();
+//            String postState = driver.getPageSource();
+//            if (preState.equals(postState) || repairedSwipe.size() >= 3) {
+//                // 上滑过后没变化，表明已经滑到底了，无法再找到新的元素了
+//                // 此时将页面状态恢复到滑动前的状态并退出
+//                for (int i=1; i<=repairedSwipe.size()-1; i++) {
+//                    new TouchAction(driver).press(PointOption.point(endPoint)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(startPoint)).release().perform();
+//                }
+//                repairedSwipe.clear();
+//                RepairRunner.curLayoutXmlFile = originXmlFile;
+//                return null;
+//            } else {
+//                // 滑动带来新元素，清除老元素
+//                result.clear();
+//                // 捕获当前屏幕状态的层次布局文件
+//                RepairRunner.curLayoutXmlFile = Settings.TEMP_XML_SAVED_FOLDER + Settings.sep + System.currentTimeMillis() + Settings.XML_EXT;
+//                UtilsHierarchyXml.takeXmlSnapshot(driver, RepairRunner.curLayoutXmlFile);
+//            }
+//        }
+        return null;
     }
 
     // 查找当前界面上的可滑动节点，返回可滑动布局位置
@@ -537,7 +572,7 @@ public class UtilsRepair {
             }
         }
 
-        String xpath = UtilsXpath.getElementOptimalXpath(candidateElement,curLayoutXmlFile);
+        String xpath = UtilsXpath.getElementOptimalXpath(driver, candidateElement, curLayoutXmlFile);
         return new AppiumLocator("xpath", xpath);
     }
 

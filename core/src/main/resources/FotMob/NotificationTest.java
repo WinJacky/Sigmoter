@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V71.0.4619
+// From V78.0.5104
 // Navigate up -> Settings -> Notifications -> Enable breaking news -> Enable transfer news
 public class NotificationTest {
 

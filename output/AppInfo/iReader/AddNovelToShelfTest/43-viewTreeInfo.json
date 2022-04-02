@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.ListView[@resource-id='com.zhangyue.iReader.search:id/search_result_view__list']/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.view.View[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.ListView[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.view.View[1]",
+  "className": "android.view.View",
+  "resourceId": "com.zhangyue.iReader.search:id/title_info_panel",
+  "text": "",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 236,
+  "y": 202,
+  "width": 484,
+  "height": 160
+}

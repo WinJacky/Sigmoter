@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<hierarchy index="0" class="hierarchy" rotation="0" width="768" height="1184">
+  <android.widget.FrameLayout index="0" package="com.zhangyue.read" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,399][717,833]" displayed="true">
+    <android.widget.FrameLayout index="0" package="com.zhangyue.read" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,399][717,833]" displayed="true">
+      <android.widget.FrameLayout index="0" package="com.zhangyue.read" class="android.widget.FrameLayout" text="" resource-id="android:id/content" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,399][717,833]" displayed="true">
+        <android.widget.LinearLayout index="0" package="com.zhangyue.read" class="android.widget.LinearLayout" text="" resource-id="com.zhangyue.read:id/zy_dialog_root_layout" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,399][717,833]" displayed="true">
+          <android.widget.LinearLayout index="0" package="com.zhangyue.read" class="android.widget.LinearLayout" text="" resource-id="com.zhangyue.read:id/zy_dialog_bar_layout" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,439][717,510]" displayed="true">
+            <android.widget.TextView index="0" package="com.zhangyue.read" class="android.widget.TextView" text="Sort" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[98,439][669,510]" displayed="true" />
+          </android.widget.LinearLayout>
+          <android.widget.ScrollView index="1" package="com.zhangyue.read" class="android.widget.ScrollView" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,510][717,801]" displayed="true">
+            <android.widget.LinearLayout index="0" package="com.zhangyue.read" class="android.widget.LinearLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,510][717,801]" displayed="true">
+              <android.widget.FrameLayout index="0" package="com.zhangyue.read" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,510][717,607]" displayed="true">
+                <android.widget.RadioButton index="0" package="com.zhangyue.read" class="android.widget.RadioButton" text="By Time" checkable="true" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[99,510][717,607]" displayed="true" />
+              </android.widget.FrameLayout>
+              <android.widget.FrameLayout index="1" package="com.zhangyue.read" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,607][717,704]" displayed="true">
+                <android.widget.RadioButton index="0" package="com.zhangyue.read" class="android.widget.RadioButton" text="By Alphabet" checkable="true" checked="true" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[99,607][717,704]" displayed="true" />
+              </android.widget.FrameLayout>
+              <android.widget.FrameLayout index="2" package="com.zhangyue.read" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[50,704][717,801]" displayed="true">
+                <android.widget.RadioButton index="0" package="com.zhangyue.read" class="android.widget.RadioButton" text="By Size" checkable="true" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[99,704][717,801]" displayed="true" />
+              </android.widget.FrameLayout>
+            </android.widget.LinearLayout>
+          </android.widget.ScrollView>
+        </android.widget.LinearLayout>
+      </android.widget.FrameLayout>
+    </android.widget.FrameLayout>
+  </android.widget.FrameLayout>
+</hierarchy>

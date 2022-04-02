@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.zhangyue.iReader.search:id/searching_main_view__edit_text'];//android.widget.EditText[@text=\"mate\"];//android.widget.LinearLayout[@resource-id='com.zhangyue.iReader.search:id/search_view_top_content']/android.widget.RelativeLayout[1]/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.zhangyue.iReader.search:id/searching_main_view__edit_text",
+  "text": "mate",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 124,
+  "y": 64,
+  "width": 516,
+  "height": 80
+}

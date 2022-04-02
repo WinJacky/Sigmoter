@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Import local files\"];//android.widget.ListView[@resource-id='com.zhangyue.read:id/common_menu_list']/android.widget.TextView[2];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.ListView[1]/android.widget.TextView[2]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.zhangyue.read:id/tv_menu_item",
+  "text": "Import local files",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 398,
+  "y": 170,
+  "width": 360,
+  "height": 97
+}

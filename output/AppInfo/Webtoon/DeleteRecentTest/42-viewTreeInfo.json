@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@resource-id='com.naver.linewebtoon:id/select_item_status'];//android.widget.TextView[@text=\"Select items\"];//android.view.ViewGroup[@resource-id='com.naver.linewebtoon:id/action_mode_bar']/android.widget.RelativeLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.RelativeLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.naver.linewebtoon:id/select_item_status",
+  "text": "Select items",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 112,
+  "y": 56,
+  "width": 288,
+  "height": 80
+}

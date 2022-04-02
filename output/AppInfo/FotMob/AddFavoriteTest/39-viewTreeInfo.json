@@ -1,15 +1,15 @@
 {
-  "xpath": "//android.widget.ImageButton[@content-desc='Navigate up'];//android.view.ViewGroup[@resource-id='com.mobilefootie.wc2010:id/toolbar_actionbar']/android.widget.ImageButton[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.LinearLayout[1]/android.view.ViewGroup[1]/android.widget.ImageButton[1]",
-  "className": "android.widget.ImageButton",
-  "contentDesc": "Navigate up",
-  "text": "",
+  "xpath": "//android.widget.TextView[@text=\"Favorites\"];//android.widget.FrameLayout[@resource-id='com.mobilefootie.wc2010:id/navigation_favorites']/android.view.ViewGroup[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.view.ViewGroup[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[2]/android.view.ViewGroup[1]/android.widget.FrameLayout[4]/android.view.ViewGroup[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.mobilefootie.wc2010:id/smallLabel",
+  "text": "Favorites",
   "checkable": false,
-  "clickable": true,
+  "clickable": false,
   "scrollable": false,
-  "focusable": true,
+  "focusable": false,
   "longClickable": false,
-  "x": 0,
-  "y": 48,
-  "width": 112,
-  "height": 112
+  "x": 622,
+  "y": 1138,
+  "width": 99,
+  "height": 33
 }

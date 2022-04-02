@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Theme 3\"];//android.widget.ListView[@resource-id='com.droid27.senseflipclockweather:id/list']/android.widget.RelativeLayout[3]/android.widget.LinearLayout[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.LinearLayout[2]/android.widget.ListView[1]/android.widget.RelativeLayout[3]/android.widget.LinearLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.droid27.senseflipclockweather:id/txtDescription",
+  "text": "Theme 3",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 321,
+  "y": 618,
+  "width": 125,
+  "height": 43
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 43,
+    "text": "MORE",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "SETTINGS",
+    "type": "click"
+  },
+  {
+    "lineNumber": 46,
+    "text": "New Releases",
+    "type": "click"
+  },
+  {
+    "lineNumber": 47,
+    "text": "Top Comment",
+    "type": "click"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "xpath": "//android.widget.TextView[@content-desc='Edit My News'];//android.widget.TextView[@resource-id='bbc.mobile.news.uk:id/menu_edit_followed'];//android.view.ViewGroup[@resource-id='bbc.mobile.news.uk:id/toolbar']/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "bbc.mobile.news.uk:id/menu_edit_followed",
+  "contentDesc": "Edit My News",
+  "text": "",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 576,
+  "y": 56,
+  "width": 96,
+  "height": 96
+}

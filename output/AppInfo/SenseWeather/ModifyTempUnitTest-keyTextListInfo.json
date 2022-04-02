@@ -1,0 +1,12 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "More options",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Temperature unit (F°)",
+    "type": "click"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Temperature unit (F°)\"];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.ListView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.droid27.senseflipclockweather:id/title",
+  "text": "Temperature unit (F°)",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 354,
+  "y": 23,
+  "width": 374,
+  "height": 49
+}

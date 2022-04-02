@@ -10,9 +10,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V1.8.10
-// MORE -> FAN TRANSLATION -> ALL LANGUAGES -> (Swipe) -> English
+// MORE -> FAN TRANSLATION -> ALL LANGUAGES -> Bengali
 public class SpecifyLanguageTest {
 
     private AndroidDriver driver;
@@ -32,6 +33,7 @@ public class SpecifyLanguageTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -39,7 +41,6 @@ public class SpecifyLanguageTest {
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.b[5]/android.widget.RelativeLayout/android.widget.TextView").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[6]/android.widget.LinearLayout/android.widget.TextView").click();
         driver.findElementById("com.naver.linewebtoon:id/language_selector").click();
-        new TouchAction(driver).press(PointOption.point(370, 800)).moveTo(PointOption.point(370, 440)).release().perform();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.widget.ListView/android.widget.TextView[3]").click();
     }
 

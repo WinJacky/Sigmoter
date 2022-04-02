@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Open",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Add new location...",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Shanghai, China",
+    "type": "click"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.CheckedTextView[@text=\"Add new location...\"];//android.support.v7.widget.RecyclerView[@resource-id='com.droid27.senseflipclockweather:id/design_navigation_view']/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.CheckedTextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.FrameLayout[1]/android.support.v7.widget.RecyclerView[1]/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.CheckedTextView[1]",
+  "className": "android.widget.CheckedTextView",
+  "resourceId": "com.droid27.senseflipclockweather:id/design_menu_item_text",
+  "text": "Add new location...",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 32,
+  "y": 119,
+  "width": 496,
+  "height": 96
+}

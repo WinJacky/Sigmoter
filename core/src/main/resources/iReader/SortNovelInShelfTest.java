@@ -8,9 +8,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V7.9.0
-// (Sort) -> By Alphabet
+// Bookshelf -> (Sort) -> By Alphabet
 public class SortNovelInShelfTest {
 
     private AndroidDriver driver;
@@ -30,10 +31,12 @@ public class SortNovelInShelfTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
     @Test
     public void sampleTest() {
+        driver.findElementByXPath("//android.widget.FrameLayout[@content-desc=\"Bookshelf\"]/android.view.ViewGroup/android.widget.TextView").click();
         driver.findElementById("com.zhangyue.read:id/bookshelf_head_sort_icon").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.RadioButton").click();
     }

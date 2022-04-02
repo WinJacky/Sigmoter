@@ -32,7 +32,7 @@ public class DeleteCategoryTest {
     @Test
     public void sampleTest() {
         driver.findElementByAccessibilityId("Open the main menu").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.RelativeLayout[7]/android.widget.TextView").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Manage DaysMatter Book\"]").click();
         driver.findElementById("com.clover.daysmatter:id/icon_delete").click();
     }
 

@@ -25,6 +25,9 @@ public class Settings {
     public static String extractInfoPath = "output" + sep + "AppInfo";
     public static String repairedTCPath = "output" + sep + "RepairedTC";
 
+    // 修复过程需要获取层次布局信息，此文件夹用于临时存储，修复结束需要清理
+    public static final String TEMP_XML_SAVED_FOLDER = repairedTCPath + Settings.sep + "TempXmlSaved";
+
     public static final String XML_EXT = ".xml";
     public static final String JSON_EXT = ".json";
     public static final String JAVA_EXT = ".java";

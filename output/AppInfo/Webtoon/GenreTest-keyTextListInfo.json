@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "MORE",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "GENRES",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "COMEDY",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "ACTION",
+    "type": "click"
+  }
+]

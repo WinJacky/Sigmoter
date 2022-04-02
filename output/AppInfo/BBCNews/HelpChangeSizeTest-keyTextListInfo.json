@@ -1,0 +1,32 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "More options",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Help",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "More options",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Change text size",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Large",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "APPLY",
+    "type": "click"
+  }
+]

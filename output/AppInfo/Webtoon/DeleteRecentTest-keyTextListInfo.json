@@ -1,0 +1,32 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "MY",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "RECENTS",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Edit",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Select items",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Select all",
+    "type": "click"
+  },
+  {
+    "lineNumber": 45,
+    "text": "OK",
+    "type": "click"
+  }
+]

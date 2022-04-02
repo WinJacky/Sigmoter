@@ -34,7 +34,7 @@ public class AddEventTest {
         driver.findElementByAccessibilityId("Add a New Event").click();
         driver.findElementById("com.clover.daysmatter:id/text_title").sendKeys("Today");
         driver.findElementById("android:id/title").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.widget.RelativeLayout[2]/android.widget.LinearLayout/android.widget.TextView").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Work\"]").click();
         driver.findElementById("com.clover.daysmatter:id/button_save").click();
     }
 

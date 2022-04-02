@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.support.v7.widget.RecyclerView[@resource-id='com.zhangyue.read:id/category_detail_list']/android.widget.LinearLayout[2]/android.view.View[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.view.ViewGroup[1]/android.support.v4.view.ViewPager[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.view.ViewGroup[1]/android.widget.LinearLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.LinearLayout[2]/android.view.View[1]",
+  "className": "android.view.View",
+  "resourceId": "com.zhangyue.read:id/category_itemview",
+  "text": "Fantasy",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 0,
+  "y": 330,
+  "width": 768,
+  "height": 240
+}

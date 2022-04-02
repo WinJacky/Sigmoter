@@ -1,0 +1,27 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "My News",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "More options",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Search",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Health",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "Add topic",
+    "type": "click"
+  }
+]

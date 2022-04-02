@@ -8,6 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V7.9.0
 // Mine -> (Avatar) -> clear() -> sendKeys("SEU") -> SAVE
@@ -30,11 +31,12 @@ public class ModifyNicknameTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
     @Test
     public void sampleTest() {
-        driver.findElementByAccessibilityId("Mine").click();
+        driver.findElementByXPath("//android.widget.FrameLayout[@content-desc=\"Mine\"]/android.view.ViewGroup/android.widget.TextView").click();
         driver.findElementById("com.zhangyue.read:id/user_center_my_avatar").click();
         driver.findElementById("com.zhangyue.read:id/user_edit_name").clear();
         driver.findElementById("com.zhangyue.read:id/user_edit_name").sendKeys("SEU");

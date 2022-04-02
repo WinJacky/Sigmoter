@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "DAILY",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "MON",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "FRI",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "SUN",
+    "type": "click"
+  }
+]

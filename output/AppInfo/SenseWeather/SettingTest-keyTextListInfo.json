@@ -1,0 +1,27 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Appearance settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Weather icons style",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Theme 3",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Display moon phase",
+    "type": "click"
+  }
+]

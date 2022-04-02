@@ -1,15 +1,15 @@
 {
-  "xpath": "//android.widget.EditText[@resource-id='com.mobilefootie.wc2010:id/search_src_text'];//android.widget.EditText[@text=\"   Team\"];//android.widget.LinearLayout[@resource-id='com.mobilefootie.wc2010:id/search_plate']/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.LinearLayout[1]/android.view.ViewGroup[1]/android.support.v7.widget.LinearLayoutCompat[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[1]",
+  "xpath": "//android.widget.EditText[@resource-id='com.mobilefootie.wc2010:id/editText_search'];//android.widget.EditText[@text=\"Search for teams, matches, players, news, leagues\"];//android.widget.LinearLayout[@resource-id='com.mobilefootie.wc2010:id/layout_searchContainer']/android.widget.LinearLayout[1]/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[1]",
   "className": "android.widget.EditText",
-  "resourceId": "com.mobilefootie.wc2010:id/search_src_text",
-  "text": "   Team",
+  "resourceId": "com.mobilefootie.wc2010:id/editText_search",
+  "text": "Search for teams, matches, players, news, leagues",
   "checkable": false,
   "clickable": true,
   "scrollable": false,
   "focusable": true,
   "longClickable": true,
-  "x": 160,
-  "y": 67,
-  "width": 512,
-  "height": 72
+  "x": 120,
+  "y": 84,
+  "width": 544,
+  "height": 43
 }

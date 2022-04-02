@@ -1,22 +1,17 @@
 [
   {
     "lineNumber": 39,
-    "text": "Navigate up",
+    "text": "Favorites",
     "type": "click"
   },
   {
     "lineNumber": 40,
-    "text": "View favorites",
+    "text": "Search",
     "type": "click"
   },
   {
     "lineNumber": 41,
-    "text": "ADD FAVORITE",
-    "type": "click"
-  },
-  {
-    "lineNumber": 43,
-    "text": "Atalanta - Serie A",
+    "text": "Liverpool",
     "type": "click"
   }
 ]

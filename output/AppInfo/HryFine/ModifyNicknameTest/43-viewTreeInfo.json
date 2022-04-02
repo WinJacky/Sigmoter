@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.EditText[@resource-id='com.lianhezhuli.hyfit:id/et_content'];//android.widget.EditText[@text=\"请输入内容\"];//android.widget.LinearLayout[@resource-id='com.lianhezhuli.hyfit:id/lLayout_bg']/android.widget.EditText[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.EditText[1]",
+  "className": "android.widget.EditText",
+  "resourceId": "com.lianhezhuli.hyfit:id/et_content",
+  "text": "请输入内容",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": true,
+  "x": 110,
+  "y": 552,
+  "width": 548,
+  "height": 69
+}

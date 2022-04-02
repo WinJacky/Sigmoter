@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@resource-id='com.lianhezhuli.hyfit:id/tv_device_name'];//android.widget.TextView[@text=\"Hand Ring Settings\"];//android.widget.RelativeLayout[@resource-id='com.lianhezhuli.hyfit:id/rl_device_state']/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.lianhezhuli.hyfit:id/tv_device_name",
+  "text": "Hand Ring Settings",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 118,
+  "y": 689,
+  "width": 220,
+  "height": 36
+}

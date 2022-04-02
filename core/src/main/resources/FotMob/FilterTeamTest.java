@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-// From V71.0.4619
+// From V78.0.5104
 // More options -> Filter and sort tournaments -> DESELECT ALL -> NOT FAVORITES -> navigate.back
 public class FilterTeamTest {
 

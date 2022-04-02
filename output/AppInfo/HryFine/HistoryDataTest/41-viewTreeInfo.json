@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Bracelet steps\"];//android.widget.RelativeLayout[@resource-id='com.lianhezhuli.hyfit:id/data_sport_step_rl']/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.ScrollView[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.RelativeLayout[1]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "text": "Bracelet steps",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 93,
+  "y": 822,
+  "width": 190,
+  "height": 41
+}

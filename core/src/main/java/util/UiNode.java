@@ -23,6 +23,16 @@ public class UiNode extends XmlTreeNode {
         return mAttributes.get(key);
     }
 
+    // 获取当前元素右下角顶点的 y 坐标
+    public int getY2() {
+        if (StringUtils.isNotBlank(getAttribute("bounds"))) {
+            String[] boundStr = getAttribute("bounds").substring(1).split("[,\\[\\]]+");
+            int[] bounds = Arrays.stream(boundStr).mapToInt(Integer::parseInt).toArray();
+            return bounds[3];
+        }
+        return 0;
+    }
+
     // 获取当前元素的尺寸
     public Dimension getDimension() {
         if (StringUtils.isNotBlank(getAttribute("bounds"))) {

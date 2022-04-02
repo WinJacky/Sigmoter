@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Open",
+    "type": "click"
+  },
+  {
+    "lineNumber": 40,
+    "text": "Manage locations",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "YES",
+    "type": "click"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Mine",
+    "type": "click"
+  },
+  {
+    "lineNumber": 41,
+    "text": "Switch night mode automatically",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "Reading Settings",
+    "type": "click"
+  },
+  {
+    "lineNumber": 43,
+    "text": "Click screen to turn pages",
+    "type": "click"
+  }
+]

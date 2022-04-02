@@ -9,8 +9,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-// From V71.0.4619
-// Navigate up -> Profile -> (Edit:My teams) -> delete
+// From V78.0.5104
+// Navigate up -> Profile -> (Edit:My teams) -> (Delete)
 public class DeleteFavoriteTest {
 
     private AndroidDriver driver;
@@ -35,7 +35,7 @@ public class DeleteFavoriteTest {
     @Test
     public void sampleTest() {
         driver.findElementByAccessibilityId("Navigate up").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.LinearLayout[3]/android.widget.TextView").click();
+        driver.findElementByXPath("//android.widget.TextView[@text='Profile']").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.view.ViewGroup/android.widget.FrameLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[3]/android.widget.LinearLayout/android.widget.ImageView").click();
         driver.findElementById("com.mobilefootie.wc2010:id/imageView_delete").click();
     }

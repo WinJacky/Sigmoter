@@ -8,9 +8,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 // From V4.2.0.45
-// My News -> Edit My News -> Add Topics -> England
+// My News -> Edit My News -> Add Topics -> Russia-Ukraine war
 public class AddTopicTest {
 
     private AndroidDriver driver;
@@ -30,6 +31,7 @@ public class AddTopicTest {
         URL remoteUrl = new URL("http://127.0.0.1:4723/wd/hub");
 
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -37,7 +39,7 @@ public class AddTopicTest {
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.support.v4.widget.DrawerLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[2]/android.widget.TextView").click();
         driver.findElementByAccessibilityId("Edit My News").click();
         driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.HorizontalScrollView/android.widget.LinearLayout/android.support.v7.app.ActionBar.Tab[2]/android.widget.TextView").click();
-        driver.findElementByXPath("//android.widget.FrameLayout[@content-desc=\"Button: Add England to My News\"]/android.widget.LinearLayout/android.widget.TextView").click();
+        driver.findElementByXPath("//android.widget.FrameLayout[@content-desc=\"Button: Add Russia-Ukraine war to My News\"]/android.widget.LinearLayout/android.widget.TextView").click();
     }
     
     @After

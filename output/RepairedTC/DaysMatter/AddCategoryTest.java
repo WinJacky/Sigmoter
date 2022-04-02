@@ -32,10 +32,10 @@ public class AddCategoryTest {
     @Test
     public void sampleTest() {
         driver.findElementByAccessibilityId("Open the main menu").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.LinearLayout/android.widget.ExpandableListView/android.widget.RelativeLayout[6]/android.widget.TextView").click();
+        driver.findElementByXPath("//android.widget.TextView[@text=\"Manage DaysMatter Book\"]").click();
         driver.findElementById("com.clover.daysmatter:id/button_add").click();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.widget.RelativeLayout[4]/android.widget.LinearLayout/android.widget.EditText").clear();
-        driver.findElementByXPath("//hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ListView/android.widget.RelativeLayout[4]/android.widget.LinearLayout/android.widget.EditText").sendKeys("SEU");
+        driver.findElementById("com.clover.daysmatter:id/text_title").clear();
+        driver.findElementById("com.clover.daysmatter:id/text_title").sendKeys("SEU");
         driver.navigate().back();
     }
 

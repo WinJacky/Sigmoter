@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"GENRES\"];//android.support.v7.app.ActionBar.Tab[@content-desc='GENRES']/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.view.ViewGroup[1]/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.view.ViewGroup[1]/android.widget.LinearLayout[1]/android.widget.HorizontalScrollView[1]/android.widget.LinearLayout[1]/android.support.v7.app.ActionBar.Tab[3]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "text": "GENRES",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 469,
+  "y": 63,
+  "width": 134,
+  "height": 49
+}

@@ -1,0 +1,15 @@
+{
+  "xpath": "//android.widget.TextView[@text=\"Duty After School\"];//android.support.v7.widget.RecyclerView[@resource-id='com.naver.linewebtoon:id/result_list']/android.widget.RelativeLayout[2]/android.widget.TextView[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.support.v4.view.ViewPager[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.support.v7.widget.RecyclerView[1]/android.widget.RelativeLayout[2]/android.widget.TextView[1]",
+  "className": "android.widget.TextView",
+  "resourceId": "com.naver.linewebtoon:id/search_result_title",
+  "text": "Duty After School",
+  "checkable": false,
+  "clickable": false,
+  "scrollable": false,
+  "focusable": false,
+  "longClickable": false,
+  "x": 187,
+  "y": 525,
+  "width": 557,
+  "height": 43
+}

@@ -22,9 +22,9 @@ public class InfoExtractionRunner {
         // enable the AspectJ module
         Settings.aspectActive = true;
 
-        Settings extractorSetting = new Settings(AppEnum.FotMob);
+        Settings extractorSetting = new Settings(AppEnum.BBCNews);
 
-        runTest(extractorSetting.testSuite, "ShowOngoingTest");
+        runTest(extractorSetting.testSuite, "SettingsRandomTest");
     }
 
 

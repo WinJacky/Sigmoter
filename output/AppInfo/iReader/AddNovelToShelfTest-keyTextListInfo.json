@@ -1,0 +1,17 @@
+[
+  {
+    "lineNumber": 39,
+    "text": "Bookshelf",
+    "type": "click"
+  },
+  {
+    "lineNumber": 42,
+    "text": "The Werewolf",
+    "type": "click"
+  },
+  {
+    "lineNumber": 44,
+    "text": "+ Add to shelf",
+    "type": "click"
+  }
+]

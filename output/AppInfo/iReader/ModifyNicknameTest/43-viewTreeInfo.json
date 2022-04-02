@@ -1,0 +1,14 @@
+{
+  "xpath": "//android.widget.Button[@text=\"SAVE\"];//android.widget.LinearLayout[@resource-id='com.zhangyue.read:id/public_top']/android.widget.LinearLayout[1]/android.widget.Button[1];//hierarchy/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.LinearLayout[1]/android.widget.LinearLayout[1]/android.widget.Button[1]",
+  "className": "android.widget.Button",
+  "text": "SAVE",
+  "checkable": false,
+  "clickable": true,
+  "scrollable": false,
+  "focusable": true,
+  "longClickable": false,
+  "x": 584,
+  "y": 56,
+  "width": 176,
+  "height": 96
+}
